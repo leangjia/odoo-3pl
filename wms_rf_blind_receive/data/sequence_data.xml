@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Blind Receive Sessions -->
+    <data noupdate="1">
+        <record id="seq_wms_blind_receive" model="ir.sequence">
+            <field name="name">WMS Blind Receive</field>
+            <field name="code">wms.blind.receive</field>
+            <field name="prefix">BLR/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_putaway_rule_user,wms.putaway.rule.user,model_wms_putaway_rule,base.group_user,1,0,0,0
+access_wms_putaway_rule_manager,wms.putaway.rule.manager,model_wms_putaway_rule,base.group_erp_manager,1,1,1,1
+access_wms_storage_area_user,wms.storage.area.user,model_wms_storage_area,base.group_user,1,1,1,0
+access_wms_storage_area_manager,wms.storage.area.manager,model_wms_storage_area,base.group_erp_manager,1,1,1,1
+access_wms_cargo_type_user,wms.cargo.type.user,model_wms_cargo_type,base.group_user,1,1,1,1
+access_wms_cargo_type_manager,wms.cargo.type.manager,model_wms_cargo_type,base.group_erp_manager,1,1,1,1
+access_wms_workzone_user,wms.workzone.user,model_wms_workzone,base.group_user,1,1,1,1
+access_wms_workzone_manager,wms.workzone.manager,model_wms_workzone,base.group_erp_manager,1,1,1,1

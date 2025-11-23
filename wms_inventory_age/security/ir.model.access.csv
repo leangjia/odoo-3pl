@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_inventory_age_report_user,wms.inventory.age.report.user,model_wms_inventory_age_report,base.group_user,1,1,1,1
+access_wms_inventory_age_report_line_user,wms.inventory.age.report.line.user,model_wms_inventory_age_report_line,base.group_user,1,1,1,1
+access_wms_inventory_age_alert_user,wms.inventory.age.alert.user,model_wms_inventory_age_alert,base.group_user,1,1,1,0
+access_wms_inventory_age_alert_manager,wms.inventory.age.alert.manager,model_wms_inventory_age_alert,base.group_erp_manager,1,1,1,1
+access_wms_inventory_age_config_user,wms.inventory.age.config.user,model_wms_inventory_age_config,base.group_user,1,1,1,0
+access_wms_inventory_age_config_manager,wms.inventory.age.config.manager,model_wms_inventory_age_config,base.group_erp_manager,1,1,1,1

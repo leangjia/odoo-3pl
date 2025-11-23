@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Document Category Form View -->
+    <record id="view_wms_document_category_form" model="ir.ui.view">
+        <field name="name">wms.document.category.form</field>
+        <field name="model">wms.document.category</field>
+        <field name="arch" type="xml">
+            <form string="Document Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="parent_id"/>
+                            <field name="document_count"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Child Categories">
+                            <field name="child_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="is_active"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Category Tree View -->
+    <record id="view_wms_document_category_tree" model="ir.ui.view">
+        <field name="name">wms.document.category.tree</field>
+        <field name="model">wms.document.category</field>
+        <field name="arch" type="xml">
+            <tree string="Document Categories">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+                <field name="document_count"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Document Tag Form View -->
+    <record id="view_wms_document_tag_form" model="ir.ui.view">
+        <field name="name">wms.document.tag.form</field>
+        <field name="model">wms.document.tag</field>
+        <field name="arch" type="xml">
+            <form string="Document Tag">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="color"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Tag Tree View -->
+    <record id="view_wms_document_tag_tree" model="ir.ui.view">
+        <field name="name">wms.document.tag.tree</field>
+        <field name="model">wms.document.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Document Tags">
+                <field name="name"/>
+                <field name="color"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Document Form View -->
+    <record id="view_wms_document_form" model="ir.ui.view">
+        <field name="name">wms.document.form</field>
+        <field name="model">wms.document</field>
+        <field name="arch" type="xml">
+            <form string="Document">
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-success" states="draft,pending_approval"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-danger" states="pending_approval"/>
+                    <button name="action_archive" type="object" string="Archive" class="btn-default" states="approved"/>
+                    <button name="action_make_current" type="object" string="Make Current" class="btn-primary" states="approved"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,pending_approval,approved,rejected,archived"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-file">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="file_size"/></span>
+                                <span class="o_stat_text">Bytes</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-download">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="download_count"/></span>
+                                <span class="o_stat_text">Downloads</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-tag">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="tags" widget="statinfo" domain="[('id', 'in', active_id)]"/></span>
+                                <span class="o_stat_text">Tags</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="document_code"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="category_id"/>
+                            <field name="version"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="filename"/>
+                            <field name="file_type"/>
+                            <field name="file_size"/>
+                        </group>
+                        <group>
+                            <field name="revision_date"/>
+                            <field name="is_latest"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="retention_period"/>
+                            <field name="expiry_date"/>
+                            <field name="auto_archive"/>
+                        </group>
+                        <group>
+                            <field name="approved_by"/>
+                            <field name="approved_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="content" nolabel="1"/>
+                        </page>
+                        <page string="File">
+                            <field name="file" filename="filename"/>
+                            <field name="filename" invisible="1"/>
+                        </page>
+                        <page string="Related To">
+                            <group>
+                                <field name="related_model"/>
+                                <field name="related_id"/>
+                            </group>
+                        </page>
+                        <page string="Metadata">
+                            <group>
+                                <field name="author"/>
+                                <field name="keywords"/>
+                            </group>
+                            <group>
+                                <field name="created_date"/>
+                                <field name="last_updated"/>
+                            </group>
+                        </page>
+                        <page string="Tags &amp; Access">
+                            <group>
+                                <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group>
+                            <group string="Access Control">
+                                <field name="allowed_users" widget="many2many_tags"/>
+                                <field name="allowed_groups" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Rejection">
+                            <field name="rejected_reason" placeholder="Enter rejection reason here..." attrs="{'invisible': [('status', '!=', 'rejected')]}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Tree View -->
+    <record id="view_wms_document_tree" model="ir.ui.view">
+        <field name="name">wms.document.tree</field>
+        <field name="model">wms.document</field>
+        <field name="arch" type="xml">
+            <tree string="Documents">
+                <field name="document_code"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="owner_id"/>
+                <field name="version"/>
+                <field name="status"/>
+                <field name="file_type"/>
+                <field name="file_size"/>
+                <field name="created_date"/>
+                <field name="is_latest"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Document Template Form View -->
+    <record id="view_wms_document_template_form" model="ir.ui.view">
+        <field name="name">wms.document.template.form</field>
+        <field name="model">wms.document.template</field>
+        <field name="arch" type="xml">
+            <form string="Document Template">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="template_type"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="category_id"/>
+                        </group>
+                    </group>
+                    <group string="Template Content">
+                        <field name="content_template" nolabel="1"/>
+                    </group>
+                    <group string="Configuration">
+                        <field name="required_fields"/>
+                        <field name="auto_fill_model"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Template Tree View -->
+    <record id="view_wms_document_template_tree" model="ir.ui.view">
+        <field name="name">wms.document.template.tree</field>
+        <field name="model">wms.document.template</field>
+        <field name="arch" type="xml">
+            <tree string="Document Templates">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="template_type"/>
+                <field name="category_id"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Document Workflow Form View -->
+    <record id="view_wms_document_workflow_form" model="ir.ui.view">
+        <field name="name">wms.document.workflow.form</field>
+        <field name="model">wms.document.workflow</field>
+        <field name="arch" type="xml">
+            <form string="Document Workflow">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="initial_status"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="require_approval"/>
+                            <field name="approval_steps"/>
+                            <field name="auto_approval"/>
+                        </group>
+                    </group>
+                    <group string="Applicable Categories">
+                        <field name="document_category_ids" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Approval Settings">
+                            <group>
+                                <field name="auto_approval_criteria"/>
+                            </group>
+                        </page>
+                        <page string="Retention Settings">
+                            <group>
+                                <field name="default_retention"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Workflow Tree View -->
+    <record id="view_wms_document_workflow_tree" model="ir.ui.view">
+        <field name="name">wms.document.workflow.tree</field>
+        <field name="model">wms.document.workflow</field>
+        <field name="arch" type="xml">
+            <tree string="Document Workflows">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="initial_status"/>
+                <field name="require_approval"/>
+                <field name="approval_steps"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Document Archive Form View -->
+    <record id="view_wms_document_archive_form" model="ir.ui.view">
+        <field name="name">wms.document.archive.form</field>
+        <field name="model">wms.document.archive</field>
+        <field name="arch" type="xml">
+            <form string="Document Archive">
+                <header>
+                    <button name="restore_documents" type="object" string="Restore Documents" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="archived_date"/>
+                            <field name="reason"/>
+                        </group>
+                        <group>
+                            <field name="archived_by"/>
+                        </group>
+                    </group>
+                    <group string="Documents">
+                        <field name="document_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Document Archive Tree View -->
+    <record id="view_wms_document_archive_tree" model="ir.ui.view">
+        <field name="name">wms.document.archive.tree</field>
+        <field name="model">wms.document.archive</field>
+        <field name="arch" type="xml">
+            <tree string="Document Archives">
+                <field name="name"/>
+                <field name="archived_date"/>
+                <field name="reason"/>
+                <field name="archived_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Document Search View -->
+    <record id="view_wms_document_search" model="ir.ui.view">
+        <field name="name">wms.document.search</field>
+        <field name="model">wms.document</field>
+        <field name="arch" type="xml">
+            <search string="Documents">
+                <field name="name"/>
+                <field name="document_code"/>
+                <field name="category_id"/>
+                <field name="owner_id"/>
+                <field name="status"/>
+                <field name="version"/>
+                <field name="tags"/>
+                <field name="created_date"/>
+                <field name="author"/>
+                <field name="keywords"/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_category" domain="[]" context="{'group_by':'category_id'}"/>
+                    <filter string="Owner" name="group_owner" domain="[]" context="{'group_by':'owner_id'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'status'}"/>
+                    <filter string="File Type" name="group_file_type" domain="[]" context="{'group_by':'file_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for WMS Billing Record -->
+        <record id="seq_wms_billing_record" model="ir.sequence">
+            <field name="name">WMS Billing Record</field>
+            <field name="code">wms.billing.record</field>
+            <field name="prefix">BILL</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

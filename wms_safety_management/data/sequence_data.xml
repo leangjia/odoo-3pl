@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Safety Incident Sequence -->
+    <record id="seq_wms_safety_incident" model="ir.sequence">
+        <field name="name">Safety Incident</field>
+        <field name="code">wms.safety.incident</field>
+        <field name="prefix">SAF</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Safety Inspection Sequence -->
+    <record id="seq_wms_safety_inspection" model="ir.sequence">
+        <field name="name">Safety Inspection</field>
+        <field name="code">wms.safety.inspection</field>
+        <field name="prefix">SAI</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <!-- Safety Training Sequence -->
+    <record id="seq_wms_safety_training" model="ir.sequence">
+        <field name="name">Safety Training</field>
+        <field name="code">wms.safety.training</field>
+        <field name="prefix">STR</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

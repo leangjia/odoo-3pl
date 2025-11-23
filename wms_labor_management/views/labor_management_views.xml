@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Labor Task Form View -->
+    <record id="view_wms_labor_task_form" model="ir.ui.view">
+        <field name="name">wms.labor.task.form</field>
+        <field name="model">wms.labor.task</field>
+        <field name="arch" type="xml">
+            <form string="Labor Task">
+                <header>
+                    <button name="action_start_task" type="object" string="Start Task" class="btn-primary" states="draft,assigned"/>
+                    <button name="action_complete_task" type="object" string="Complete Task" class="btn-success" states="in_progress"/>
+                    <button name="action_cancel_task" type="object" string="Cancel Task" states="draft,assigned,in_progress"/>
+                    <button name="action_reset_to_assigned" type="object" string="Reset to Assigned" states="in_progress"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,assigned,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-clock-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="duration"/></span>
+                                <span class="o_stat_text">Hours</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-percent">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="efficiency"/>%</span>
+                                <span class="o_stat_text">Efficiency</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="task_code"/>
+                            <field name="activity_id"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="assigned_to"/>
+                            <field name="assigned_team"/>
+                            <field name="priority"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group string="Schedule">
+                        <group>
+                            <field name="planned_start_date"/>
+                            <field name="planned_end_date"/>
+                        </group>
+                        <group>
+                            <field name="actual_start_date"/>
+                            <field name="actual_end_date"/>
+                        </group>
+                    </group>
+                    <group string="Work Related">
+                        <group>
+                            <field name="picking_id"/>
+                            <field name="inventory_id"/>
+                        </group>
+                        <group>
+                            <field name="qc_session_id"/>
+                            <field name="quantity_processed"/>
+                        </group>
+                    </group>
+                    <group string="Performance">
+                        <group>
+                            <field name="standard_duration"/>
+                            <field name="duration"/>
+                            <field name="efficiency" widget="float_percentage"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Labor Task Tree View -->
+    <record id="view_wms_labor_task_tree" model="ir.ui.view">
+        <field name="name">wms.labor.task.tree</field>
+        <field name="model">wms.labor.task</field>
+        <field name="arch" type="xml">
+            <tree string="Labor Tasks">
+                <field name="task_code"/>
+                <field name="name"/>
+                <field name="activity_id"/>
+                <field name="assigned_to"/>
+                <field name="priority"/>
+                <field name="planned_start_date"/>
+                <field name="status"/>
+                <field name="duration"/>
+                <field name="efficiency" widget="float_percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Labor Task Search View -->
+    <record id="view_wms_labor_task_search" model="ir.ui.view">
+        <field name="name">wms.labor.task.search</field>
+        <field name="model">wms.labor.task</field>
+        <field name="arch" type="xml">
+            <search string="Labor Tasks">
+                <field name="name"/>
+                <field name="activity_id"/>
+                <field name="assigned_to"/>
+                <field name="status"/>
+                <field name="priority"/>
+                <field name="planned_start_date"/>
+                <group expand="0" string="Group By">
+                    <filter string="Activity" name="group_activity" domain="[]" context="{'group_by':'activity_id'}"/>
+                    <filter string="Assigned To" name="group_assigned" domain="[]" context="{'group_by':'assigned_to'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'status'}"/>
+                    <filter string="Priority" name="group_priority" domain="[]" context="{'group_by':'priority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Labor Activity Form View -->
+    <record id="view_wms_labor_activity_form" model="ir.ui.view">
+        <field name="name">wms.labor.activity.form</field>
+        <field name="model">wms.labor.activity</field>
+        <field name="arch" type="xml">
+            <form string="Labor Activity">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="activity_type"/>
+                            <field name="standard_time"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Labor Activity Tree View -->
+    <record id="view_wms_labor_activity_tree" model="ir.ui.view">
+        <field name="name">wms.labor.activity.tree</field>
+        <field name="model">wms.labor.activity</field>
+        <field name="arch" type="xml">
+            <tree string="Labor Activities">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="activity_type"/>
+                <field name="standard_time"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Labor Schedule Form View -->
+    <record id="view_wms_labor_schedule_form" model="ir.ui.view">
+        <field name="name">wms.labor.schedule.form</field>
+        <field name="model">wms.labor.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Labor Schedule">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="schedule_type"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="is_active"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Labor Schedule Tree View -->
+    <record id="view_wms_labor_schedule_tree" model="ir.ui.view">
+        <field name="name">wms.labor.schedule.tree</field>
+        <field name="model">wms.labor.schedule</field>
+        <field name="arch" type="xml">
+            <tree string="Labor Schedules">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="schedule_type"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Employee Skill Form View -->
+    <record id="view_wms_employee_skill_form" model="ir.ui.view">
+        <field name="name">wms.employee.skill.form</field>
+        <field name="model">wms.employee.skill</field>
+        <field name="arch" type="xml">
+            <form string="Employee Skill">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="skill_id"/>
+                            <field name="proficiency_level"/>
+                        </group>
+                        <group>
+                            <field name="certification_date"/>
+                            <field name="expires_date"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Employee Skill Tree View -->
+    <record id="view_wms_employee_skill_tree" model="ir.ui.view">
+        <field name="name">wms.employee.skill.tree</field>
+        <field name="model">wms.employee.skill</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Skills">
+                <field name="employee_id"/>
+                <field name="skill_id"/>
+                <field name="proficiency_level"/>
+                <field name="certification_date"/>
+                <field name="expires_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Labor Performance Form View -->
+    <record id="view_wms_labor_performance_form" model="ir.ui.view">
+        <field name="name">wms.labor.performance.form</field>
+        <field name="model">wms.labor.performance</field>
+        <field name="arch" type="xml">
+            <form string="Labor Performance">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="activity_id"/>
+                            <field name="date_recorded"/>
+                        </group>
+                        <group>
+                            <field name="tasks_completed"/>
+                            <field name="hours_worked"/>
+                            <field name="efficiency_rate"/>
+                            <field name="productivity_score"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Labor Performance Tree View -->
+    <record id="view_wms_labor_performance_tree" model="ir.ui.view">
+        <field name="name">wms.labor.performance.tree</field>
+        <field name="model">wms.labor.performance</field>
+        <field name="arch" type="xml">
+            <tree string="Labor Performance">
+                <field name="employee_id"/>
+                <field name="activity_id"/>
+                <field name="date_recorded"/>
+                <field name="tasks_completed"/>
+                <field name="hours_worked"/>
+                <field name="efficiency_rate"/>
+                <field name="productivity_score"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Labor Cost Form View -->
+    <record id="view_wms_labor_cost_form" model="ir.ui.view">
+        <field name="name">wms.labor.cost.form</field>
+        <field name="model">wms.labor.cost</field>
+        <field name="arch" type="xml">
+            <form string="Labor Cost">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="activity_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="hours_worked"/>
+                            <field name="hourly_rate"/>
+                            <field name="overtime_rate"/>
+                            <field name="total_cost"/>
+                        </group>
+                    </group>
+                    <group string="Work Details">
+                        <field name="work_description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Labor Cost Tree View -->
+    <record id="view_wms_labor_cost_tree" model="ir.ui.view">
+        <field name="name">wms.labor.cost.tree</field>
+        <field name="model">wms.labor.cost</field>
+        <field name="arch" type="xml">
+            <tree string="Labor Costs">
+                <field name="employee_id"/>
+                <field name="activity_id"/>
+                <field name="date"/>
+                <field name="hours_worked"/>
+                <field name="hourly_rate"/>
+                <field name="overtime_rate"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Blind Receive Management Menu -->
+    <menuitem id="menu_wms_blind_receive_root"
+              name="Blind Receive"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="50"/>
+
+    <menuitem id="menu_wms_blind_receive_list"
+              name="Blind Receive Sessions"
+              parent="menu_wms_blind_receive_root"
+              action="action_wms_blind_receive_list"
+              sequence="10"/>
+
+    <!-- Actions -->
+    <record id="action_wms_blind_receive_list" model="ir.actions.act_window">
+        <field name="name">Blind Receive Sessions</field>
+        <field name="res_model">wms.blind.receive</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Start a new blind receive session
+            </p><p>
+                Verify received goods against expected quantities without seeing the expected list.
+            </p>
+        </field>
+    </record>
+</odoo>

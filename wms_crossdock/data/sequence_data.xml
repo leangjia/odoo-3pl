@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Crossdock Operations -->
+    <data noupdate="1">
+        <record id="seq_wms_crossdock_operation" model="ir.sequence">
+            <field name="name">WMS Crossdock Operation</field>
+            <field name="code">wms.crossdock.operation</field>
+            <field name="prefix">CDO/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequence for Crossdock Matches -->
+        <record id="seq_wms_crossdock_match" model="ir.sequence">
+            <field name="name">WMS Crossdock Match</field>
+            <field name="code">wms.crossdock.match</field>
+            <field name="prefix">CDM/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

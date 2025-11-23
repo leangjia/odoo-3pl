@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inventory Freeze Tree View -->
+    <record id="view_wms_inventory_freeze_tree" model="ir.ui.view">
+        <field name="name">wms.inventory.freeze.tree</field>
+        <field name="model">wms.inventory.freeze</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="location_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="reason"/>
+                <field name="status"/>
+                <field name="freeze_date"/>
+                <field name="quantity"/>
+                <field name="uom_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inventory Freeze Form View -->
+    <record id="view_wms_inventory_freeze_form" model="ir.ui.view">
+        <field name="name">wms.inventory.freeze.form</field>
+        <field name="model">wms.inventory.freeze</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_unfreeze" type="object" string="Unfreeze" class="btn-primary" invisible="status != 'frozen'"/>
+                    <button name="action_release" type="object" string="Release" class="btn-success" invisible="status != 'frozen'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="frozen,unfrozen,released"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_freeze_report" type="object" class="oe_stat_button" icon="fa-file-text">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Report</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="reason"/>
+                            <field name="freeze_type"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="uom_id"/>
+                            <field name="freeze_date"/>
+                        </group>
+                        <group>
+                            <field name="unfreeze_date"/>
+                            <field name="frozen_by"/>
+                            <field name="unfrozen_by"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Related Information">
+                            <group>
+                                <field name="related_inventory_id"/>
+                                <field name="expiry_date"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inventory Freeze Search View -->
+    <record id="view_wms_inventory_freeze_search" model="ir.ui.view">
+        <field name="name">wms.inventory.freeze.search</field>
+        <field name="model">wms.inventory.freeze</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="location_id"/>
+                <field name="product_id"/>
+                <field name="reason"/>
+                <field name="status"/>
+                <field name="freeze_type"/>
+                <filter name="frozen" string="Frozen" domain="[('status', '=', 'frozen')]"/>
+                <filter name="unfrozen" string="Unfrozen" domain="[('status', '=', 'unfrozen')]"/>
+                <filter name="released" string="Released" domain="[('status', '=', 'released')]"/>
+                <filter name="quality_issue" string="Quality Issue" domain="[('reason', '=', 'quality_issue')]"/>
+                <filter name="investigation" string="Investigation" domain="[('reason', '=', 'investigation')]"/>
+                <filter name="discrepancy" string="Discrepancy" domain="[('reason', '=', 'discrepancy')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_reason" string="Reason" context="{'group_by': 'reason'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_location" string="Location" context="{'group_by': 'location_id'}"/>
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

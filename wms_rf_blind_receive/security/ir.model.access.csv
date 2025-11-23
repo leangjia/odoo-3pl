@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_blind_receive_user,wms.blind.receive.user,model_wms_blind_receive,base.group_user,1,1,1,0
+access_wms_blind_receive_manager,wms.blind.receive.manager,model_wms_blind_receive,base.group_erp_manager,1,1,1,1
+access_wms_blind_receive_expected_user,wms.blind.receive.expected.user,model_wms_blind_receive_expected,base.group_user,1,1,1,0
+access_wms_blind_receive_expected_manager,wms.blind.receive.expected.manager,model_wms_blind_receive_expected,base.group_erp_manager,1,1,1,1
+access_wms_blind_receive_received_user,wms.blind.receive.received.user,model_wms_blind_receive_received,base.group_user,1,1,1,0
+access_wms_blind_receive_received_manager,wms.blind.receive.received.manager,model_wms_blind_receive_received,base.group_erp_manager,1,1,1,1
+access_wms_blind_receive_wizard_user,wms.blind.receive.wizard.user,model_wms_blind_receive_wizard,base.group_user,1,1,1,1
+access_wms_blind_receive_create_wizard_user,wms.blind.receive.create.wizard.user,model_wms_blind_receive_create_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Inventory Freeze Records -->
+    <data noupdate="1">
+        <record id="seq_wms_inventory_freeze" model="ir.sequence">
+            <field name="name">WMS Inventory Freeze</field>
+            <field name="code">wms.inventory.freeze</field>
+            <field name="prefix">FZ/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

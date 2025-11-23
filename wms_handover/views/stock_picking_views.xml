@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Stock Picking Views for Handover -->
+
+    <!-- Add handover fields to Stock Picking form view -->
+    <record id="view_stock_picking_form_handover" model="ir.ui.view">
+        <field name="name">stock.picking.form.handover</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_create_handover" type="object" class="oe_stat_button" icon="fa-exchange" invisible="state in ('done', 'cancel') or handover_count > 0">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Create Handover</span>
+                    </div>
+                </button>
+                <button name="action_view_handovers" type="object" class="oe_stat_button" icon="fa-list" invisible="handover_count == 0">
+                    <field string="Handovers" name="handover_count" widget="statinfo"/>
+                </button>
+            </div>
+            <notebook position="inside">
+                <page string="Handovers" invisible="handover_count == 0">
+                    <field name="handover_ids" nolabel="1" readonly="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Add handover fields to Stock Picking tree view -->
+    <record id="view_stock_picking_tree_handover" model="ir.ui.view">
+        <field name="name">stock.picking.tree.handover</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="handover_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add handover filter to Stock Picking search view -->
+    <record id="view_stock_picking_search_handover" model="ir.ui.view">
+        <field name="name">stock.picking.search.handover</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="handover_ids"/>
+            </field>
+            <filter name="my_activities" position="before">
+                <filter name="with_handover" string="With Handover" domain="[('handover_ids', '!=', [])]"/>
+            </filter>
+            <group expand="0" string="Group By">
+                <filter name="group_by_handover" string="Handover" context="{'group_by': 'handover_ids'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

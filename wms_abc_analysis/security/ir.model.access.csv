@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_abc_analysis_user,wms.abc.analysis.user,model_wms_abc_analysis,base.group_user,1,1,1,0
+access_wms_abc_analysis_manager,wms.abc.analysis.manager,model_wms_abc_analysis,base.group_erp_manager,1,1,1,1
+access_wms_abc_rule_user,wms.abc.rule.user,model_wms_abc_rule,base.group_user,1,1,1,0
+access_wms_abc_rule_manager,wms.abc.rule.manager,model_wms_abc_rule,base.group_erp_manager,1,1,1,1
+access_wms_abc_analysis_line_user,wms.abc.analysis.line.user,model_wms_abc_analysis_line,base.group_user,1,1,1,0
+access_wms_abc_analysis_line_manager,wms.abc.analysis.line.manager,model_wms_abc_analysis_line,base.group_erp_manager,1,1,1,1
+access_wms_abc_analysis_wizard_user,wms.abc.analysis.wizard.user,model_wms_abc_analysis_wizard,base.group_user,1,1,1,1

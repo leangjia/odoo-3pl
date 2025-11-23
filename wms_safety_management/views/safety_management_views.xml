@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Safety Incident Form View -->
+    <record id="view_wms_safety_incident_form" model="ir.ui.view">
+        <field name="name">wms.safety.incident.form</field>
+        <field name="model">wms.safety.incident</field>
+        <field name="arch" type="xml">
+            <form string="Safety Incident">
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="reported,investigating,action_required,action_taken,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-user-injured">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="severity"/></span>
+                                <span class="o_stat_text">Severity</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="incident_type"/>
+                        </group>
+                        <group>
+                            <field name="incident_date"/>
+                            <field name="severity"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="reported_by"/>
+                        </group>
+                        <group>
+                            <field name="injured_employee_id"/>
+                            <field name="category"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <group>
+                                <field name="description" nolabel="1"/>
+                            </group>
+                            <group string="Immediate Action">
+                                <field name="immediate_action_taken" nolabel="1"/>
+                            </group>
+                            <group string="Involved Parties">
+                                <field name="witness_ids" widget="many2many_tags"/>
+                                <field name="involved_employee_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Investigation">
+                            <group>
+                                <field name="investigation_date"/>
+                                <field name="investigation_by"/>
+                                <field name="root_cause" nolabel="1"/>
+                            </group>
+                            <group string="Actions">
+                                <field name="corrective_action" nolabel="1"/>
+                                <field name="preventive_action" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Follow-up">
+                            <group>
+                                <field name="closure_date"/>
+                                <field name="closure_notes" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Additional Information">
+                            <group>
+                                <field name="lost_time_hours"/>
+                                <field name="medical_treatment"/>
+                                <field name="first_aid_only"/>
+                                <field name="restricted_work"/>
+                                <field name="job_transfer"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety Incident Tree View -->
+    <record id="view_wms_safety_incident_tree" model="ir.ui.view">
+        <field name="name">wms.safety.incident.tree</field>
+        <field name="model">wms.safety.incident</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Incidents">
+                <field name="name"/>
+                <field name="incident_type"/>
+                <field name="severity"/>
+                <field name="location_id"/>
+                <field name="incident_date"/>
+                <field name="reported_by"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety Training Form View -->
+    <record id="view_wms_safety_training_form" model="ir.ui.view">
+        <field name="name">wms.safety.training.form</field>
+        <field name="model">wms.safety.training</field>
+        <field name="arch" type="xml">
+            <form string="Safety Training">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-graduation-cap">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="participant_ids" widget="statinfo" domain="[('id', 'in', active_id)]"/></span>
+                                <span class="o_stat_text">Participants</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="training_code"/>
+                            <field name="training_type"/>
+                        </group>
+                        <group>
+                            <field name="duration_hours"/>
+                            <field name="training_date"/>
+                            <field name="expiry_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="trainer_id"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="certificate_required"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <group>
+                                <field name="description" nolabel="1"/>
+                            </group>
+                            <group string="Certification">
+                                <field name="certification_body"/>
+                                <field name="certificate_number"/>
+                            </group>
+                        </page>
+                        <page string="Participants">
+                            <group>
+                                <field name="participant_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="completed_participant_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group>
+                        </page>
+                        <page string="Cost">
+                            <group>
+                                <field name="cost"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety Training Tree View -->
+    <record id="view_wms_safety_training_tree" model="ir.ui.view">
+        <field name="name">wms.safety.training.tree</field>
+        <field name="model">wms.safety.training</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Training">
+                <field name="training_code"/>
+                <field name="name"/>
+                <field name="training_type"/>
+                <field name="trainer_id"/>
+                <field name="training_date"/>
+                <field name="duration_hours"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety PPE Form View -->
+    <record id="view_wms_safety_ppe_form" model="ir.ui.view">
+        <field name="name">wms.safety.ppe.form</field>
+        <field name="model">wms.safety.ppe</field>
+        <field name="arch" type="xml">
+            <form string="Safety PPE">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="ppe_type"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="size"/>
+                            <field name="color"/>
+                        </group>
+                    </group>
+                    <group string="Specifications">
+                        <group>
+                            <field name="brand"/>
+                            <field name="model_number"/>
+                        </group>
+                        <group>
+                            <field name="unit_cost"/>
+                            <field name="supplier_id"/>
+                        </group>
+                    </group>
+                    <group string="Inventory">
+                        <group>
+                            <field name="stock_quantity"/>
+                            <field name="min_stock_level"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <group string="Required For">
+                        <field name="required_for_jobs" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety PPE Tree View -->
+    <record id="view_wms_safety_ppe_tree" model="ir.ui.view">
+        <field name="name">wms.safety.ppe.tree</field>
+        <field name="model">wms.safety.ppe</field>
+        <field name="arch" type="xml">
+            <tree string="Safety PPE">
+                <field name="name"/>
+                <field name="ppe_type"/>
+                <field name="size"/>
+                <field name="stock_quantity"/>
+                <field name="unit_cost"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety Inspection Form View -->
+    <record id="view_wms_safety_inspection_form" model="ir.ui.view">
+        <field name="name">wms.safety.inspection.form</field>
+        <field name="model">wms.safety.inspection</field>
+        <field name="arch" type="xml">
+            <form string="Safety Inspection">
+                <header>
+                    <button name="action_start_inspection" type="object" string="Start Inspection" states="draft"/>
+                    <button name="action_complete_inspection" type="object" string="Complete Inspection" states="in_progress"/>
+                    <button name="action_require_action" type="object" string="Require Action" states="completed"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,completed,requires_action"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-search">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="findings_count"/></span>
+                                <span class="o_stat_text">Findings</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="critical_findings_count"/></span>
+                                <span class="o_stat_text">Critical</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="inspection_code"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="inspection_type"/>
+                            <field name="inspection_date"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="inspector_id"/>
+                        </group>
+                        <group>
+                            <field name="overall_rating"/>
+                            <field name="action_required"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Findings">
+                            <field name="id" invisible="1"/>
+                            <field name="inspection_id" invisible="1"/>
+                            <field name="name" invisible="1"/>
+                            <field name="description" invisible="1"/>
+                            <field name="location" invisible="1"/>
+                            <field name="severity" invisible="1"/>
+                            <field name="status" invisible="1"/>
+                            <field name="assigned_to" invisible="1"/>
+                            <field name="due_date" invisible="1"/>
+                            <field name="resolution_date" invisible="1"/>
+                            <field name="resolution_notes" invisible="1"/>
+                            <field name="corrective_action" invisible="1"/>
+                            <field name="preventive_action" invisible="1"/>
+                        </page>
+                        <page string="Results &amp; Actions">
+                            <group>
+                                <field name="corrective_actions" nolabel="1"/>
+                            </group>
+                            <group>
+                                <field name="follow_up_date"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety Inspection Tree View -->
+    <record id="view_wms_safety_inspection_tree" model="ir.ui.view">
+        <field name="name">wms.safety.inspection.tree</field>
+        <field name="model">wms.safety.inspection</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Inspections">
+                <field name="inspection_code"/>
+                <field name="name"/>
+                <field name="inspection_type"/>
+                <field name="location_id"/>
+                <field name="inspector_id"/>
+                <field name="inspection_date"/>
+                <field name="overall_rating"/>
+                <field name="status"/>
+                <field name="findings_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety Inspection Finding Form View -->
+    <record id="view_wms_safety_inspection_finding_form" model="ir.ui.view">
+        <field name="name">wms.safety.inspection.finding.form</field>
+        <field name="model">wms.safety.inspection.finding</field>
+        <field name="arch" type="xml">
+            <form string="Safety Inspection Finding">
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="open,in_progress,resolved,not_applicable"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="inspection_id"/>
+                            <field name="severity"/>
+                        </group>
+                        <group>
+                            <field name="location"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Actions Required">
+                            <group>
+                                <field name="corrective_action" nolabel="1"/>
+                                <field name="preventive_action" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Resolution">
+                            <group>
+                                <group>
+                                    <field name="assigned_to"/>
+                                    <field name="due_date"/>
+                                </group>
+                                <group>
+                                    <field name="resolution_date"/>
+                                    <field name="resolution_notes"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety Inspection Finding Tree View -->
+    <record id="view_wms_safety_inspection_finding_tree" model="ir.ui.view">
+        <field name="name">wms.safety.inspection.finding.tree</field>
+        <field name="model">wms.safety.inspection.finding</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Inspection Findings">
+                <field name="name"/>
+                <field name="inspection_id"/>
+                <field name="severity"/>
+                <field name="location"/>
+                <field name="status"/>
+                <field name="assigned_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety Compliance Form View -->
+    <record id="view_wms_safety_compliance_form" model="ir.ui.view">
+        <field name="name">wms.safety.compliance.form</field>
+        <field name="model">wms.safety.compliance</field>
+        <field name="arch" type="xml">
+            <form string="Safety Compliance">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="regulation"/>
+                            <field name="compliance_type"/>
+                        </group>
+                        <group>
+                            <field name="frequency"/>
+                            <field name="compliant"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="compliance_date"/>
+                            <field name="next_compliance_date"/>
+                        </group>
+                        <group>
+                            <field name="verified_by"/>
+                            <field name="verification_date"/>
+                        </group>
+                    </group>
+                    <group string="Requirement Details">
+                        <field name="requirement_details" nolabel="1"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety Compliance Tree View -->
+    <record id="view_wms_safety_compliance_tree" model="ir.ui.view">
+        <field name="name">wms.safety.compliance.tree</field>
+        <field name="model">wms.safety.compliance</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Compliance">
+                <field name="name"/>
+                <field name="regulation"/>
+                <field name="compliance_type"/>
+                <field name="compliance_date"/>
+                <field name="next_compliance_date"/>
+                <field name="compliant"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety Risk Form View -->
+    <record id="view_wms_safety_risk_form" model="ir.ui.view">
+        <field name="name">wms.safety.risk.form</field>
+        <field name="model">wms.safety.risk</field>
+        <field name="arch" type="xml">
+            <form string="Safety Risk Assessment">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="risk_score"/></span>
+                                <span class="o_stat_text">Risk Score</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="risk_type"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="probability"/>
+                            <field name="severity"/>
+                            <field name="risk_score"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="location_id"/>
+                        <field name="status"/>
+                    </group>
+                    <group string="Affected Employees">
+                        <field name="affected_employees" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Assessment">
+                            <group>
+                                <field name="existing_controls" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Risk Mitigation">
+                            <group>
+                                <field name="additional_controls" nolabel="1"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Safety Risk Tree View -->
+    <record id="view_wms_safety_risk_tree" model="ir.ui.view">
+        <field name="name">wms.safety.risk.tree</field>
+        <field name="model">wms.safety.risk</field>
+        <field name="arch" type="xml">
+            <tree string="Safety Risk Assessments">
+                <field name="name"/>
+                <field name="risk_type"/>
+                <field name="location_id"/>
+                <field name="probability"/>
+                <field name="severity"/>
+                <field name="risk_score"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Safety Incident Search View -->
+    <record id="view_wms_safety_incident_search" model="ir.ui.view">
+        <field name="name">wms.safety.incident.search</field>
+        <field name="model">wms.safety.incident</field>
+        <field name="arch" type="xml">
+            <search string="Safety Incidents">
+                <field name="name"/>
+                <field name="incident_type"/>
+                <field name="severity"/>
+                <field name="location_id"/>
+                <field name="status"/>
+                <field name="incident_date"/>
+                <group expand="0" string="Group By">
+                    <filter string="Incident Type" name="group_type" domain="[]" context="{'group_by':'incident_type'}"/>
+                    <filter string="Severity" name="group_severity" domain="[]" context="{'group_by':'severity'}"/>
+                    <filter string="Location" name="group_location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Safety Training Search View -->
+    <record id="view_wms_safety_training_search" model="ir.ui.view">
+        <field name="name">wms.safety.training.search</field>
+        <field name="model">wms.safety.training</field>
+        <field name="arch" type="xml">
+            <search string="Safety Training">
+                <field name="name"/>
+                <field name="training_type"/>
+                <field name="trainer_id"/>
+                <field name="training_date"/>
+                <field name="active"/>
+                <group expand="0" string="Group By">
+                    <filter string="Training Type" name="group_training_type" domain="[]" context="{'group_by':'training_type'}"/>
+                    <filter string="Trainer" name="group_trainer" domain="[]" context="{'group_by':'trainer_id'}"/>
+                    <filter string="Active" name="group_active" domain="[]" context="{'group_by':'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

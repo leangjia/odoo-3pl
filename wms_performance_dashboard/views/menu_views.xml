@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Performance Dashboard Menu -->
+    <menuitem id="menu_wms_performance_dashboard_root"
+              name="Performance Dashboard"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="140"/>
+
+    <menuitem id="menu_wms_performance_kpis"
+              name="Performance KPIs"
+              parent="menu_wms_performance_dashboard_root"
+              action="action_wms_performance_kpi_list"
+              sequence="10"/>
+
+    <menuitem id="menu_wms_performance_reports"
+              name="Performance Reports"
+              parent="menu_wms_performance_dashboard_root"
+              action="action_wms_performance_report_list"
+              sequence="20"/>
+
+    <menuitem id="menu_wms_alerts"
+              name="Alerts &amp; Notifications"
+              parent="menu_wms_performance_dashboard_root"
+              action="action_wms_alert_list"
+              sequence="30"/>
+
+    <menuitem id="menu_wms_benchmarks"
+              name="Benchmarks"
+              parent="menu_wms_performance_dashboard_root"
+              action="action_wms_benchmark_list"
+              sequence="40"/>
+
+    <menuitem id="menu_wms_dashboard_templates"
+              name="Dashboard Templates"
+              parent="menu_wms_performance_dashboard_root"
+              action="action_wms_dashboard_template_list"
+              sequence="50"/>
+
+    <menuitem id="menu_wms_dashboard_widgets"
+              name="Dashboard Widgets"
+              parent="menu_wms_performance_dashboard_root"
+              action="action_wms_dashboard_widget_list"
+              sequence="60"/>
+
+    <!-- Actions -->
+    <record id="action_wms_performance_kpi_list" model="ir.actions.act_window">
+        <field name="name">Performance KPIs</field>
+        <field name="res_model">wms.performance.kpi</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure KPIs
+            </p><p>
+                Define and monitor key performance indicators for warehouse operations.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_performance_report_list" model="ir.actions.act_window">
+        <field name="name">Performance Reports</field>
+        <field name="res_model">wms.performance.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Generate reports
+            </p><p>
+                Create and analyze performance reports for warehouse operations.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_alert_list" model="ir.actions.act_window">
+        <field name="name">Alerts &amp; Notifications</field>
+        <field name="res_model">wms.alert</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage alerts
+            </p><p>
+                Monitor and respond to performance alerts and notifications.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_benchmark_list" model="ir.actions.act_window">
+        <field name="name">Benchmarks</field>
+        <field name="res_model">wms.benchmark</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage benchmarks
+            </p><p>
+                Define and track performance benchmarks for comparison.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_dashboard_template_list" model="ir.actions.act_window">
+        <field name="name">Dashboard Templates</field>
+        <field name="res_model">wms.dashboard.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage templates
+            </p><p>
+                Create and configure dashboard templates for different views.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_dashboard_widget_list" model="ir.actions.act_window">
+        <field name="name">Dashboard Widgets</field>
+        <field name="res_model">wms.dashboard.widget</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage widgets
+            </p><p>
+                Configure dashboard widgets for metrics display.
+            </p>
+        </field>
+    </record>
+</odoo>

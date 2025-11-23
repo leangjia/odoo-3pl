@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quality Control Management Menu -->
+    <menuitem id="menu_wms_quality_control_root"
+              name="Quality Control"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="100"/>
+
+    <menuitem id="menu_wms_quality_control_sessions"
+              name="Quality Control Sessions"
+              parent="menu_wms_quality_control_root"
+              action="action_wms_quality_control_list"
+              sequence="10"/>
+
+    <menuitem id="menu_wms_quality_issues"
+              name="Quality Issues"
+              parent="menu_wms_quality_control_root"
+              action="action_wms_quality_issue_list"
+              sequence="20"/>
+
+    <menuitem id="menu_wms_quality_actions"
+              name="Corrective Actions"
+              parent="menu_wms_quality_control_root"
+              action="action_wms_quality_corrective_action_list"
+              sequence="30"/>
+
+    <!-- Actions -->
+    <record id="action_wms_quality_control_list" model="ir.actions.act_window">
+        <field name="name">Quality Control Sessions</field>
+        <field name="res_model">wms.quality.control</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new quality control session
+            </p><p>
+                Manage quality control processes for incoming/outgoing shipments and storage areas.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_quality_issue_list" model="ir.actions.act_window">
+        <field name="name">Quality Issues</field>
+        <field name="res_model">wms.quality.issue</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Track quality issues and defects
+            </p><p>
+                Document and manage quality problems found during inspections.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_quality_corrective_action_list" model="ir.actions.act_window">
+        <field name="name">Corrective Actions</field>
+        <field name="res_model">wms.quality.corrective_action</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage corrective actions
+            </p><p>
+                Track and complete corrective actions for quality issues.
+            </p>
+        </field>
+    </record>
+</odoo>

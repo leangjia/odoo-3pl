@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_quality_control_user,wms.quality.control.user,model_wms_quality_control,base.group_user,1,1,1,1
+access_wms_quality_checklist_user,wms.quality.checklist.user,model_wms_quality_checklist,base.group_user,1,1,1,1
+access_wms_quality_issue_user,wms.quality.issue.user,model_wms_quality_issue,base.group_user,1,1,1,1
+access_wms_quality_corrective_action_user,wms.quality.corrective.action.user,model_wms_quality_corrective_action,base.group_user,1,1,1,1
+access_wms_quality_photo_user,wms.quality.photo.user,model_wms_quality_photo,base.group_user,1,1,1,1
+access_wms_quality_control_wizard_user,wms.quality.control.wizard.user,model_wms_quality_control_wizard,base.group_user,1,1,1,1
+access_wms_quality_issue_wizard_user,wms.quality.issue.wizard.user,model_wms_quality_issue_wizard,base.group_user,1,1,1,1

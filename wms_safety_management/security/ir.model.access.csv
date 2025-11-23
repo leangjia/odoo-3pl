@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_safety_incident_user,wms.safety.incident.user,model_wms_safety_incident,base.group_user,1,1,1,1
+access_wms_safety_training_user,wms.safety.training.user,model_wms_safety_training,base.group_user,1,1,1,1
+access_wms_safety_ppe_user,wms.safety.ppe.user,model_wms_safety_ppe,base.group_user,1,1,1,1
+access_wms_safety_inspection_user,wms.safety.inspection.user,model_wms_safety_inspection,base.group_user,1,1,1,1
+access_wms_safety_inspection_finding_user,wms.safety.inspection.finding.user,model_wms_safety_inspection_finding,base.group_user,1,1,1,1
+access_wms_safety_compliance_user,wms.safety.compliance.user,model_wms_safety_compliance,base.group_user,1,1,1,1
+access_wms_safety_risk_user,wms.safety.risk.user,model_wms_safety_risk,base.group_user,1,1,1,1

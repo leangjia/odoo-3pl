@@ -1,0 +1,1 @@
+from . import test_wms_labor_management

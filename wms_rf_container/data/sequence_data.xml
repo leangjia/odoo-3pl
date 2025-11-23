@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Containers -->
+    <data noupdate="1">
+        <record id="seq_wms_container" model="ir.sequence">
+            <field name="name">WMS Container</field>
+            <field name="code">wms.container</field>
+            <field name="prefix">CONT/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

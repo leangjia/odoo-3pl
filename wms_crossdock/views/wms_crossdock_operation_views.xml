@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Crossdock Operation Tree View -->
+    <record id="view_wms_crossdock_operation_tree" model="ir.ui.view">
+        <field name="name">wms.crossdock.operation.tree</field>
+        <field name="model">wms.crossdock.operation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="operation_date"/>
+                <field name="status"/>
+                <field name="inbound_picking_id"/>
+                <field name="outbound_picking_id"/>
+                <field name="total_quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Crossdock Operation Form View -->
+    <record id="view_wms_crossdock_operation_form" model="ir.ui.view">
+        <field name="name">wms.crossdock.operation.form</field>
+        <field name="model">wms.crossdock.operation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_operation" type="object" string="Start Operation" class="btn-primary" invisible="status != 'draft'"/>
+                    <button name="action_complete_operation" type="object" string="Complete Operation" invisible="status != 'in_progress'"/>
+                    <button name="action_cancel_operation" type="object" string="Cancel Operation" invisible="status not in ['draft', 'in_progress']"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="operation_date"/>
+                        </group>
+                        <group>
+                            <field name="warehouse_id"/>
+                            <field name="crossdock_location_id"/>
+                        </group>
+                    </group>
+                    <group string="Pickings">
+                        <group>
+                            <field name="inbound_picking_id"/>
+                            <field name="outbound_picking_id"/>
+                        </group>
+                        <group>
+                            <field name="matched_by"/>
+                            <field name="matched_date"/>
+                        </group>
+                    </group>
+                    <group string="Metrics">
+                        <group>
+                            <field name="total_quantity"/>
+                            <field name="total_weight"/>
+                        </group>
+                        <group>
+                            <field name="estimated_duration"/>
+                            <field name="actual_duration"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Crossdock Operation Search View -->
+    <record id="view_wms_crossdock_operation_search" model="ir.ui.view">
+        <field name="name">wms.crossdock.operation.search</field>
+        <field name="model">wms.crossdock.operation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="operation_date"/>
+                <field name="status"/>
+                <field name="warehouse_id"/>
+                <filter name="draft" string="Draft" domain="[('status', '=', 'draft')]"/>
+                <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter name="completed" string="Completed" domain="[('status', '=', 'completed')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('status', '=', 'cancelled')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_warehouse" string="Warehouse" context="{'group_by': 'warehouse_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

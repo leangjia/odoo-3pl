@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard Template Form View -->
+    <record id="view_wms_dashboard_template_form" model="ir.ui.view">
+        <field name="name">wms.dashboard.template.form</field>
+        <field name="model">wms.dashboard.template</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard Template">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="dashboard_type"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="default_owner_id"/>
+                            <field name="default_period"/>
+                            <field name="is_default"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <group string="Widgets">
+                        <field name="widget_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dashboard Template Tree View -->
+    <record id="view_wms_dashboard_template_tree" model="ir.ui.view">
+        <field name="name">wms.dashboard.template.tree</field>
+        <field name="model">wms.dashboard.template</field>
+        <field name="arch" type="xml">
+            <tree string="Dashboard Templates">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="dashboard_type"/>
+                <field name="default_owner_id"/>
+                <field name="default_period"/>
+                <field name="is_active"/>
+                <field name="is_default"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Dashboard Widget Form View -->
+    <record id="view_wms_dashboard_widget_form" model="ir.ui.view">
+        <field name="name">wms.dashboard.widget.form</field>
+        <field name="model">wms.dashboard.widget</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard Widget">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="widget_type"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="data_source"/>
+                        </group>
+                    </group>
+                    <group string="Layout">
+                        <group>
+                            <field name="size_x"/>
+                            <field name="size_y"/>
+                        </group>
+                        <group>
+                            <field name="col"/>
+                            <field name="row"/>
+                        </group>
+                    </group>
+                    <group string="Configuration">
+                        <field name="configuration" nolabel="1"/>
+                    </group>
+                    <group string="Calculated Field">
+                        <field name="calculated_field"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dashboard Widget Tree View -->
+    <record id="view_wms_dashboard_widget_tree" model="ir.ui.view">
+        <field name="name">wms.dashboard.widget.tree</field>
+        <field name="model">wms.dashboard.widget</field>
+        <field name="arch" type="xml">
+            <tree string="Dashboard Widgets">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="widget_type"/>
+                <field name="data_source"/>
+                <field name="size_x"/>
+                <field name="size_y"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Performance KPI Form View -->
+    <record id="view_wms_performance_kpi_form" model="ir.ui.view">
+        <field name="name">wms.performance.kpi.form</field>
+        <field name="model">wms.performance.kpi</field>
+        <field name="arch" type="xml">
+            <form string="Performance KPI">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-chart-line">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="current_value"/></span>
+                                <span class="o_stat_text">Current</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-arrow-up">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="trend"/>%</span>
+                                <span class="o_stat_text">Trend</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-bullseye">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="target_value"/></span>
+                                <span class="o_stat_text">Target</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="calculation_method"/>
+                            <field name="unit_of_measure"/>
+                        </group>
+                    </group>
+                    <group string="Values">
+                        <group>
+                            <field name="current_value"/>
+                            <field name="previous_value"/>
+                        </group>
+                        <group>
+                            <field name="trend"/>
+                        </group>
+                    </group>
+                    <group string="Targets">
+                        <group>
+                            <field name="target_value"/>
+                            <field name="benchmark_value"/>
+                        </group>
+                    </group>
+                    <group string="Alert Settings">
+                        <group>
+                            <field name="alert_threshold"/>
+                            <field name="alert_type"/>
+                        </group>
+                    </group>
+                    <group string="Data Source">
+                        <field name="source_model"/>
+                        <field name="source_field"/>
+                        <field name="condition"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Performance KPI Tree View -->
+    <record id="view_wms_performance_kpi_tree" model="ir.ui.view">
+        <field name="name">wms.performance.kpi.tree</field>
+        <field name="model">wms.performance.kpi</field>
+        <field name="arch" type="xml">
+            <tree string="Performance KPIs">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category"/>
+                <field name="owner_id"/>
+                <field name="current_value"/>
+                <field name="target_value"/>
+                <field name="trend"/>
+                <field name="unit_of_measure"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Performance Report Form View -->
+    <record id="view_wms_performance_report_form" model="ir.ui.view">
+        <field name="name">wms.performance.report.form</field>
+        <field name="model">wms.performance.report</field>
+        <field name="arch" type="xml">
+            <form string="Performance Report">
+                <header>
+                    <button name="action_generate_report" type="object" string="Generate Report" states="draft" class="btn-primary"/>
+                    <button name="action_validate_report" type="object" string="Validate Report" states="generated" class="btn-success"/>
+                    <button name="action_publish_report" type="object" string="Publish Report" states="validated" class="btn-info"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,generated,validated,published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="report_type"/></span>
+                                <span class="o_stat_text">Type</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="report_code"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="report_type"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <group string="Period">
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                        <group>
+                            <field name="report_date"/>
+                            <field name="generation_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Executive Summary">
+                            <field name="executive_summary" nolabel="1"/>
+                        </page>
+                        <page string="Detailed Analysis">
+                            <field name="detailed_analysis" nolabel="1"/>
+                        </page>
+                        <page string="Recommendations">
+                            <field name="recommendations" nolabel="1"/>
+                        </page>
+                        <page string="KPI Results">
+                            <field name="kpi_results" nolabel="1"/>
+                        </page>
+                        <page string="Alert Summary">
+                            <field name="alert_summary" nolabel="1"/>
+                        </page>
+                        <page string="Report Data">
+                            <field name="report_data" nolabel="1"/>
+                        </page>
+                        <page string="Charts Data">
+                            <field name="charts_data" nolabel="1"/>
+                        </page>
+                    </notebook>
+                    <group string="Distribution">
+                        <field name="recipients" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Performance Report Tree View -->
+    <record id="view_wms_performance_report_tree" model="ir.ui.view">
+        <field name="name">wms.performance.report.tree</field>
+        <field name="model">wms.performance.report</field>
+        <field name="arch" type="xml">
+            <tree string="Performance Reports">
+                <field name="report_code"/>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="report_type"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="report_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Alert Form View -->
+    <record id="view_wms_alert_form" model="ir.ui.view">
+        <field name="name">wms.alert.form</field>
+        <field name="model">wms.alert</field>
+        <field name="arch" type="xml">
+            <form string="Alert">
+                <header>
+                    <button name="action_acknowledge" type="object" string="Acknowledge" states="open"/>
+                    <button name="action_start_resolution" type="object" string="Start Resolution" states="open,acknowledged"/>
+                    <button name="action_resolve" type="object" string="Resolve" states="in_progress"/>
+                    <button name="action_close" type="object" string="Close" states="open,acknowledged,in_progress,resolved"/>
+                    <field name="status" widget="statusbar" statusbar_visible="open,acknowledged,in_progress,resolved,closed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="alert_type"/>
+                            <field name="severity"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="due_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="assigned_to"/>
+                            <field name="related_model"/>
+                        </group>
+                        <group>
+                            <field name="target_value"/>
+                            <field name="actual_value"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" nolabel="1"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Resolution">
+                            <group>
+                                <field name="resolution_notes" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Alert Tree View -->
+    <record id="view_wms_alert_tree" model="ir.ui.view">
+        <field name="name">wms.alert.tree</field>
+        <field name="model">wms.alert</field>
+        <field name="arch" type="xml">
+            <tree string="Alerts">
+                <field name="name"/>
+                <field name="alert_type"/>
+                <field name="severity"/>
+                <field name="status"/>
+                <field name="assigned_to"/>
+                <field name="due_date"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Benchmark Form View -->
+    <record id="view_wms_benchmark_form" model="ir.ui.view">
+        <field name="name">wms.benchmark.form</field>
+        <field name="model">wms.benchmark</field>
+        <field name="arch" type="xml">
+            <form string="Benchmark">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="category"/>
+                        </group>
+                        <group>
+                            <field name="benchmark_type"/>
+                            <field name="year"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="value"/>
+                            <field name="unit_of_measure"/>
+                        </group>
+                        <group>
+                            <field name="weight"/>
+                            <field name="is_current"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="owner_id"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Benchmark Tree View -->
+    <record id="view_wms_benchmark_tree" model="ir.ui.view">
+        <field name="name">wms.benchmark.tree</field>
+        <field name="model">wms.benchmark</field>
+        <field name="arch" type="xml">
+            <tree string="Benchmarks">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category"/>
+                <field name="benchmark_type"/>
+                <field name="value"/>
+                <field name="unit_of_measure"/>
+                <field name="year"/>
+                <field name="is_current"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Performance KPI Search View -->
+    <record id="view_wms_performance_kpi_search" model="ir.ui.view">
+        <field name="name">wms.performance.kpi.search</field>
+        <field name="model">wms.performance.kpi</field>
+        <field name="arch" type="xml">
+            <search string="Performance KPIs">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="owner_id"/>
+                <field name="source_model"/>
+                <field name="calculation_method"/>
+                <group expand="0" string="Group By">
+                    <filter string="Category" name="group_category" domain="[]" context="{'group_by':'category'}"/>
+                    <filter string="Owner" name="group_owner" domain="[]" context="{'group_by':'owner_id'}"/>
+                    <filter string="Calculation Method" name="group_method" domain="[]" context="{'group_by':'calculation_method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

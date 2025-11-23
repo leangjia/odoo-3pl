@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Handover Management Menu -->
+    <menuitem id="menu_wms_handover_root"
+              name="Handover Management"
+              parent="stock.menu_stock_warehouse_mgmt"
+              sequence="80"/>
+
+    <menuitem id="menu_wms_handover_list"
+              name="Handover Records"
+              parent="menu_wms_handover_root"
+              action="action_wms_handover_list"
+              sequence="10"/>
+
+    <!-- Actions -->
+    <record id="action_wms_handover_list" model="ir.actions.act_window">
+        <field name="name">Handover Records</field>
+        <field name="res_model">wms.handover</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new handover record
+            </p><p>
+                Track and manage handovers between parties for warehouse operations.
+            </p>
+        </field>
+    </record>
+</odoo>

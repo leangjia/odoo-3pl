@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Crossdock Match Tree View -->
+    <record id="view_wms_crossdock_match_tree" model="ir.ui.view">
+        <field name="name">wms.crossdock.match.tree</field>
+        <field name="model">wms.crossdock.match</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="status"/>
+                <field name="match_date"/>
+                <field name="total_inbound_qty"/>
+                <field name="total_outbound_qty"/>
+                <field name="match_score"/>
+                <field name="matching_algorithm"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Crossdock Match Form View -->
+    <record id="view_wms_crossdock_match_form" model="ir.ui.view">
+        <field name="name">wms.crossdock.match.form</field>
+        <field name="model">wms.crossdock.match</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm_match" type="object" string="Confirm Match" class="btn-primary" invisible="status != 'pending'"/>
+                    <button name="action_start_transit" type="object" string="Start Transit" invisible="status != 'confirmed'"/>
+                    <button name="action_complete_match" type="object" string="Complete Match" invisible="status != 'in_transit'"/>
+                    <button name="action_fail_match" type="object" string="Fail Match" invisible="status not in ['pending', 'confirmed', 'in_transit']"/>
+                    <field name="status" widget="statusbar" statusbar_visible="pending,confirmed,in_transit,completed,failed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="match_date"/>
+                            <field name="match_score"/>
+                            <field name="matching_algorithm"/>
+                        </group>
+                        <group>
+                            <field name="total_inbound_qty"/>
+                            <field name="total_outbound_qty"/>
+                        </group>
+                    </group>
+                    <group string="Pickings">
+                        <group>
+                            <field name="inbound_picking_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="outbound_picking_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group string="Operations">
+                        <field name="operation_ids"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Crossdock Match Search View -->
+    <record id="view_wms_crossdock_match_search" model="ir.ui.view">
+        <field name="name">wms.crossdock.match.search</field>
+        <field name="model">wms.crossdock.match</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="status"/>
+                <field name="match_date"/>
+                <field name="matching_algorithm"/>
+                <filter name="pending" string="Pending" domain="[('status', '=', 'pending')]"/>
+                <filter name="confirmed" string="Confirmed" domain="[('status', '=', 'confirmed')]"/>
+                <filter name="in_transit" string="In Transit" domain="[('status', '=', 'in_transit')]"/>
+                <filter name="completed" string="Completed" domain="[('status', '=', 'completed')]"/>
+                <filter name="failed" string="Failed" domain="[('status', '=', 'failed')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_algorithm" string="Algorithm" context="{'group_by': 'matching_algorithm'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

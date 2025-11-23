@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ABC Analysis Tree View -->
+    <record id="view_wms_abc_analysis_tree" model="ir.ui.view">
+        <field name="name">wms.abc.analysis.tree</field>
+        <field name="model">wms.abc.analysis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="analysis_date"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="status"/>
+                <field name="analysis_method"/>
+                <field name="total_products"/>
+                <field name="a_class_count"/>
+                <field name="b_class_count"/>
+                <field name="c_class_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ABC Analysis Form View -->
+    <record id="view_wms_abc_analysis_form" model="ir.ui.view">
+        <field name="name">wms.abc.analysis.form</field>
+        <field name="model">wms.abc.analysis</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_analysis" type="object" string="Start" class="btn-primary" invisible="status != 'draft'"/>
+                    <button name="action_run_analysis" type="object" string="Run Analysis" class="btn-success" invisible="status != 'in_progress'"/>
+                    <button name="action_archive_analysis" type="object" string="Archive" class="btn-secondary" invisible="status != 'completed'"/>
+                    <button name="action_generate_report" type="object" string="Report" class="btn-info" invisible="status != 'completed'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_report" type="object" class="oe_stat_button" icon="fa-file-text" invisible="status != 'completed'">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Report</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="analysis_method"/>
+                        </group>
+                        <group>
+                            <field name="analysis_date"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_products"/>
+                            <field name="a_class_count"/>
+                        </group>
+                        <group>
+                            <field name="b_class_count"/>
+                            <field name="c_class_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="ABC Rules">
+                            <field name="abc_rules">
+                                <tree editable="bottom">
+                                    <field name="abc_class"/>
+                                    <field name="name"/>
+                                    <field name="min_value"/>
+                                    <field name="max_value"/>
+                                    <field name="min_volume"/>
+                                    <field name="max_volume"/>
+                                    <field name="percentage"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Analysis Results">
+                            <field name="analysis_lines">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="abc_class"/>
+                                    <field name="value"/>
+                                    <field name="volume"/>
+                                    <field name="frequency"/>
+                                    <field name="unit_cost"/>
+                                    <field name="total_cost"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ABC Analysis Search View -->
+    <record id="view_wms_abc_analysis_search" model="ir.ui.view">
+        <field name="name">wms.abc.analysis.search</field>
+        <field name="model">wms.abc.analysis</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="status"/>
+                <field name="analysis_method"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <filter name="draft" string="Draft" domain="[('status', '=', 'draft')]"/>
+                <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter name="completed" string="Completed" domain="[('status', '=', 'completed')]"/>
+                <filter name="value_based" string="Value Based" domain="[('analysis_method', '=', 'value')]"/>
+                <filter name="volume_based" string="Volume Based" domain="[('analysis_method', '=', 'volume')]"/>
+                <filter name="frequency_based" string="Frequency Based" domain="[('analysis_method', '=', 'frequency')]"/>
+                <filter name="combined" string="Combined" domain="[('analysis_method', '=', 'combined')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_method" string="Method" context="{'group_by': 'analysis_method'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ABC Analysis Line Tree View -->
+    <record id="view_wms_abc_analysis_line_tree" model="ir.ui.view">
+        <field name="name">wms.abc.analysis.line.tree</field>
+        <field name="model">wms.abc.analysis.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="analysis_id"/>
+                <field name="product_id"/>
+                <field name="abc_class"/>
+                <field name="value"/>
+                <field name="volume"/>
+                <field name="frequency"/>
+                <field name="unit_cost"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

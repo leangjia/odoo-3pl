@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Return Authorization Sequence -->
+    <record id="seq_wms_return_authorization" model="ir.sequence">
+        <field name="name">Return Authorization</field>
+        <field name="code">wms.return.authorization</field>
+        <field name="prefix">RMA</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

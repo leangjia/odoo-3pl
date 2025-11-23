@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_packing_check_user,wms.packing.check.user,model_wms_packing_check,base.group_user,1,1,1,0
+access_wms_packing_check_manager,wms.packing.check.manager,model_wms_packing_check,base.group_erp_manager,1,1,1,1
+access_wms_packing_check_required_user,wms.packing.check.required.user,model_wms_packing_check_required,base.group_user,1,1,1,0
+access_wms_packing_check_required_manager,wms.packing.check.required.manager,model_wms_packing_check_required,base.group_erp_manager,1,1,1,1
+access_wms_packing_check_performed_user,wms.packing.check.performed.user,model_wms_packing_check_performed,base.group_user,1,1,1,0
+access_wms_packing_check_performed_manager,wms.packing.check.performed.manager,model_wms_packing_check_performed,base.group_erp_manager,1,1,1,1
+access_wms_packing_check_wizard_user,wms.packing.check.wizard.user,model_wms_packing_check_wizard,base.group_user,1,1,1,1
+access_wms_start_packing_check_wizard_user,wms.start.packing.check.wizard.user,model_wms_start_packing_check_wizard,base.group_user,1,1,1,1

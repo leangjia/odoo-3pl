@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quality Checklist Form View -->
+    <record id="view_wms_quality_checklist_form" model="ir.ui.view">
+        <field name="name">wms.quality.checklist.form</field>
+        <field name="model">wms.quality.checklist</field>
+        <field name="arch" type="xml">
+            <form string="Quality Checklist Item">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="item_id"/>
+                            <field name="result"/>
+                            <field name="criticality"/>
+                        </group>
+                        <group>
+                            <field name="qc_session_id"/>
+                            <field name="owner_id"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Quality Checklist Tree View -->
+    <record id="view_wms_quality_checklist_tree" model="ir.ui.view">
+        <field name="name">wms.quality.checklist.tree</field>
+        <field name="model">wms.quality.checklist</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Checklist Items">
+                <field name="item_id"/>
+                <field name="result"/>
+                <field name="criticality"/>
+                <field name="qc_session_id"/>
+                <field name="owner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Quality Issue Form View -->
+    <record id="view_wms_quality_issue_form" model="ir.ui.view">
+        <field name="name">wms.quality.issue.form</field>
+        <field name="model">wms.quality.issue</field>
+        <field name="arch" type="xml">
+            <form string="Quality Issue">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="severity"/>
+                            <field name="qc_session_id"/>
+                        </group>
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="picking_id"/>
+                            <field name="resolution_date"/>
+                            <field name="resolved_by"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <field name="description"/>
+                            <field name="resolution_notes"/>
+                        </page>
+                        <page string="Photos">
+                            <field name="photo_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="photo"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Quality Issue Tree View -->
+    <record id="view_wms_quality_issue_tree" model="ir.ui.view">
+        <field name="name">wms.quality.issue.tree</field>
+        <field name="model">wms.quality.issue</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Issues">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="severity"/>
+                <field name="status"/>
+                <field name="qc_session_id"/>
+                <field name="owner_id"/>
+                <field name="resolution_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Quality Corrective Action Form View -->
+    <record id="view_wms_quality_corrective_action_form" model="ir.ui.view">
+        <field name="name">wms.quality.corrective.action.form</field>
+        <field name="model">wms.quality.corrective_action</field>
+        <field name="arch" type="xml">
+            <form string="Corrective Action">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="issue_id"/>
+                            <field name="assigned_to"/>
+                        </group>
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="due_date"/>
+                            <field name="completed_date"/>
+                            <field name="completed_by"/>
+                        </group>
+                    </group>
+                    <group string="Action Details">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <group string="Results">
+                        <field name="result_description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Quality Corrective Action Tree View -->
+    <record id="view_wms_quality_corrective_action_tree" model="ir.ui.view">
+        <field name="name">wms.quality.corrective.action.tree</field>
+        <field name="model">wms.quality.corrective_action</field>
+        <field name="arch" type="xml">
+            <tree string="Corrective Actions">
+                <field name="name"/>
+                <field name="issue_id"/>
+                <field name="assigned_to"/>
+                <field name="status"/>
+                <field name="due_date"/>
+                <field name="owner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Quality Photo Form View -->
+    <record id="view_wms_quality_photo_form" model="ir.ui.view">
+        <field name="name">wms.quality.photo.form</field>
+        <field name="model">wms.quality_photo</field>
+        <field name="arch" type="xml">
+            <form string="Quality Photo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="qc_session_id"/>
+                            <field name="issue_id"/>
+                        </group>
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="photo"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Quality Photo Tree View -->
+    <record id="view_wms_quality_photo_tree" model="ir.ui.view">
+        <field name="name">wms.quality.photo.tree</field>
+        <field name="model">wms.quality_photo</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Photos">
+                <field name="name"/>
+                <field name="qc_session_id"/>
+                <field name="issue_id"/>
+                <field name="owner_id"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

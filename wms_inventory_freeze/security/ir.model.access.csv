@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_inventory_freeze_user,wms.inventory.freeze.user,model_wms_inventory_freeze,base.group_user,1,1,1,0
+access_wms_inventory_freeze_manager,wms.inventory.freeze.manager,model_wms_inventory_freeze,base.group_erp_manager,1,1,1,1
+access_wms_inventory_freeze_wizard_user,wms.inventory.freeze.wizard.user,model_wms_inventory_freeze_wizard,base.group_user,1,1,1,1
+access_wms_unfreeze_wizard_user,wms.unfreeze.wizard.user,model_wms_unfreeze_wizard,base.group_user,1,1,1,1

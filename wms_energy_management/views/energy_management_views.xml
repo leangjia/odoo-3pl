@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Energy Equipment Form View -->
+    <record id="view_wms_energy_equipment_form" model="ir.ui.view">
+        <field name="name">wms.energy.equipment.form</field>
+        <field name="model">wms.energy.equipment</field>
+        <field name="arch" type="xml">
+            <form string="Energy Equipment">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="equipment_type"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="energy_source"/>
+                            <field name="installation_date"/>
+                        </group>
+                    </group>
+                    <group string="Technical Specifications">
+                        <group>
+                            <field name="power_rating"/>
+                            <field name="voltage"/>
+                            <field name="current"/>
+                        </group>
+                        <group>
+                            <field name="efficiency_rating"/>
+                        </group>
+                    </group>
+                    <group string="Maintenance">
+                        <group>
+                            <field name="last_maintenance_date"/>
+                            <field name="next_maintenance_date"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Energy Equipment Tree View -->
+    <record id="view_wms_energy_equipment_tree" model="ir.ui.view">
+        <field name="name">wms.energy.equipment.tree</field>
+        <field name="model">wms.energy.equipment</field>
+        <field name="arch" type="xml">
+            <tree string="Energy Equipment">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="equipment_type"/>
+                <field name="location_id"/>
+                <field name="power_rating"/>
+                <field name="energy_source"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Energy Reading Form View -->
+    <record id="view_wms_energy_reading_form" model="ir.ui.view">
+        <field name="name">wms.energy.reading.form</field>
+        <field name="model">wms.energy.reading</field>
+        <field name="arch" type="xml">
+            <form string="Energy Reading">
+                <header>
+                    <button name="action_validate_reading" type="object" string="Validate Reading" class="btn-success" states="!is_validated"/>
+                    <field name="is_validated" widget="statusbar" statusbar_visible="False,True"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="equipment_id"/>
+                            <field name="reading_date"/>
+                            <field name="reading_type"/>
+                        </group>
+                        <group>
+                            <field name="energy_consumed"/>
+                            <field name="peak_demand"/>
+                            <field name="power_factor"/>
+                        </group>
+                    </group>
+                    <group string="Financial &amp; Environmental">
+                        <group>
+                            <field name="cost"/>
+                            <field name="carbon_emissions"/>
+                        </group>
+                    </group>
+                    <group string="Validation">
+                        <field name="is_validated"/>
+                        <field name="validated_by"/>
+                        <field name="validation_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Energy Reading Tree View -->
+    <record id="view_wms_energy_reading_tree" model="ir.ui.view">
+        <field name="name">wms.energy.reading.tree</field>
+        <field name="model">wms.energy.reading</field>
+        <field name="arch" type="xml">
+            <tree string="Energy Readings">
+                <field name="equipment_id"/>
+                <field name="reading_date"/>
+                <field name="energy_consumed"/>
+                <field name="peak_demand"/>
+                <field name="cost"/>
+                <field name="carbon_emissions"/>
+                <field name="is_validated"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Energy Report Form View -->
+    <record id="view_wms_energy_report_form" model="ir.ui.view">
+        <field name="name">wms.energy.report.form</field>
+        <field name="model">wms.energy.report</field>
+        <field name="arch" type="xml">
+            <form string="Energy Report">
+                <header>
+                    <button name="action_generate_report" type="object" string="Generate Report" class="btn-primary" states="draft"/>
+                    <button name="action_validate_report" type="object" string="Validate Report" class="btn-success" states="generated"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,generated,validated"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-bolt">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="total_energy_consumed"/></span>
+                                <span class="o_stat_text">kWh</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-dollar">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="total_cost"/></span>
+                                <span class="o_stat_text">Cost</span>
+                            </div>
+                        </button>
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-leaf">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="total_carbon_emissions"/></span>
+                                <span class="o_stat_text">kg CO2</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="report_code"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="report_date"/>
+                            <field name="status"/>
+                            <field name="warehouse_id"/>
+                        </group>
+                    </group>
+                    <group string="Period">
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                    </group>
+                    <group string="Summary">
+                        <group>
+                            <field name="total_energy_consumed"/>
+                            <field name="total_cost"/>
+                        </group>
+                        <group>
+                            <field name="total_carbon_emissions"/>
+                            <field name="energy_intensity"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Readings">
+                            <field name="reading_ids" readonly="1">
+                                <tree>
+                                    <field name="equipment_id"/>
+                                    <field name="reading_date"/>
+                                    <field name="energy_consumed"/>
+                                    <field name="cost"/>
+                                    <field name="carbon_emissions"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Energy Report Tree View -->
+    <record id="view_wms_energy_report_tree" model="ir.ui.view">
+        <field name="name">wms.energy.report.tree</field>
+        <field name="model">wms.energy.report</field>
+        <field name="arch" type="xml">
+            <tree string="Energy Reports">
+                <field name="report_code"/>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="report_date"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="total_energy_consumed"/>
+                <field name="total_cost"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Energy Target Form View -->
+    <record id="view_wms_energy_target_form" model="ir.ui.view">
+        <field name="name">wms.energy.target.form</field>
+        <field name="model">wms.energy.target</field>
+        <field name="arch" type="xml">
+            <form string="Energy Target">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="equipment_id"/>
+                        </group>
+                        <group>
+                            <field name="target_month"/>
+                            <field name="target_year"/>
+                        </group>
+                    </group>
+                    <group string="Targets &amp; Performance">
+                        <group>
+                            <field name="target_energy"/>
+                            <field name="actual_energy"/>
+                        </group>
+                        <group>
+                            <field name="variance"/>
+                            <field name="variance_percentage"/>
+                        </group>
+                    </group>
+                    <group string="Achievement">
+                        <field name="achieved"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Energy Target Tree View -->
+    <record id="view_wms_energy_target_tree" model="ir.ui.view">
+        <field name="name">wms.energy.target.tree</field>
+        <field name="model">wms.energy.target</field>
+        <field name="arch" type="xml">
+            <tree string="Energy Targets">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="target_month"/>
+                <field name="target_year"/>
+                <field name="target_energy"/>
+                <field name="actual_energy"/>
+                <field name="variance_percentage"/>
+                <field name="achieved"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Energy Alert Form View -->
+    <record id="view_wms_energy_alert_form" model="ir.ui.view">
+        <field name="name">wms.energy.alert.form</field>
+        <field name="model">wms.energy.alert</field>
+        <field name="arch" type="xml">
+            <form string="Energy Alert">
+                <header>
+                    <button name="action_resolve_alert" type="object" string="Resolve Alert" class="btn-success" states="!is_resolved"/>
+                    <field name="is_resolved" widget="statusbar" statusbar_visible="False,True"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="equipment_id"/>
+                        </group>
+                        <group>
+                            <field name="alert_type"/>
+                            <field name="severity"/>
+                            <field name="alert_date"/>
+                        </group>
+                    </group>
+                    <group string="Message">
+                        <field name="message" nolabel="1"/>
+                    </group>
+                    <group string="Resolution">
+                        <field name="is_resolved"/>
+                        <field name="resolved_by"/>
+                        <field name="resolved_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Energy Alert Tree View -->
+    <record id="view_wms_energy_alert_tree" model="ir.ui.view">
+        <field name="name">wms.energy.alert.tree</field>
+        <field name="model">wms.energy.alert</field>
+        <field name="arch" type="xml">
+            <tree string="Energy Alerts">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="alert_type"/>
+                <field name="severity"/>
+                <field name="alert_date"/>
+                <field name="is_resolved"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Energy Equipment Search View -->
+    <record id="view_wms_energy_equipment_search" model="ir.ui.view">
+        <field name="name">wms.energy.equipment.search</field>
+        <field name="model">wms.energy.equipment</field>
+        <field name="arch" type="xml">
+            <search string="Energy Equipment">
+                <field name="name"/>
+                <field name="equipment_type"/>
+                <field name="location_id"/>
+                <field name="energy_source"/>
+                <field name="is_active"/>
+                <group expand="0" string="Group By">
+                    <filter string="Equipment Type" name="group_type" domain="[]" context="{'group_by':'equipment_type'}"/>
+                    <filter string="Location" name="group_location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <filter string="Energy Source" name="group_source" domain="[]" context="{'group_by':'energy_source'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Energy Reading Search View -->
+    <record id="view_wms_energy_reading_search" model="ir.ui.view">
+        <field name="name">wms.energy.reading.search</field>
+        <field name="model">wms.energy.reading</field>
+        <field name="arch" type="xml">
+            <search string="Energy Readings">
+                <field name="equipment_id"/>
+                <field name="reading_date"/>
+                <field name="reading_type"/>
+                <field name="is_validated"/>
+                <group expand="0" string="Group By">
+                    <filter string="Equipment" name="group_equipment" domain="[]" context="{'group_by':'equipment_id'}"/>
+                    <filter string="Reading Type" name="group_reading_type" domain="[]" context="{'group_by':'reading_type'}"/>
+                    <filter string="Validation Status" name="group_validation" domain="[]" context="{'group_by':'is_validated'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Energy Report Search View -->
+    <record id="view_wms_energy_report_search" model="ir.ui.view">
+        <field name="name">wms.energy.report.search</field>
+        <field name="model">wms.energy.report</field>
+        <field name="arch" type="xml">
+            <search string="Energy Reports">
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="report_date"/>
+                <field name="status"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <group expand="0" string="Group By">
+                    <filter string="Owner" name="group_owner" domain="[]" context="{'group_by':'owner_id'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'status'}"/>
+                    <filter string="Report Date" name="group_report_date" domain="[]" context="{'group_by':'report_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

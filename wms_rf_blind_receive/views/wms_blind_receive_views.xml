@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Blind Receive Tree View -->
+    <record id="view_wms_blind_receive_tree" model="ir.ui.view">
+        <field name="name">wms.blind.receive.tree</field>
+        <field name="model">wms.blind.receive</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="picking_id"/>
+                <field name="status"/>
+                <field name="discrepancy_count"/>
+                <field name="start_date"/>
+                <field name="completion_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Blind Receive Form View -->
+    <record id="view_wms_blind_receive_form" model="ir.ui.view">
+        <field name="name">wms.blind.receive.form</field>
+        <field name="model">wms.blind.receive</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_blind_receive" type="object" string="Start" class="btn-primary" invisible="status != 'draft'"/>
+                    <button name="action_complete_blind_receive" type="object" string="Complete" class="btn-success" invisible="status != 'in_progress'"/>
+                    <button name="action_cancel_blind_receive" type="object" string="Cancel" class="btn-danger" invisible="status not in ['draft', 'in_progress']"/>
+                    <button name="action_generate_report" type="object" string="Generate Report" class="btn-secondary" invisible="status == 'draft'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_report" type="object" class="oe_stat_button" icon="fa-file-text" invisible="status == 'draft'">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Report</span>
+                                <span class="o_stat_text">Discrepancies: </span>
+                                <field name="discrepancy_count" widget="statinfo"/>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="picking_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="completion_date"/>
+                            <field name="discrepancy_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expected Products">
+                            <field name="expected_products">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="expected_quantity"/>
+                                    <field name="lot_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Received Products">
+                            <field name="received_products">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="received_quantity"/>
+                                    <field name="lot_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="received_by"/>
+                                    <field name="receive_date"/>
+                                    <field name="is_matched"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Blind Receive Search View -->
+    <record id="view_wms_blind_receive_search" model="ir.ui.view">
+        <field name="name">wms.blind.receive.search</field>
+        <field name="model">wms.blind.receive</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="picking_id"/>
+                <field name="status"/>
+                <field name="discrepancy_count"/>
+                <filter name="draft" string="Draft" domain="[('status', '=', 'draft')]"/>
+                <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter name="completed" string="Completed" domain="[('status', '=', 'completed')]"/>
+                <filter name="cancelled" string="Cancelled" domain="[('status', '=', 'cancelled')]"/>
+                <filter name="with_discrepancies" string="With Discrepancies" domain="[('discrepancy_count', '>', 0)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_picking" string="Picking" context="{'group_by': 'picking_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Expected Products Tree View -->
+    <record id="view_wms_blind_receive_expected_tree" model="ir.ui.view">
+        <field name="name">wms.blind.receive.expected.tree</field>
+        <field name="model">wms.blind.receive.expected</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="blind_receive_id"/>
+                <field name="product_id"/>
+                <field name="expected_quantity"/>
+                <field name="lot_id"/>
+                <field name="uom_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Received Products Tree View -->
+    <record id="view_wms_blind_receive_received_tree" model="ir.ui.view">
+        <field name="name">wms.blind.receive.received.tree</field>
+        <field name="model">wms.blind.receive.received</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="blind_receive_id"/>
+                <field name="product_id"/>
+                <field name="received_quantity"/>
+                <field name="lot_id"/>
+                <field name="uom_id"/>
+                <field name="received_by"/>
+                <field name="receive_date"/>
+                <field name="is_matched"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

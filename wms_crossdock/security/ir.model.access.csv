@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_crossdock_operation_user,wms.crossdock.operation.user,model_wms_crossdock_operation,base.group_user,1,1,1,0
+access_wms_crossdock_operation_manager,wms.crossdock.operation.manager,model_wms_crossdock_operation,base.group_erp_manager,1,1,1,1
+access_wms_crossdock_match_user,wms.crossdock.match.user,model_wms_crossdock_match,base.group_user,1,1,1,0
+access_wms_crossdock_match_manager,wms.crossdock.match.manager,model_wms_crossdock_match,base.group_erp_manager,1,1,1,1

@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_dashboard_template_user,wms.dashboard.template.user,model_wms_dashboard_template,base.group_user,1,1,1,1
+access_wms_dashboard_widget_user,wms.dashboard.widget.user,model_wms_dashboard_widget,base.group_user,1,1,1,1
+access_wms_performance_kpi_user,wms.performance.kpi.user,model_wms_performance_kpi,base.group_user,1,1,1,1
+access_wms_performance_report_user,wms.performance.report.user,model_wms_performance_report,base.group_user,1,1,1,1
+access_wms_alert_user,wms.alert.user,model_wms_alert,base.group_user,1,1,1,1
+access_wms_benchmark_user,wms.benchmark.user,model_wms_benchmark,base.group_user,1,1,1,1

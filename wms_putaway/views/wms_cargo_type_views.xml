@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cargo Type Tree View -->
+    <record id="view_wms_cargo_type_tree" model="ir.ui.view">
+        <field name="name">wms.cargo.type.tree</field>
+        <field name="model">wms.cargo.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="storage_requirements"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Cargo Type Form View -->
+    <record id="view_wms_cargo_type_form" model="ir.ui.view">
+        <field name="name">wms.cargo.type.form</field>
+        <field name="model">wms.cargo.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="special_equipment_required"/>
+                            <field name="insurance_required"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Handling">
+                            <field name="handling_instructions"/>
+                        </page>
+                        <page string="Storage">
+                            <group>
+                                <field name="storage_requirements"/>
+                                <field name="temperature_range"/>
+                                <field name="humidity_range"/>
+                            </group>
+                        </page>
+                        <page string="Equipment">
+                            <group>
+                                <field name="special_equipment_required"/>
+                                <field name="special_equipment_type" attrs="{'invisible': [('special_equipment_required', '=', False)]}"/>
+                            </group>
+                        </page>
+                        <page string="Insurance">
+                            <group>
+                                <field name="insurance_required"/>
+                                <field name="insurance_notes" attrs="{'invisible': [('insurance_required', '=', False)]}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Cargo Type Search View -->
+    <record id="view_wms_cargo_type_search" model="ir.ui.view">
+        <field name="name">wms.cargo.type.search</field>
+        <field name="model">wms.cargo.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="storage_requirements"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

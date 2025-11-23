@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_labor_activity_user,wms.labor.activity.user,model_wms_labor_activity,base.group_user,1,1,1,1
+access_wms_labor_task_user,wms.labor.task.user,model_wms_labor_task,base.group_user,1,1,1,1
+access_wms_labor_schedule_user,wms.labor.schedule.user,model_wms_labor_schedule,base.group_user,1,1,1,1
+access_wms_employee_skill_user,wms.employee.skill.user,model_wms_employee_skill,base.group_user,1,1,1,1
+access_wms_labor_performance_user,wms.labor.performance.user,model_wms_labor_performance,base.group_user,1,1,1,1
+access_wms_labor_cost_user,wms.labor.cost.user,model_wms_labor_cost,base.group_user,1,1,1,1

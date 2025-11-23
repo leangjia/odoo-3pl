@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Stock Picking Views for Blind Receive -->
+
+    <!-- Add blind receive fields to Stock Picking form view -->
+    <record id="view_stock_picking_form_blind_receive" model="ir.ui.view">
+        <field name="name">stock.picking.form.blind.receive</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_start_blind_receive" type="object" class="oe_stat_button" icon="fa-blind" invisible="state in ('done', 'cancel') or blind_receive_count > 0">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Start Blind Receive</span>
+                    </div>
+                </button>
+                <button name="action_view_blind_receive" type="object" class="oe_stat_button" icon="fa-list" invisible="blind_receive_count == 0">
+                    <field string="Blind Receive" name="blind_receive_count" widget="statinfo"/>
+                </button>
+            </div>
+            <notebook position="inside">
+                <page string="Blind Receive Sessions" invisible="blind_receive_count == 0">
+                    <field name="blind_receive_ids" nolabel="1" readonly="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Add blind receive fields to Stock Picking tree view -->
+    <record id="view_stock_picking_tree_blind_receive" model="ir.ui.view">
+        <field name="name">stock.picking.tree.blind.receive</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="blind_receive_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add blind receive filter to Stock Picking search view -->
+    <record id="view_stock_picking_search_blind_receive" model="ir.ui.view">
+        <field name="name">stock.picking.search.blind.receive</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="blind_receive_ids"/>
+            </field>
+            <filter name="my_activities" position="before">
+                <filter name="with_blind_receive" string="With Blind Receive" domain="[('blind_receive_ids', '!=', [])]"/>
+            </filter>
+            <group expand="0" string="Group By">
+                <filter name="group_by_blind_receive" string="Blind Receive" context="{'group_by': 'blind_receive_ids'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

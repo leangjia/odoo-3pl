@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_cost_center_user,wms.cost.center.user,model_wms_cost_center,base.group_user,1,1,1,1
+access_wms_service_type_user,wms.service.type.user,model_wms_service_type,base.group_user,1,1,1,1
+access_wms_service_pricing_user,wms.service.pricing.user,model_wms_service_pricing,base.group_user,1,1,1,1
+access_wms_financial_transaction_user,wms.financial.transaction.user,model_wms_financial_transaction,base.group_user,1,1,1,1
+access_wms_cost_allocation_user,wms.cost.allocation.user,model_wms_cost_allocation,base.group_user,1,1,1,1
+access_wms_financial_report_user,wms.financial.report.user,model_wms_financial_report,base.group_user,1,1,1,1
+access_wms_invoice_integration_user,wms.invoice.integration.user,model_wms_invoice_integration,base.group_user,1,1,1,1

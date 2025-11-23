@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Work Zone Tree View -->
+    <record id="view_wms_workzone_tree" model="ir.ui.view">
+        <field name="name">wms.workzone.tree</field>
+        <field name="model">wms.workzone</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="warehouse_id"/>
+                <field name="zone_type"/>
+                <field name="utilization_rate"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Work Zone Form View -->
+    <record id="view_wms_workzone_form" model="ir.ui.view">
+        <field name="name">wms.workzone.form</field>
+        <field name="model">wms.workzone</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="warehouse_id"/>
+                        </group>
+                        <group>
+                            <field name="zone_type"/>
+                            <field name="capacity"/>
+                            <field name="current_utilization"/>
+                            <field name="utilization_rate"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Locations">
+                            <field name="location_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </page>
+                        <page string="Responsibilities">
+                            <field name="responsible_user_ids" widget="many2many_tags" options="{'color_field': 'id'}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Work Zone Search View -->
+    <record id="view_wms_workzone_search" model="ir.ui.view">
+        <field name="name">wms.workzone.search</field>
+        <field name="model">wms.workzone</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="warehouse_id"/>
+                <field name="zone_type"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_warehouse" string="Warehouse" context="{'group_by': 'warehouse_id'}"/>
+                    <filter name="group_by_type" string="Zone Type" context="{'group_by': 'zone_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

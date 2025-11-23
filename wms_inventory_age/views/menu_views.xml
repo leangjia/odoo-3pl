@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inventory Age Analysis Management Menu -->
+    <menuitem id="menu_wms_inventory_age_root"
+              name="Inventory Age Analysis"
+              parent="stock.menu_stock_inventory_control"
+              sequence="110"/>
+
+    <menuitem id="menu_wms_inventory_age_report"
+              name="Inventory Age Report"
+              parent="menu_wms_inventory_age_root"
+              action="action_wms_inventory_age_report"
+              sequence="10"/>
+
+    <menuitem id="menu_wms_inventory_age_alerts"
+              name="Age Alerts"
+              parent="menu_wms_inventory_age_root"
+              action="action_wms_inventory_age_alert_list"
+              sequence="20"/>
+
+    <menuitem id="menu_wms_inventory_age_config"
+              name="Configuration"
+              parent="menu_wms_inventory_age_root"
+              action="action_wms_inventory_age_config_list"
+              sequence="30"/>
+
+    <!-- Actions -->
+    <record id="action_wms_inventory_age_report" model="ir.actions.act_window">
+        <field name="name">Inventory Age Report</field>
+        <field name="res_model">wms.inventory.age.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Generate an inventory age report
+            </p><p>
+                Analyze inventory by age to identify slow-moving or obsolete items.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_inventory_age_alert_list" model="ir.actions.act_window">
+        <field name="name">Inventory Age Alerts</field>
+        <field name="res_model">wms.inventory.age.alert</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                View inventory age alerts
+            </p><p>
+                Monitor and manage aged inventory with automatic alerts.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_inventory_age_config_list" model="ir.actions.act_window">
+        <field name="name">Inventory Age Configuration</field>
+        <field name="res_model">wms.inventory.age.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure inventory age settings
+            </p><p>
+                Set age thresholds and alert configurations.
+            </p>
+        </field>
+    </record>
+</odoo>

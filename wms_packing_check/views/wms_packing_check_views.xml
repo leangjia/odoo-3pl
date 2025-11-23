@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Packing Check Tree View -->
+    <record id="view_wms_packing_check_tree" model="ir.ui.view">
+        <field name="name">wms.packing.check.tree</field>
+        <field name="model">wms.packing.check</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="picking_id"/>
+                <field name="status"/>
+                <field name="checker_id"/>
+                <field name="pass_rate"/>
+                <field name="total_items"/>
+                <field name="passed_items"/>
+                <field name="failed_items"/>
+                <field name="check_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Packing Check Form View -->
+    <record id="view_wms_packing_check_form" model="ir.ui.view">
+        <field name="name">wms.packing.check.form</field>
+        <field name="model">wms.packing.check</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_check" type="object" string="Start Check" class="btn-primary" invisible="status != 'draft'"/>
+                    <button name="action_complete_check" type="object" string="Complete" class="btn-success" invisible="status != 'in_progress'"/>
+                    <button name="action_approve_check" type="object" string="Approve" class="btn-success" invisible="status not in ['in_progress', 'failed']"/>
+                    <button name="action_reject_check" type="object" string="Reject" class="btn-danger" invisible="status not in ['in_progress', 'passed']"/>
+                    <button name="action_generate_report" type="object" string="Report" class="btn-secondary" invisible="status == 'draft'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,passed,failed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_report" type="object" class="oe_stat_button" icon="fa-file-text" invisible="status == 'draft'">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Report</span>
+                                <span class="o_stat_text">Pass Rate: </span>
+                                <field name="pass_rate" widget="statinfo" digits="[1,2]"/>%
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="picking_id"/>
+                            <field name="checker_id"/>
+                        </group>
+                        <group>
+                            <field name="check_date"/>
+                            <field name="completion_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_items"/>
+                            <field name="passed_items"/>
+                        </group>
+                        <group>
+                            <field name="failed_items"/>
+                            <field name="pass_rate" digits="[1,2]"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="container_ids" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Required Checks">
+                            <field name="required_checks">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="expected_quantity"/>
+                                    <field name="lot_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Performed Checks">
+                            <field name="performed_checks">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="checked_quantity"/>
+                                    <field name="lot_id"/>
+                                    <field name="result"/>
+                                    <field name="uom_id"/>
+                                    <field name="container_id"/>
+                                    <field name="checked_by"/>
+                                    <field name="check_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Packing Check Search View -->
+    <record id="view_wms_packing_check_search" model="ir.ui.view">
+        <field name="name">wms.packing.check.search</field>
+        <field name="model">wms.packing.check</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="picking_id"/>
+                <field name="status"/>
+                <field name="checker_id"/>
+                <field name="pass_rate"/>
+                <filter name="draft" string="Draft" domain="[('status', '=', 'draft')]"/>
+                <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter name="passed" string="Passed" domain="[('status', '=', 'passed')]"/>
+                <filter name="failed" string="Failed" domain="[('status', '=', 'failed')]"/>
+                <filter name="high_pass_rate" string="High Pass Rate" domain="[('pass_rate', '>=', 95.0)]"/>
+                <filter name="low_pass_rate" string="Low Pass Rate" domain="[('pass_rate', '<', 95.0)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_checker" string="Checker" context="{'group_by': 'checker_id'}"/>
+                    <filter name="group_by_picking" string="Picking" context="{'group_by': 'picking_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

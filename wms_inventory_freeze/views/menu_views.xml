@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inventory Freeze Management Menu -->
+    <menuitem id="menu_wms_inventory_freeze_root"
+              name="Inventory Freeze"
+              parent="stock.menu_stock_inventory_control"
+              sequence="60"/>
+
+    <menuitem id="menu_wms_inventory_freeze_list"
+              name="Inventory Freeze Records"
+              parent="menu_wms_inventory_freeze_root"
+              action="action_wms_inventory_freeze_list"
+              sequence="10"/>
+
+    <!-- Actions -->
+    <record id="action_wms_inventory_freeze_list" model="ir.actions.act_window">
+        <field name="name">Inventory Freeze Records</field>
+        <field name="res_model">wms.inventory.freeze</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new inventory freeze record
+            </p><p>
+                Freeze inventory for quality control, investigations, or other business needs.
+            </p>
+        </field>
+    </record>
+</odoo>

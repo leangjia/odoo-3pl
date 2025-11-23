@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Safety Management Menu -->
+    <menuitem id="menu_wms_safety_management_root"
+              name="Safety Management"
+              parent="hr.menu_hr_root"
+              sequence="130"/>
+
+    <menuitem id="menu_wms_safety_incidents"
+              name="Safety Incidents"
+              parent="menu_wms_safety_management_root"
+              action="action_wms_safety_incident_list"
+              sequence="10"/>
+
+    <menuitem id="menu_wms_safety_training"
+              name="Safety Training"
+              parent="menu_wms_safety_management_root"
+              action="action_wms_safety_training_list"
+              sequence="20"/>
+
+    <menuitem id="menu_wms_safety_ppe"
+              name="PPE Management"
+              parent="menu_wms_safety_management_root"
+              action="action_wms_safety_ppe_list"
+              sequence="30"/>
+
+    <menuitem id="menu_wms_safety_inspections"
+              name="Safety Inspections"
+              parent="menu_wms_safety_management_root"
+              action="action_wms_safety_inspection_list"
+              sequence="40"/>
+
+    <menuitem id="menu_wms_safety_compliance"
+              name="Safety Compliance"
+              parent="menu_wms_safety_management_root"
+              action="action_wms_safety_compliance_list"
+              sequence="50"/>
+
+    <menuitem id="menu_wms_safety_risks"
+              name="Risk Assessments"
+              parent="menu_wms_safety_management_root"
+              action="action_wms_safety_risk_list"
+              sequence="60"/>
+
+    <!-- Actions -->
+    <record id="action_wms_safety_incident_list" model="ir.actions.act_window">
+        <field name="name">Safety Incidents</field>
+        <field name="res_model">wms.safety.incident</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Report safety incidents
+            </p><p>
+                Track and manage workplace safety incidents and near misses.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_safety_training_list" model="ir.actions.act_window">
+        <field name="name">Safety Training</field>
+        <field name="res_model">wms.safety.training</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage safety training
+            </p><p>
+                Plan and track safety training programs for employees.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_safety_ppe_list" model="ir.actions.act_window">
+        <field name="name">PPE Management</field>
+        <field name="res_model">wms.safety.ppe</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage PPE inventory
+            </p><p>
+                Track personal protective equipment inventory and requirements.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_safety_inspection_list" model="ir.actions.act_window">
+        <field name="name">Safety Inspections</field>
+        <field name="res_model">wms.safety.inspection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Conduct safety inspections
+            </p><p>
+                Schedule and track safety inspections and audits.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_safety_compliance_list" model="ir.actions.act_window">
+        <field name="name">Safety Compliance</field>
+        <field name="res_model">wms.safety.compliance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Track compliance
+            </p><p>
+                Monitor compliance with safety regulations and standards.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_safety_risk_list" model="ir.actions.act_window">
+        <field name="name">Risk Assessments</field>
+        <field name="res_model">wms.safety.risk</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Assess risks
+            </p><p>
+                Identify and assess workplace safety risks.
+            </p>
+        </field>
+    </record>
+</odoo>

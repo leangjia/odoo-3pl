@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Container Tree View -->
+    <record id="view_wms_container_tree" model="ir.ui.view">
+        <field name="name">wms.container.tree</field>
+        <field name="model">wms.container</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="container_type"/>
+                <field name="owner_id"/>
+                <field name="location_id"/>
+                <field name="status"/>
+                <field name="current_load"/>
+                <field name="capacity"/>
+                <field name="load_percentage"/>
+                <field name="is_active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Container Form View -->
+    <record id="view_wms_container_form" model="ir.ui.view">
+        <field name="name">wms.container.form</field>
+        <field name="model">wms.container</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_assign_to_location" type="object" class="oe_stat_button" icon="fa-map-marker">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Assign Location</span>
+                            </div>
+                        </button>
+                        <button name="action_scan_container" type="object" class="oe_stat_button" icon="fa-qrcode">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Scan</span>
+                            </div>
+                        </button>
+                        <button name="action_pack_contents" type="object" class="oe_stat_button" icon="fa-cube">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Pack Contents</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="barcode"/>
+                            <field name="container_type"/>
+                            <field name="owner_id"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="capacity"/>
+                            <field name="current_load"/>
+                            <field name="load_percentage"/>
+                        </group>
+                    </group>
+                    <group string="Hierarchy">
+                        <group>
+                            <field name="parent_container_id"/>
+                        </group>
+                        <group>
+                            <field name="child_containers" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contents">
+                            <field name="contents">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="lot_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="expiry_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Container Search View -->
+    <record id="view_wms_container_search" model="ir.ui.view">
+        <field name="name">wms.container.search</field>
+        <field name="model">wms.container</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="container_type"/>
+                <field name="owner_id"/>
+                <field name="location_id"/>
+                <field name="status"/>
+                <filter name="empty" string="Empty" domain="[('status', '=', 'empty')]"/>
+                <filter name="partial" string="Partial" domain="[('status', '=', 'partial')]"/>
+                <filter name="full" string="Full" domain="[('status', '=', 'full')]"/>
+                <filter name="in_transit" string="In Transit" domain="[('status', '=', 'in_transit')]"/>
+                <filter name="active" string="Active" domain="[('is_active', '=', True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('is_active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_type" string="Type" context="{'group_by': 'container_type'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_location" string="Location" context="{'group_by': 'location_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Container Content Tree View -->
+    <record id="view_wms_container_content_tree" model="ir.ui.view">
+        <field name="name">wms.container.content.tree</field>
+        <field name="model">wms.container.content</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="container_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="quantity"/>
+                <field name="uom_id"/>
+                <field name="expiry_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Container Content Form View -->
+    <record id="view_wms_container_content_form" model="ir.ui.view">
+        <field name="name">wms.container.content.form</field>
+        <field name="model">wms.container.content</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="container_id"/>
+                    <field name="product_id"/>
+                    <field name="lot_id"/>
+                    <field name="quantity"/>
+                    <field name="uom_id"/>
+                    <field name="expiry_date"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

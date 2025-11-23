@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ABC Analysis Management Menu -->
+    <menuitem id="menu_wms_abc_analysis_root"
+              name="ABC Analysis"
+              parent="stock.menu_stock_inventory_control"
+              sequence="100"/>
+
+    <menuitem id="menu_wms_abc_analysis_list"
+              name="ABC Analysis Sessions"
+              parent="menu_wms_abc_analysis_root"
+              action="action_wms_abc_analysis_list"
+              sequence="10"/>
+
+    <!-- Actions -->
+    <record id="action_wms_abc_analysis_list" model="ir.actions.act_window">
+        <field name="name">ABC Analysis Sessions</field>
+        <field name="res_model">wms.abc.analysis</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new ABC analysis session
+            </p><p>
+                Analyze products based on value and frequency for inventory optimization.
+            </p>
+        </field>
+    </record>
+</odoo>

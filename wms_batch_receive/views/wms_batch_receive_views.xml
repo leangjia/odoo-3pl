@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Batch Receive Tree View -->
+    <record id="view_wms_batch_receive_tree" model="ir.ui.view">
+        <field name="name">wms.batch.receive.tree</field>
+        <field name="model">wms.batch.receive</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="status"/>
+                <field name="receive_date"/>
+                <field name="total_pickings"/>
+                <field name="completed_pickings"/>
+                <field name="progress_percentage"/>
+                <field name="received_by"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Batch Receive Form View -->
+    <record id="view_wms_batch_receive_form" model="ir.ui.view">
+        <field name="name">wms.batch.receive.form</field>
+        <field name="model">wms.batch.receive</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_batch_receive" type="object" string="Start" class="btn-primary" invisible="status != 'draft'"/>
+                    <button name="action_complete_batch_receive" type="object" string="Complete" class="btn-success" invisible="status != 'in_progress'"/>
+                    <button name="action_cancel_batch_receive" type="object" string="Cancel" class="btn-danger" invisible="status not in ['draft', 'in_progress']"/>
+                    <button name="action_generate_report" type="object" string="Report" class="btn-secondary" invisible="status == 'draft'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,partial,completed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_add_picking" type="object" class="oe_stat_button" icon="fa-plus" invisible="status != 'in_progress'">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Add Picking</span>
+                            </div>
+                        </button>
+                        <button name="action_generate_report" type="object" class="oe_stat_button" icon="fa-file-text" invisible="status == 'draft'">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Report</span>
+                                <span class="o_stat_text">Progress: </span>
+                                <field name="progress_percentage" widget="statinfo" digits="[1,2]"/>%
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="received_by"/>
+                        </group>
+                        <group>
+                            <field name="receive_date"/>
+                            <field name="completion_date"/>
+                            <field name="expected_arrival_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_pickings"/>
+                            <field name="completed_pickings"/>
+                        </group>
+                        <group>
+                            <field name="progress_percentage" digits="[1,2]"/>
+                            <field name="location_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Batch Pickings">
+                            <field name="batch_picking_ids">
+                                <tree editable="top">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="picking_id"/>
+                                    <field name="priority"/>
+                                    <field name="status"/>
+                                    <field name="expected_quantity"/>
+                                    <field name="received_quantity"/>
+                                    <field name="received_by"/>
+                                    <field name="receive_date"/>
+                                    <field name="completion_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Batch Receive Search View -->
+    <record id="view_wms_batch_receive_search" model="ir.ui.view">
+        <field name="name">wms.batch.receive.search</field>
+        <field name="model">wms.batch.receive</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="status"/>
+                <field name="received_by"/>
+                <field name="progress_percentage"/>
+                <filter name="draft" string="Draft" domain="[('status', '=', 'draft')]"/>
+                <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter name="partial" string="Partial" domain="[('status', '=', 'partial')]"/>
+                <filter name="completed" string="Completed" domain="[('status', '=', 'completed')]"/>
+                <filter name="high_progress" string="High Progress" domain="[('progress_percentage', '>=', 90.0)]"/>
+                <filter name="low_progress" string="Low Progress" domain="[('progress_percentage', '<', 50.0)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_received_by" string="Received By" context="{'group_by': 'received_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

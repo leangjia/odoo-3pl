@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Stock Picking Views for Packing Check -->
+
+    <!-- Add packing check fields to Stock Picking form view -->
+    <record id="view_stock_picking_form_packing_check" model="ir.ui.view">
+        <field name="name">stock.picking.form.packing.check</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_start_packing_check" type="object" class="oe_stat_button" icon="fa-check-circle" invisible="state in ('done', 'cancel') or packing_check_count > 0">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Start Packing Check</span>
+                    </div>
+                </button>
+                <button name="action_view_packing_checks" type="object" class="oe_stat_button" icon="fa-list" invisible="packing_check_count == 0">
+                    <field string="Packing Checks" name="packing_check_count" widget="statinfo"/>
+                </button>
+            </div>
+            <notebook position="inside">
+                <page string="Packing Checks" invisible="packing_check_count == 0">
+                    <field name="packing_check_ids" nolabel="1" readonly="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Add packing check fields to Stock Picking tree view -->
+    <record id="view_stock_picking_tree_packing_check" model="ir.ui.view">
+        <field name="name">stock.picking.tree.packing.check</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="packing_check_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add packing check filter to Stock Picking search view -->
+    <record id="view_stock_picking_search_packing_check" model="ir.ui.view">
+        <field name="name">stock.picking.search.packing.check</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="packing_check_ids"/>
+            </field>
+            <filter name="my_activities" position="before">
+                <filter name="with_packing_check" string="With Packing Check" domain="[('packing_check_ids', '!=', [])]"/>
+            </filter>
+            <group expand="0" string="Group By">
+                <filter name="group_by_packing_check" string="Packing Check" context="{'group_by': 'packing_check_ids'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

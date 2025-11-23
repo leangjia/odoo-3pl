@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_energy_equipment_user,wms.energy.equipment.user,model_wms_energy_equipment,base.group_user,1,1,1,1
+access_wms_energy_reading_user,wms.energy.reading.user,model_wms_energy_reading,base.group_user,1,1,1,1
+access_wms_energy_report_user,wms.energy.report.user,model_wms_energy_report,base.group_user,1,1,1,1
+access_wms_energy_target_user,wms.energy.target.user,model_wms_energy_target,base.group_user,1,1,1,1
+access_wms_energy_alert_user,wms.energy.alert.user,model_wms_energy_alert,base.group_user,1,1,1,1
+access_wms_energy_dashboard_user,wms.energy.dashboard.user,model_wms_energy_dashboard,base.group_user,1,1,1,1

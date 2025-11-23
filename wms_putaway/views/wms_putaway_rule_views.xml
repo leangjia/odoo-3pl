@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Putaway Rule Tree View -->
+    <record id="view_wms_putaway_rule_tree" model="ir.ui.view">
+        <field name="name">wms.putaway.rule.tree</field>
+        <field name="model">wms.putaway.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="product_id"/>
+                <field name="location_in_id"/>
+                <field name="location_out_id"/>
+                <field name="priority"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Putaway Rule Form View -->
+    <record id="view_wms_putaway_rule_form" model="ir.ui.view">
+        <field name="name">wms.putaway.rule.form</field>
+        <field name="model">wms.putaway.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="product_category_id"/>
+                            <field name="abc_category"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="location_in_id"/>
+                            <field name="location_out_id"/>
+                        </group>
+                        <group>
+                            <field name="max_capacity"/>
+                            <field name="priority"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Putaway Rule Search View -->
+    <record id="view_wms_putaway_rule_search" model="ir.ui.view">
+        <field name="name">wms.putaway.rule.search</field>
+        <field name="model">wms.putaway.rule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="product_id"/>
+                <field name="abc_category"/>
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

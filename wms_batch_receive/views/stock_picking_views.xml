@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Stock Picking Views for Batch Receive -->
+
+    <!-- Add batch receive fields to Stock Picking form view -->
+    <record id="view_stock_picking_form_batch_receive" model="ir.ui.view">
+        <field name="name">stock.picking.form.batch.receive</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_start_batch_receive" type="object" class="oe_stat_button" icon="fa-object-group" invisible="state in ('done', 'cancel') or batch_receive_count > 0">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Start Batch Receive</span>
+                    </div>
+                </button>
+                <button name="action_add_to_batch_receive" type="object" class="oe_stat_button" icon="fa-plus" invisible="state in ('done', 'cancel') or batch_receive_count > 0">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Add to Batch</span>
+                    </div>
+                </button>
+                <button name="action_view_batch_receives" type="object" class="oe_stat_button" icon="fa-list" invisible="batch_receive_count == 0">
+                    <field string="Batch Receives" name="batch_receive_count" widget="statinfo"/>
+                </button>
+            </div>
+            <notebook position="inside">
+                <page string="Batch Receives" invisible="batch_receive_count == 0">
+                    <field name="batch_receive_picking_ids" nolabel="1" readonly="1">
+                        <tree>
+                            <field name="batch_receive_id"/>
+                            <field name="status"/>
+                            <field name="priority"/>
+                            <field name="receive_date"/>
+                            <field name="completion_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <!-- Add batch receive fields to Stock Picking tree view -->
+    <record id="view_stock_picking_tree_batch_receive" model="ir.ui.view">
+        <field name="name">stock.picking.tree.batch.receive</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="batch_receive_count" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add batch receive filter to Stock Picking search view -->
+    <record id="view_stock_picking_search_batch_receive" model="ir.ui.view">
+        <field name="name">stock.picking.search.batch.receive</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="batch_receive_picking_ids"/>
+            </field>
+            <filter name="my_activities" position="before">
+                <filter name="with_batch_receive" string="With Batch Receive" domain="[('batch_receive_picking_ids', '!=', [])]"/>
+            </filter>
+            <group expand="0" string="Group By">
+                <filter name="group_by_batch_receive" string="Batch Receive" context="{'group_by': 'batch_receive_picking_ids'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

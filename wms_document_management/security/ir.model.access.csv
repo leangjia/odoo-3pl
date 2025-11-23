@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_document_category_user,wms.document.category.user,model_wms_document_category,base.group_user,1,1,1,1
+access_wms_document_tag_user,wms.document.tag.user,model_wms_document_tag,base.group_user,1,1,1,1
+access_wms_document_user,wms.document.user,model_wms_document,base.group_user,1,1,1,1
+access_wms_document_template_user,wms.document.template.user,model_wms_document_template,base.group_user,1,1,1,1
+access_wms_document_workflow_user,wms.document.workflow.user,model_wms_document_workflow,base.group_user,1,1,1,1
+access_wms_document_archive_user,wms.document.archive.user,model_wms_document_archive,base.group_user,1,1,1,1

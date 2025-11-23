@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_handover_user,wms.handover.user,model_wms_handover,base.group_user,1,1,1,0
+access_wms_handover_manager,wms.handover.manager,model_wms_handover,base.group_erp_manager,1,1,1,1
+access_wms_handover_item_user,wms.handover.item.user,model_wms_handover_item,base.group_user,1,1,1,0
+access_wms_handover_item_manager,wms.handover.item.manager,model_wms_handover_item,base.group_erp_manager,1,1,1,1
+access_wms_handover_document_user,wms.handover.document.user,model_wms_handover_document,base.group_user,1,1,1,0
+access_wms_handover_document_manager,wms.handover.document.manager,model_wms_handover_document,base.group_erp_manager,1,1,1,1
+access_wms_handover_wizard_user,wms.handover.wizard.user,model_wms_handover_wizard,base.group_user,1,1,1,1
+access_wms_handover_signoff_wizard_user,wms.handover.signoff.wizard.user,model_wms_handover_signoff_wizard,base.group_user,1,1,1,1

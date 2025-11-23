@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add to existing WMS menu -->
+    <!-- Putaway Management Menu -->
+    <menuitem id="wms_putaway_menu" name="Putaway Management" parent="wms_main_menu" sequence="20"/>
+
+    <!-- Putaway Rules Submenu -->
+    <menuitem id="wms_putaway_rule_submenu" name="Putaway Rules" parent="wms_putaway_menu" sequence="10"
+              action="action_wms_putaway_rule"/>
+
+    <!-- Storage Areas Submenu -->
+    <menuitem id="wms_storage_area_submenu" name="Storage Areas" parent="wms_putaway_menu" sequence="20"
+              action="action_wms_storage_area"/>
+
+    <!-- Cargo Types Submenu -->
+    <menuitem id="wms_cargo_type_submenu" name="Cargo Types" parent="wms_putaway_menu" sequence="30"
+              action="action_wms_cargo_type"/>
+
+    <!-- Work Zones Submenu -->
+    <menuitem id="wms_workzone_submenu" name="Work Zones" parent="wms_putaway_menu" sequence="40"
+              action="action_wms_workzone"/>
+
+    <!-- Actions -->
+    <record id="action_wms_putaway_rule" model="ir.actions.act_window">
+        <field name="name">Putaway Rules</field>
+        <field name="res_model">wms.putaway.rule</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create putaway rules</p>
+        </field>
+    </record>
+
+    <record id="action_wms_storage_area" model="ir.actions.act_window">
+        <field name="name">Storage Areas</field>
+        <field name="res_model">wms.storage.area</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create storage areas</p>
+        </field>
+    </record>
+
+    <record id="action_wms_cargo_type" model="ir.actions.act_window">
+        <field name="name">Cargo Types</field>
+        <field name="res_model">wms.cargo.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create cargo types</p>
+        </field>
+    </record>
+
+    <record id="action_wms_workzone" model="ir.actions.act_window">
+        <field name="name">Work Zones</field>
+        <field name="res_model">wms.workzone</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create work zones</p>
+        </field>
+    </record>
+</odoo>

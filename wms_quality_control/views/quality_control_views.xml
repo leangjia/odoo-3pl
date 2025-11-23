@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quality Control Session Form View -->
+    <record id="view_wms_quality_control_form" model="ir.ui.view">
+        <field name="name">wms.quality.control.form</field>
+        <field name="model">wms.quality.control</field>
+        <field name="arch" type="xml">
+            <form string="Quality Control Session">
+                <header>
+                    <button name="action_start_qc" type="object" string="Start QC" class="btn-primary" states="draft"/>
+                    <button name="action_complete_qc" type="object" string="Complete QC" class="btn-success" states="in_progress"/>
+                    <button name="action_fail_qc" type="object" string="Fail QC" class="btn-danger" states="in_progress"/>
+                    <button name="action_reset_to_draft" type="object" string="Reset to Draft" states="in_progress,passed,failed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,passed,failed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_checklists" type="object" class="oe_stat_button" icon="fa-list">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="checklist_count"/></span>
+                                <span class="o_stat_text">Checklists</span>
+                            </div>
+                        </button>
+                        <button name="action_view_issues" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="issue_count"/></span>
+                                <span class="o_stat_text">Issues</span>
+                            </div>
+                        </button>
+                        <button name="action_view_photos" type="object" class="oe_stat_button" icon="fa-camera">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="photo_count"/></span>
+                                <span class="o_stat_text">Photos</span>
+                            </div>
+                        </button>
+                        <button name="action_view_corrective_actions" type="object" class="oe_stat_button" icon="fa-cogs">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="corrective_action_count"/></span>
+                                <span class="o_stat_text">Actions</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="control_type"/>
+                            <field name="owner_id"/>
+                            <field name="picking_id" invisible="context.get('picking_id_invisible', True)"/>
+                        </group>
+                        <group>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="status"/>
+                            <field name="pass_rate" widget="float_percentage"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Checklists">
+                            <field name="checklist_ids">
+                                <tree editable="bottom">
+                                    <field name="item_id"/>
+                                    <field name="result"/>
+                                    <field name="criticality"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Issues">
+                            <field name="issue_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="severity"/>
+                                    <field name="status"/>
+                                    <field name="resolution_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Corrective Actions">
+                            <field name="corrective_action_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="assigned_to"/>
+                                    <field name="due_date"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Photos">
+                            <field name="photo_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="photo"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Quality Control Session Tree View -->
+    <record id="view_wms_quality_control_tree" model="ir.ui.view">
+        <field name="name">wms.quality.control.tree</field>
+        <field name="model">wms.quality.control</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Control Sessions">
+                <field name="name"/>
+                <field name="control_type"/>
+                <field name="owner_id"/>
+                <field name="picking_id"/>
+                <field name="date_start"/>
+                <field name="status"/>
+                <field name="pass_rate" widget="float_percentage"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Quality Control Search View -->
+    <record id="view_wms_quality_control_search" model="ir.ui.view">
+        <field name="name">wms.quality.control.search</field>
+        <field name="model">wms.quality.control</field>
+        <field name="arch" type="xml">
+            <search string="Quality Control Sessions">
+                <field name="name"/>
+                <field name="control_type"/>
+                <field name="owner_id"/>
+                <field name="picking_id"/>
+                <field name="date_start"/>
+                <field name="state"/>
+                <field name="status"/>
+                <group expand="0" string="Group By">
+                    <filter string="Owner" name="group_owner" domain="[]" context="{'group_by':'owner_id'}"/>
+                    <filter string="Control Type" name="group_type" domain="[]" context="{'group_by':'control_type'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

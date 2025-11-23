@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_container_user,wms.container.user,model_wms_container,base.group_user,1,1,1,0
+access_wms_container_manager,wms.container.manager,model_wms_container,base.group_erp_manager,1,1,1,1
+access_wms_container_content_user,wms.container.content.user,model_wms_container_content,base.group_user,1,1,1,0
+access_wms_container_content_manager,wms.container.content.manager,model_wms_container_content,base.group_erp_manager,1,1,1,1
+access_wms_container_location_wizard_user,wms.container.location.wizard.user,model_wms_container_location_wizard,base.group_user,1,1,1,1
+access_wms_container_scan_wizard_user,wms.container.scan.wizard.user,model_wms_container_scan_wizard,base.group_user,1,1,1,1
+access_wms_container_pack_wizard_user,wms.container.pack.wizard.user,model_wms_container_pack_wizard,base.group_user,1,1,1,1
+access_wms_picking_container_scan_wizard_user,wms.picking.container.scan.wizard.user,model_wms_picking_container_scan_wizard,base.group_user,1,1,1,1

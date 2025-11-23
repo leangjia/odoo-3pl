@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inventory Age Report Form View -->
+    <record id="view_wms_inventory_age_report_form" model="ir.ui.view">
+        <field name="name">wms.inventory.age.report.form</field>
+        <field name="model">wms.inventory.age.report</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Age Report">
+                <header>
+                    <button name="action_generate_report" type="object" string="Generate Report" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="location_id"/>
+                            <field name="product_category_id"/>
+                        </group>
+                        <group>
+                            <field name="date_as_of"/>
+                            <field name="aging_periods"/>
+                            <field name="include_zero_stock"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Report Results">
+                            <field name="report_lines" readonly="1">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="location_id"/>
+                                    <field name="lot_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_cost"/>
+                                    <field name="total_value"/>
+                                    <field name="age_days"/>
+                                    <field name="aging_period"/>
+                                    <field name="expiry_date"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id"/>
+                                        <field name="location_id"/>
+                                        <field name="lot_id"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_cost"/>
+                                        <field name="total_value"/>
+                                        <field name="age_days"/>
+                                        <field name="aging_period"/>
+                                        <field name="expiry_date"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inventory Age Alert Tree View -->
+    <record id="view_wms_inventory_age_alert_tree" model="ir.ui.view">
+        <field name="name">wms.inventory.age.alert.tree</field>
+        <field name="model">wms.inventory.age.alert</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="owner_id"/>
+                <field name="quantity"/>
+                <field name="age_days"/>
+                <field name="alert_type"/>
+                <field name="status"/>
+                <field name="alert_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inventory Age Alert Form View -->
+    <record id="view_wms_inventory_age_alert_form" model="ir.ui.view">
+        <field name="name">wms.inventory.age.alert.form</field>
+        <field name="model">wms.inventory.age.alert</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_acknowledge" type="object" string="Acknowledge" class="btn-info" invisible="status != 'open'"/>
+                    <button name="action_resolve" type="object" string="Resolve" class="btn-success" invisible="status != 'open'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="open,acknowledged,resolved"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="owner_id"/>
+                            <field name="quantity"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="age_days"/>
+                            <field name="alert_type"/>
+                        </group>
+                        <group>
+                            <field name="alert_date"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inventory Age Alert Search View -->
+    <record id="view_wms_inventory_age_alert_search" model="ir.ui.view">
+        <field name="name">wms.inventory.age.alert.search</field>
+        <field name="model">wms.inventory.age.alert</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="owner_id"/>
+                <field name="alert_type"/>
+                <field name="status"/>
+                <field name="age_days"/>
+                <filter name="open" string="Open" domain="[('status', '=', 'open')]"/>
+                <filter name="acknowledged" string="Acknowledged" domain="[('status', '=', 'acknowledged')]"/>
+                <filter name="resolved" string="Resolved" domain="[('status', '=', 'resolved')]"/>
+                <filter name="warning" string="Warning" domain="[('alert_type', '=', 'warning')]"/>
+                <filter name="critical" string="Critical" domain="[('alert_type', '=', 'critical')]"/>
+                <filter name="old_inventory" string="Very Old" domain="[('age_days', '>', 365)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_by_location" string="Location" context="{'group_by': 'location_id'}"/>
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_type" string="Alert Type" context="{'group_by': 'alert_type'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Inventory Age Configuration Form View -->
+    <record id="view_wms_inventory_age_config_form" model="ir.ui.view">
+        <field name="name">wms.inventory.age.config.form</field>
+        <field name="model">wms.inventory.age.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="warning_age_days"/>
+                            <field name="critical_age_days"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="auto_create_alerts"/>
+                        <field name="alert_frequency"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Inventory Age Configuration Tree View -->
+    <record id="view_wms_inventory_age_config_tree" model="ir.ui.view">
+        <field name="name">wms.inventory.age.config.tree</field>
+        <field name="model">wms.inventory.age.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="warning_age_days"/>
+                <field name="critical_age_days"/>
+                <field name="auto_create_alerts"/>
+                <field name="alert_frequency"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

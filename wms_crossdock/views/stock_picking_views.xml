@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Stock Picking Views for Crossdock -->
+
+    <!-- Add crossdock fields to Stock Picking form view -->
+    <record id="view_stock_picking_form_crossdock" model="ir.ui.view">
+        <field name="name">stock.picking.form.crossdock</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="is_crossdock" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+                <field name="crossdock_status" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+                <field name="crossdock_operation_id" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+                <field name="crossdock_match_id" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+                <field name="crossdock_partner_id" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+                <field name="crossdock_date" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+                <field name="owner_id" attrs="{'invisible': [('is_crossdock', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add crossdock fields to Stock Picking tree view -->
+    <record id="view_stock_picking_tree_crossdock" model="ir.ui.view">
+        <field name="name">stock.picking.tree.crossdock</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="is_crossdock" optional="hide"/>
+                <field name="crossdock_status" optional="hide"/>
+                <field name="owner_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add crossdock filter to Stock Picking search view -->
+    <record id="view_stock_picking_search_crossdock" model="ir.ui.view">
+        <field name="name">stock.picking.search.crossdock</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="crossdock_status"/>
+                <field name="is_crossdock"/>
+                <field name="crossdock_partner_id"/>
+                <field name="crossdock_match_id"/>
+            </field>
+            <filter name="my_activities" position="before">
+                <filter name="crossdock" string="Crossdock" domain="[('is_crossdock', '=', True)]"/>
+                <filter name="crossdock_pending" string="Crossdock Pending" domain="[('is_crossdock', '=', True), ('crossdock_status', '=', 'pending')]"/>
+                <filter name="crossdock_matched" string="Crossdock Matched" domain="[('is_crossdock', '=', True), ('crossdock_status', '=', 'matched')]"/>
+                <filter name="crossdock_in_transit" string="Crossdock In Transit" domain="[('is_crossdock', '=', True), ('crossdock_status', '=', 'in_transit')]"/>
+                <filter name="crossdock_completed" string="Crossdock Completed" domain="[('is_crossdock', '=', True), ('crossdock_status', '=', 'completed')]"/>
+            </filter>
+            <group expand="0" string="Group By">
+                <filter name="group_by_crossdock_status" string="Crossdock Status" context="{'group_by': 'crossdock_status'}"/>
+                <filter name="group_by_crossdock_partner" string="Crossdock Partner" context="{'group_by': 'crossdock_partner_id'}"/>
+                <filter name="group_by_owner_id" string="Owner" context="{'group_by': 'owner_id'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

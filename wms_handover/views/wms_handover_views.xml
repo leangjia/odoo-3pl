@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Handover Tree View -->
+    <record id="view_wms_handover_tree" model="ir.ui.view">
+        <field name="name">wms.handover.tree</field>
+        <field name="model">wms.handover</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="handover_type"/>
+                <field name="from_party_id"/>
+                <field name="to_party_id"/>
+                <field name="status"/>
+                <field name="handover_date"/>
+                <field name="total_items"/>
+                <field name="total_value"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Handover Form View -->
+    <record id="view_wms_handover_form" model="ir.ui.view">
+        <field name="name">wms.handover.form</field>
+        <field name="model">wms.handover</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start_handover" type="object" string="Start" class="btn-primary" invisible="status != 'draft'"/>
+                    <button name="action_complete_handover" type="object" string="Complete" class="btn-warning" invisible="status != 'in_progress'"/>
+                    <button name="action_sign_off" type="object" string="Sign Off" class="btn-success" invisible="status != 'completed'"/>
+                    <button name="action_archive_handover" type="object" string="Archive" class="btn-secondary" invisible="status in ['draft', 'in_progress', 'signed_off']"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,completed,signed_off"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_report" type="object" class="oe_stat_button" icon="fa-file-text">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Report</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id"/>
+                            <field name="handover_type"/>
+                        </group>
+                        <group>
+                            <field name="handover_date"/>
+                            <field name="completion_date"/>
+                            <field name="signed_off_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_party_id"/>
+                            <field name="from_employee_id"/>
+                        </group>
+                        <group>
+                            <field name="to_party_id"/>
+                            <field name="to_employee_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="total_items"/>
+                            <field name="total_value" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="picking_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="container_ids" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Handover Items">
+                            <field name="handover_items">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_value" widget="monetary"/>
+                                    <field name="uom_id"/>
+                                    <field name="container_id"/>
+                                    <field name="lot_id"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Documents">
+                            <field name="documents">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="document_type"/>
+                                    <field name="file_name"/>
+                                    <field name="upload_date"/>
+                                    <field name="uploaded_by"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Signatures" invisible="status != 'signed_off'">
+                            <group>
+                                <group string="From Signature">
+                                    <field name="signature_from" widget="image" nolabel="1" class="oe_avatar"/>
+                                    <field name="signature_date"/>
+                                </group>
+                                <group string="To Signature">
+                                    <field name="signature_to" widget="image" nolabel="1" class="oe_avatar"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Handover Search View -->
+    <record id="view_wms_handover_search" model="ir.ui.view">
+        <field name="name">wms.handover.search</field>
+        <field name="model">wms.handover</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="handover_type"/>
+                <field name="from_party_id"/>
+                <field name="to_party_id"/>
+                <field name="status"/>
+                <field name="picking_id"/>
+                <filter name="draft" string="Draft" domain="[('status', '=', 'draft')]"/>
+                <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
+                <filter name="completed" string="Completed" domain="[('status', '=', 'completed')]"/>
+                <filter name="signed_off" string="Signed Off" domain="[('status', '=', 'signed_off')]"/>
+                <filter name="inbound" string="Inbound" domain="[('handover_type', '=', 'inbound')]"/>
+                <filter name="outbound" string="Outbound" domain="[('handover_type', '=', 'outbound')]"/>
+                <filter name="high_value" string="High Value" domain="[('total_value', '>', 10000)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_by_type" string="Type" context="{'group_by': 'handover_type'}"/>
+                    <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>
+                    <filter name="group_by_from_party" string="From Party" context="{'group_by': 'from_party_id'}"/>
+                    <filter name="group_by_to_party" string="To Party" context="{'group_by': 'to_party_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>

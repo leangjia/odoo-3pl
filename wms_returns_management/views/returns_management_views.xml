@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Return Authorization Form View -->
+    <record id="view_wms_return_authorization_form" model="ir.ui.view">
+        <field name="name">wms.return.authorization.form</field>
+        <field name="model">wms.return.authorization</field>
+        <field name="arch" type="xml">
+            <form string="Return Authorization">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm RMA" class="btn-primary" states="draft"/>
+                    <button name="action_send_for_return" type="object" string="Send for Return" states="confirmed"/>
+                    <button name="action_receive_return" type="object" string="Receive Return" states="in_transit,confirmed"/>
+                    <button name="action_approve" type="object" string="Approve Return" states="received"/>
+                    <button name="action_reject" type="object" string="Reject Return" states="received,approved"/>
+                    <button name="action_complete" type="object" string="Complete Return" states="approved,rejected"/>
+                    <button name="action_cancel" type="object" string="Cancel RMA" states="draft,confirmed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,received,approved,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-file-text">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="product_qty"/></span>
+                                <span class="o_stat_text">Items</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="customer_id"/>
+                            <field name="owner_id"/>
+                            <field name="warehouse_id"/>
+                        </group>
+                        <group>
+                            <field name="date_issued"/>
+                            <field name="date_deadline"/>
+                            <field name="return_reason"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group string="Return Details">
+                        <group>
+                            <field name="return_method"/>
+                            <field name="return_cost"/>
+                        </group>
+                        <group>
+                            <field name="carrier_id"/>
+                            <field name="tracking_number"/>
+                        </group>
+                    </group>
+                    <group string="Quality &amp; Disposition">
+                        <group>
+                            <field name="qc_required"/>
+                            <field name="qc_completed"/>
+                        </group>
+                        <group>
+                            <field name="disposition"/>
+                            <field name="refund_amount"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Return Items">
+                            <field name="return_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="product_uom"/>
+                                    <field name="unit_price"/>
+                                    <field name="subtotal"/>
+                                    <field name="condition"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Details">
+                            <group>
+                                <field name="return_reason_description" placeholder="Describe the return reason..."/>
+                            </group>
+                            <group>
+                                <field name="qc_notes" placeholder="Quality control notes..."/>
+                            </group>
+                            <group>
+                                <field name="notes" placeholder="Additional notes..."/>
+                            </group>
+                        </page>
+                        <page string="Financial Information">
+                            <group>
+                                <field name="refund_amount"/>
+                                <field name="refund_reference"/>
+                                <field name="refund_date"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Return Authorization Tree View -->
+    <record id="view_wms_return_authorization_tree" model="ir.ui.view">
+        <field name="name">wms.return.authorization.tree</field>
+        <field name="model">wms.return.authorization</field>
+        <field name="arch" type="xml">
+            <tree string="Return Authorizations">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="owner_id"/>
+                <field name="return_reason"/>
+                <field name="date_issued"/>
+                <field name="state"/>
+                <field name="refund_amount"/>
+                <field name="product_qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Return Authorization Search View -->
+    <record id="view_wms_return_authorization_search" model="ir.ui.view">
+        <field name="name">wms.return.authorization.search</field>
+        <field name="model">wms.return.authorization</field>
+        <field name="arch" type="xml">
+            <search string="Return Authorizations">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="owner_id"/>
+                <field name="return_reason"/>
+                <field name="date_issued"/>
+                <field name="state"/>
+                <group expand="0" string="Group By">
+                    <filter string="Customer" name="group_customer" domain="[]" context="{'group_by':'customer_id'}"/>
+                    <filter string="Owner" name="group_owner" domain="[]" context="{'group_by':'owner_id'}"/>
+                    <filter string="Return Reason" name="group_reason" domain="[]" context="{'group_by':'return_reason'}"/>
+                    <filter string="Status" name="group_status" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Return Line Form View -->
+    <record id="view_wms_return_line_form" model="ir.ui.view">
+        <field name="name">wms.return.line.form</field>
+        <field name="model">wms.return.line</field>
+        <field name="arch" type="xml">
+            <form string="Return Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="rma_id"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                        </group>
+                        <group>
+                            <field name="product_uom"/>
+                            <field name="unit_price"/>
+                            <field name="subtotal"/>
+                        </group>
+                    </group>
+                    <group string="Item Details">
+                        <field name="reason"/>
+                        <field name="condition"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Return Line Tree View -->
+    <record id="view_wms_return_line_tree" model="ir.ui.view">
+        <field name="name">wms.return.line.tree</field>
+        <field name="model">wms.return.line</field>
+        <field name="arch" type="xml">
+            <tree string="Return Lines">
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="product_uom"/>
+                <field name="unit_price"/>
+                <field name="subtotal"/>
+                <field name="condition"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
