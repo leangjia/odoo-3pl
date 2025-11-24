@@ -31,4 +31,5 @@
     'auto_install': False,
     'application': True,
     'license': 'LGPL-3',
+    'author': 'genin IT',
 }
