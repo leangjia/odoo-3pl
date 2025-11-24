@@ -6,6 +6,7 @@
     'description': '''
         Enhanced putaway rules for Third Party Logistics warehouses.
         Provides advanced putaway strategies based on owner, ABC classification, and capacity.
+        Fully integrated with Odoo's native traceability and lot/serial number tracking.
     ''',
     'depends': ['base', 'stock', 'wms_owner'],
     'data': [
@@ -14,6 +15,9 @@
         'views/wms_storage_area_views.xml',
         'views/wms_cargo_type_views.xml',
         'views/wms_workzone_views.xml',
+        'views/traceability_report_views.xml',
+        'views/wms_traceability_report_line_views.xml',
+        'views/stock_lot_traceability_views.xml',
         'views/menu_views.xml',
     ],
     'demo': [

@@ -6,6 +6,7 @@
     'description': '''
         Quality control for Third Party Logistics warehouses.
         Provides quality inspection, testing, and compliance tracking.
+        Fully integrated with Odoo's native traceability and lot/serial number tracking.
     ''',
     'depends': ['base', 'stock', 'wms_owner'],
     'data': [

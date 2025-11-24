@@ -6,6 +6,7 @@
     'description': '''
         Batch receiving for Third Party Logistics warehouses.
         Provides batch receiving capabilities for multiple orders simultaneously.
+        Fully integrated with Odoo's native traceability and lot/serial number tracking.
     ''',
     'depends': ['base', 'stock', 'wms_owner', 'wms_quality_control'],
     'data': [

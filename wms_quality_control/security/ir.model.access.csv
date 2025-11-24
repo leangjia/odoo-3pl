@@ -6,3 +6,4 @@ access_wms_quality_corrective_action_user,wms.quality.corrective.action.user,mod
 access_wms_quality_photo_user,wms.quality.photo.user,model_wms_quality_photo,base.group_user,1,1,1,1
 access_wms_quality_control_wizard_user,wms.quality.control.wizard.user,model_wms_quality_control_wizard,base.group_user,1,1,1,1
 access_wms_quality_issue_wizard_user,wms.quality.issue.wizard.user,model_wms_quality_issue_wizard,base.group_user,1,1,1,1
+access_wms_tracking_compliance_wizard_user,wms.tracking.compliance.wizard.user,model_wms_tracking_compliance_wizard,base.group_user,1,1,1,1

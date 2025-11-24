@@ -20,6 +20,11 @@ class WmsStorageArea(models.Model):
     ], 'Area Type')
     location_ids = fields.Many2many('stock.location', 'area_location_rel',
                                     'area_id', 'location_id', 'Locations')
+    # Link to native storage category for advanced capacity and restriction management
+    storage_category_id = fields.Many2one(
+        'stock.storage.category', string='Storage Category',
+        help='Native Odoo 18 storage category for enhanced capacity and restriction management'
+    )
     capacity = fields.Float('Capacity (CBM)')
     used_capacity = fields.Float('Used Capacity (CBM)', compute='_compute_used_capacity')
     utilization_rate = fields.Float('Utilization Rate (%)', compute='_compute_utilization_rate')
@@ -35,3 +40,9 @@ class WmsStorageArea(models.Model):
                 area.utilization_rate = (area.used_capacity / area.capacity) * 100
             else:
                 area.utilization_rate = 0.0
+
+    def assign_storage_category_to_locations(self):
+        """Assign the storage category to all locations in this area"""
+        for area in self:
+            if area.storage_category_id:
+                area.location_ids.write({'storage_category_id': area.storage_category_id.id})

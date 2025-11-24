@@ -14,3 +14,9 @@ class StockPutawayRule(models.Model):
     max_capacity = fields.Float('Max Capacity')
     priority = fields.Integer('Priority', default=10)
     active = fields.Boolean('Active', default=True)
+
+    # Inherit the native storage_category_id field and enhance its domain if needed
+    storage_category_id = fields.Many2one(
+        'stock.storage.category', string='Storage Category', ondelete='cascade', check_company=True,
+        domain=['|', ('company_id', '=', False), ('company_id', '=', 'company_id')]
+    )

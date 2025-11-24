@@ -7,3 +7,7 @@ access_wms_cargo_type_user,wms.cargo.type.user,model_wms_cargo_type,base.group_u
 access_wms_cargo_type_manager,wms.cargo.type.manager,model_wms_cargo_type,base.group_erp_manager,1,1,1,1
 access_wms_workzone_user,wms.workzone.user,model_wms_workzone,base.group_user,1,1,1,1
 access_wms_workzone_manager,wms.workzone.manager,model_wms_workzone,base.group_erp_manager,1,1,1,1
+access_wms_stock_traceability_report_user,wms.stock.traceability.report.user,model_wms_stock_traceability_report,base.group_user,1,1,1,1
+access_wms_stock_traceability_report_manager,wms.stock.traceability.report.manager,model_wms_stock_traceability_report,base.group_erp_manager,1,1,1,1
+access_stock_lot_traceability_user,stock.lot.traceability.user,model_stock_lot_traceability,base.group_user,1,1,1,1
+access_stock_lot_traceability_manager,stock.lot.traceability.manager,model_stock_lot_traceability,base.group_erp_manager,1,1,1,1

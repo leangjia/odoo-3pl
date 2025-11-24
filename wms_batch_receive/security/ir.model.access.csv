@@ -5,3 +5,4 @@ access_wms_batch_receive_picking_user,wms.batch.receive.picking.user,model_wms_b
 access_wms_batch_receive_picking_manager,wms.batch.receive.picking.manager,model_wms_batch_receive_picking,base.group_erp_manager,1,1,1,1
 access_wms_batch_receive_add_picking_wizard_user,wms.batch.receive.add.picking.wizard.user,model_wms_batch_receive_add_picking_wizard,base.group_user,1,1,1,1
 access_wms_batch_receive_wizard_user,wms.batch.receive.wizard.user,model_wms_batch_receive_wizard,base.group_user,1,1,1,1
+access_wms_tracking_error_wizard_user,wms.tracking.error.wizard.user,model_wms_tracking_error_wizard,base.group_user,1,1,1,1

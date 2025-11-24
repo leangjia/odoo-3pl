@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 3PL Traceability Report Line Tree View -->
+    <record id="view_wms_stock_traceability_report_line_tree" model="ir.ui.view">
+        <field name="name">wms.stock.traceability.report.line.tree</field>
+        <field name="model">wms.stock.traceability.report.line</field>
+        <field name="arch" type="xml">
+            <tree string="3PL Traceability Report Lines" create="false" edit="false">
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="picking_id"/>
+                <field name="move_id"/>
+                <field name="location_from"/>
+                <field name="location_to"/>
+                <field name="quantity"/>
+                <field name="date"/>
+                <field name="owner_id"/>
+                <field name="abc_category"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 3PL Traceability Report Line Form View -->
+    <record id="view_wms_stock_traceability_report_line_form" model="ir.ui.view">
+        <field name="name">wms.stock.traceability.report.line.form</field>
+        <field name="model">wms.stock.traceability.report.line</field>
+        <field name="arch" type="xml">
+            <form string="3PL Traceability Report Line" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="picking_id"/>
+                            <field name="move_id"/>
+                        </group>
+                        <group>
+                            <field name="location_from"/>
+                            <field name="location_to"/>
+                            <field name="quantity"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="abc_category"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

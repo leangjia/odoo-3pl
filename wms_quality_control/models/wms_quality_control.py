@@ -9,6 +9,10 @@ class WmsQualityControl(models.Model):
     name = fields.Char('Quality Control Reference', required=True, copy=False, readonly=True)
     owner_id = fields.Many2one('wms.owner', 'Owner', required=True)
     picking_id = fields.Many2one('stock.picking', 'Picking')
+    # Traceability fields
+    lot_ids = fields.Many2many('stock.lot', string='Lots/Serials Under QC')
+    product_ids = fields.Many2many('product.product', string='Products Under QC')
+    # End traceability fields
     qc_type = fields.Selection([
         ('incoming', 'Incoming Inspection'),
         ('outgoing', 'Outgoing Inspection'),
@@ -39,12 +43,50 @@ class WmsQualityControl(models.Model):
     qc_checklist_ids = fields.One2many('wms.quality.checklist', 'qc_id', 'QC Checklist')
     qc_issues_ids = fields.One2many('wms.quality.issue', 'qc_id', 'QC Issues')
     corrective_actions_ids = fields.One2many('wms.quality.corrective.action', 'qc_id', 'Corrective Actions')
+    # Traceability enhanced fields
+    traced_moves_count = fields.Integer('Traced Moves', compute='_compute_traced_moves')
+    traced_quantities = fields.Float('Traced Quantities', compute='_compute_traced_quantities')
 
     @api.model
     def create(self, vals):
+        # Auto-populate traceability fields if picking is provided
+        if vals.get('picking_id'):
+            picking = self.env['stock.picking'].browse(vals['picking_id'])
+            if picking:
+                # Extract lots from picking move lines
+                all_lots = self.env['stock.lot']
+                all_products = self.env['product.product']
+                for line in picking.move_line_ids:
+                    if line.lot_id:
+                        all_lots |= line.lot_id
+                    if line.lot_ids:
+                        all_lots |= line.lot_ids
+                    all_products |= line.product_id
+                vals['lot_ids'] = [(6, 0, all_lots.ids)]
+                vals['product_ids'] = [(6, 0, all_products.ids)]
+
         if not vals.get('name'):
             vals['name'] = self.env['ir.sequence'].next_by_code('wms.quality.control') or '/'
         return super().create(vals)
+
+    def write(self, vals):
+        # Auto-populate traceability fields if picking is updated
+        if vals.get('picking_id') and not vals.get('lot_ids') and not vals.get('product_ids'):
+            picking = self.env['stock.picking'].browse(vals['picking_id'])
+            if picking:
+                # Extract lots from picking move lines
+                all_lots = self.env['stock.lot']
+                all_products = self.env['product.product']
+                for line in picking.move_line_ids:
+                    if line.lot_id:
+                        all_lots |= line.lot_id
+                    if line.lot_ids:
+                        all_lots |= line.lot_ids
+                    all_products |= line.product_id
+                vals['lot_ids'] = [(6, 0, all_lots.ids)]
+                vals['product_ids'] = [(6, 0, all_products.ids)]
+
+        return super().write(vals)
 
     @api.depends('qc_checklist_ids', 'qc_checklist_ids.result')
     def _compute_totals(self):
@@ -67,6 +109,74 @@ class WmsQualityControl(models.Model):
             record.critical_issues = len(record.qc_issues_ids.filtered(lambda i: i.severity == 'critical'))
             record.major_issues = len(record.qc_issues_ids.filtered(lambda i: i.severity == 'major'))
             record.minor_issues = len(record.qc_issues_ids.filtered(lambda i: i.severity == 'minor'))
+
+    @api.depends('picking_id', 'picking_id.move_ids')
+    def _compute_traced_moves(self):
+        """Compute number of traced moves for this QC"""
+        for record in self:
+            if record.picking_id:
+                record.traced_moves_count = len(record.picking_id.move_ids)
+            else:
+                record.traced_moves_count = 0
+
+    @api.depends('picking_id', 'picking_id.move_line_ids', 'picking_id.move_line_ids.qty_done')
+    def _compute_traced_quantities(self):
+        """Compute total traced quantities for this QC"""
+        for record in self:
+            if record.picking_id:
+                record.traced_quantities = sum(record.picking_id.move_line_ids.mapped('qty_done'))
+            else:
+                record.traced_quantities = 0.0
+
+    def action_view_lots(self):
+        """View lots/serials associated with this QC"""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Lots/Serials under QC',
+            'res_model': 'stock.lot',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.lot_ids.ids)],
+            'context': {'default_company_id': self.company_id.id if hasattr(self, 'company_id') else False}
+        }
+
+    def action_view_products(self):
+        """View products associated with this QC"""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Products under QC',
+            'res_model': 'product.product',
+            'view_mode': 'tree,form',
+            'domain': [('id', 'in', self.product_ids.ids)],
+        }
+
+    def action_view_related_moves(self):
+        """View related stock moves"""
+        self.ensure_one()
+        if self.picking_id:
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Related Stock Moves',
+                'res_model': 'stock.move',
+                'view_mode': 'tree,form',
+                'domain': [('picking_id', '=', self.picking_id.id)],
+            }
+        else:
+            # If no picking, try to find moves related to the lots/products
+            domain = []
+            if self.lot_ids:
+                domain.append(('move_line_ids.lot_id', 'in', self.lot_ids.ids))
+            elif self.product_ids:
+                domain.append(('product_id', 'in', self.product_ids.ids))
+
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Related Stock Moves',
+                'res_model': 'stock.move',
+                'view_mode': 'tree,form',
+                'domain': domain,
+            }
 
     def action_start_qc(self):
         """Start the quality control process"""
