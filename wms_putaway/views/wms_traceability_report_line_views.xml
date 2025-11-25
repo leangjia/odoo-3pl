@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- 3PL Traceability Report Line Tree View -->
-    <record id="view_wms_stock_traceability_report_line_tree" model="ir.ui.view">
-        <field name="name">wms.stock.traceability.report.line.tree</field>
+    <!-- 3PL Traceability Report Line List View -->
+    <record id="view_wms_stock_traceability_report_line_list" model="ir.ui.view">
+        <field name="name">wms.stock.traceability.report.line.list</field>
         <field name="model">wms.stock.traceability.report.line</field>
         <field name="arch" type="xml">
-            <tree string="3PL Traceability Report Lines" create="false" edit="false">
+            <list string="3PL Traceability Report Lines" create="false" edit="false">
                 <field name="product_id"/>
                 <field name="lot_id"/>
                 <field name="picking_id"/>
@@ -16,7 +16,7 @@
                 <field name="date"/>
                 <field name="owner_id"/>
                 <field name="abc_category"/>
-            </tree>
+            </list>
         </field>
     </record>
 

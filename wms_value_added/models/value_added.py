@@ -10,6 +10,7 @@ class WmsValueAddedService(models.Model):
     """
     _name = 'wms.value.added.service'
     _description = 'WMS Value Added Service'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name'
 
     name = fields.Char('Service Name', required=True)
@@ -111,8 +112,8 @@ class WmsValueAddedOperation(models.Model):
                                              string='Result Products')
 
     # Standards and compliance
-    quality_check_ids = fields.One2many('wms.quality.check', 'value_added_operation_id', 'Quality Checks')
-    compliance_check_ids = fields.One2many('wms.compliance.check', 'value_added_operation_id', 'Compliance Checks')
+    # quality_check_ids = fields.One2many('wms.quality.check', 'value_added_operation_id', 'Quality Checks')  # Removed due to wms_quality_control dependency
+    # compliance_check_ids = fields.One2many('wms.compliance.check', 'value_added_operation_id', 'Compliance Checks')  # Removed due to wms_quality_control dependency
 
     # Status
     state = fields.Selection([
@@ -269,7 +270,7 @@ class WmsValueAddedProductLine(models.Model):
 
     # Lot/Serial tracking
     lot_id = fields.Many2one('stock.lot', 'Lot/Serial Number')
-    expiry_date = fields.Date('Expiry Date', related='lot_id.expiry_date', store=True)
+    # expiry_date = fields.Date('Expiry Date', related='lot_id.expiry_date', store=True)  # Removed due to field not existing in Odoo 18
 
     # Location
     location_id = fields.Many2one('stock.location', 'Location')

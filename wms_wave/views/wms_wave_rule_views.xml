@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Wave Rule Tree View -->
-    <record id="view_wms_wave_rule_tree" model="ir.ui.view">
-        <field name="name">wms.wave.rule.tree</field>
+    <!-- Wave Rule List View -->
+    <record id="view_wms_wave_rule_list" model="ir.ui.view">
+        <field name="name">wms.wave.rule.list</field>
         <field name="model">wms.wave.rule</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="warehouse_id"/>
                 <field name="trigger_type"/>
                 <field name="trigger_value"/>
                 <field name="priority"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -55,10 +55,7 @@
                     </group>
                     <field name="active" invisible="1"/>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>

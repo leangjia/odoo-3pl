@@ -119,7 +119,7 @@ class WmsQualityControl(models.Model):
             else:
                 record.traced_moves_count = 0
 
-    @api.depends('picking_id', 'picking_id.move_line_ids', 'picking_id.move_line_ids.qty_done')
+    @api.depends('picking_id', 'picking_id.move_line_ids.qty_done')
     def _compute_traced_quantities(self):
         """Compute total traced quantities for this QC"""
         for record in self:

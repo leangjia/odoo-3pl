@@ -5,7 +5,7 @@
     <record id="action_wms_eiq_analysis" model="ir.actions.act_window">
         <field name="name">EIQ分析</field>
         <field name="res_model">wms.eiq.analysis</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 创建EIQ分析
@@ -26,11 +26,11 @@
     </record>
 
     <!-- Tree View for EIQ Analysis -->
-    <record id="view_wms_eiq_analysis_tree" model="ir.ui.view">
-        <field name="name">wms.eiq.analysis.tree</field>
+    <record id="view_wms_eiq_analysis_list" model="ir.ui.view">
+        <field name="name">wms.eiq.analysis.list</field>
         <field name="model">wms.eiq.analysis</field>
         <field name="arch" type="xml">
-            <tree string="EIQ分析" decoration-info="state=='draft'" decoration-success="state=='generated'" decoration-muted="state=='validated'">
+            <list string="EIQ分析" decoration-info="state=='draft'" decoration-success="state=='generated'" decoration-muted="state=='validated'">
                 <field name="name"/>
                 <field name="analysis_date"/>
                 <field name="period_start"/>
@@ -42,7 +42,7 @@
                 <field name="quantity"/>
                 <field name="eoq"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -57,7 +57,7 @@
                             string="生成分析"
                             type="object"
                             class="oe_highlight"
-                            states="draft"
+                            invisible="state != 'draft'"
                             help="根据设定的期间和条件生成EIQ分析"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,generated,validated"/>
                 </header>
@@ -130,11 +130,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

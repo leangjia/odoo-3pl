@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Putaway Rule Tree View -->
-    <record id="view_wms_putaway_rule_tree" model="ir.ui.view">
-        <field name="name">wms.putaway.rule.tree</field>
+    <!-- Putaway Rule List View -->
+    <record id="view_wms_putaway_rule_list" model="ir.ui.view">
+        <field name="name">wms.putaway.rule.list</field>
         <field name="model">wms.putaway.rule</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="product_id"/>
@@ -14,7 +14,7 @@
                 <field name="storage_category_id"/>
                 <field name="priority"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Cargo Type Tree View -->
-    <record id="view_wms_cargo_type_tree" model="ir.ui.view">
-        <field name="name">wms.cargo.type.tree</field>
+    <!-- Cargo Type List View -->
+    <record id="view_wms_cargo_type_list" model="ir.ui.view">
+        <field name="name">wms.cargo.type.list</field>
         <field name="model">wms.cargo.type</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="code"/>
                 <field name="storage_requirements"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -55,13 +55,13 @@
                         <page string="Equipment">
                             <group>
                                 <field name="special_equipment_required"/>
-                                <field name="special_equipment_type" attrs="{'invisible': [('special_equipment_required', '=', False)]}"/>
+                                <field name="special_equipment_type" invisible="special_equipment_required == False"/>
                             </group>
                         </page>
                         <page string="Insurance">
                             <group>
                                 <field name="insurance_required"/>
-                                <field name="insurance_notes" attrs="{'invisible': [('insurance_required', '=', False)]}"/>
+                                <field name="insurance_notes" invisible="insurance_required == False"/>
                             </group>
                         </page>
                     </notebook>

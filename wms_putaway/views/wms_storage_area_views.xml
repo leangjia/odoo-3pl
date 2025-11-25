@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Storage Area Tree View -->
-    <record id="view_wms_storage_area_tree" model="ir.ui.view">
-        <field name="name">wms.storage.area.tree</field>
+    <!-- Storage Area List View -->
+    <record id="view_wms_storage_area_list" model="ir.ui.view">
+        <field name="name">wms.storage.area.list</field>
         <field name="model">wms.storage.area</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="code"/>
                 <field name="warehouse_id"/>
@@ -14,7 +14,7 @@
                 <field name="used_capacity"/>
                 <field name="utilization_rate"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 

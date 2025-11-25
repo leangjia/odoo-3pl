@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wms_value_added_service_user,wms.value.added.service.user,model_wms_value_added_service,base.group_user,1,1,1,1
+access_wms_value_added_operation_user,wms.value.added.operation.user,model_wms_value_added_operation,base.group_user,1,1,1,1
+access_wms_value_added_product_line_user,wms.value.added.product.line.user,model_wms_value_added_product_line,base.group_user,1,1,1,1
+access_wms_value_added_material_user,wms.value.added.material.user,model_wms_value_added_material,base.group_user,1,1,1,1
+access_wms_value_added_report_user,wms.value.added.report.user,model_wms_value_added_report,base.group_user,1,1,1,1

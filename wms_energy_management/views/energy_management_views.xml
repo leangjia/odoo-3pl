@@ -44,12 +44,12 @@
         </field>
     </record>
 
-    <!-- Energy Equipment Tree View -->
-    <record id="view_wms_energy_equipment_tree" model="ir.ui.view">
-        <field name="name">wms.energy.equipment.tree</field>
+    <!-- Energy Equipment List View -->
+    <record id="view_wms_energy_equipment_list" model="ir.ui.view">
+        <field name="name">wms.energy.equipment.list</field>
         <field name="model">wms.energy.equipment</field>
         <field name="arch" type="xml">
-            <tree string="Energy Equipment">
+            <list string="Energy Equipment">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="equipment_type"/>
@@ -57,7 +57,7 @@
                 <field name="power_rating"/>
                 <field name="energy_source"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -100,12 +100,12 @@
         </field>
     </record>
 
-    <!-- Energy Reading Tree View -->
-    <record id="view_wms_energy_reading_tree" model="ir.ui.view">
-        <field name="name">wms.energy.reading.tree</field>
+    <!-- Energy Reading List View -->
+    <record id="view_wms_energy_reading_list" model="ir.ui.view">
+        <field name="name">wms.energy.reading.list</field>
         <field name="model">wms.energy.reading</field>
         <field name="arch" type="xml">
-            <tree string="Energy Readings">
+            <list string="Energy Readings">
                 <field name="equipment_id"/>
                 <field name="reading_date"/>
                 <field name="energy_consumed"/>
@@ -113,7 +113,7 @@
                 <field name="cost"/>
                 <field name="carbon_emissions"/>
                 <field name="is_validated"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -183,13 +183,13 @@
                     <notebook>
                         <page string="Readings">
                             <field name="reading_ids" readonly="1">
-                                <tree>
+                                <list>
                                     <field name="equipment_id"/>
                                     <field name="reading_date"/>
                                     <field name="energy_consumed"/>
                                     <field name="cost"/>
                                     <field name="carbon_emissions"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -203,12 +203,12 @@
         </field>
     </record>
 
-    <!-- Energy Report Tree View -->
-    <record id="view_wms_energy_report_tree" model="ir.ui.view">
-        <field name="name">wms.energy.report.tree</field>
+    <!-- Energy Report List View -->
+    <record id="view_wms_energy_report_list" model="ir.ui.view">
+        <field name="name">wms.energy.report.list</field>
         <field name="model">wms.energy.report</field>
         <field name="arch" type="xml">
-            <tree string="Energy Reports">
+            <list string="Energy Reports">
                 <field name="report_code"/>
                 <field name="name"/>
                 <field name="owner_id"/>
@@ -218,7 +218,7 @@
                 <field name="total_energy_consumed"/>
                 <field name="total_cost"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -257,12 +257,12 @@
         </field>
     </record>
 
-    <!-- Energy Target Tree View -->
-    <record id="view_wms_energy_target_tree" model="ir.ui.view">
-        <field name="name">wms.energy.target.tree</field>
+    <!-- Energy Target List View -->
+    <record id="view_wms_energy_target_list" model="ir.ui.view">
+        <field name="name">wms.energy.target.list</field>
         <field name="model">wms.energy.target</field>
         <field name="arch" type="xml">
-            <tree string="Energy Targets">
+            <list string="Energy Targets">
                 <field name="name"/>
                 <field name="equipment_id"/>
                 <field name="target_month"/>
@@ -271,7 +271,7 @@
                 <field name="actual_energy"/>
                 <field name="variance_percentage"/>
                 <field name="achieved"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -310,19 +310,19 @@
         </field>
     </record>
 
-    <!-- Energy Alert Tree View -->
-    <record id="view_wms_energy_alert_tree" model="ir.ui.view">
-        <field name="name">wms.energy.alert.tree</field>
+    <!-- Energy Alert List View -->
+    <record id="view_wms_energy_alert_list" model="ir.ui.view">
+        <field name="name">wms.energy.alert.list</field>
         <field name="model">wms.energy.alert</field>
         <field name="arch" type="xml">
-            <tree string="Energy Alerts">
+            <list string="Energy Alerts">
                 <field name="name"/>
                 <field name="equipment_id"/>
                 <field name="alert_type"/>
                 <field name="severity"/>
                 <field name="alert_date"/>
                 <field name="is_resolved"/>
-            </tree>
+            </list>
         </field>
     </record>
 

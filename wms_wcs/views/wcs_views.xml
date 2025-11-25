@@ -5,7 +5,7 @@
     <record id="action_wms_wcs_system" model="ir.actions.act_window">
         <field name="name">WCS Systems</field>
         <field name="res_model">wms.wcs.system</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create WCS systems
@@ -19,7 +19,7 @@
     <record id="action_wms_wcs_device" model="ir.actions.act_window">
         <field name="name">WCS Devices</field>
         <field name="res_model">wms.wcs.device</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create WCS devices
@@ -33,7 +33,7 @@
     <record id="action_wms_wcs_task" model="ir.actions.act_window">
         <field name="name">WCS Tasks</field>
         <field name="res_model">wms.wcs.task</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create WCS tasks
@@ -47,7 +47,7 @@
     <record id="action_wms_wcs_integration_log" model="ir.actions.act_window">
         <field name="name">WCS Integration Logs</field>
         <field name="res_model">wms.wcs.integration.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 View integration logs
@@ -59,18 +59,18 @@
     </record>
 
     <!-- Tree View for WCS Systems -->
-    <record id="view_wms_wcs_system_tree" model="ir.ui.view">
+    <record id="view_wms_wcs_system_list" model="ir.ui.view">
         <field name="name">wms.wcs.system.tree</field>
         <field name="model">wms.wcs.system</field>
         <field name="arch" type="xml">
-            <tree string="WCS Systems">
+            <list string="WCS Systems">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="system_type"/>
                 <field name="connection_status"/>
                 <field name="last_sync"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -156,21 +156,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for WCS Devices -->
-    <record id="view_wms_wcs_device_tree" model="ir.ui.view">
+    <record id="view_wms_wcs_device_list" model="ir.ui.view">
         <field name="name">wms.wcs.device.tree</field>
         <field name="model">wms.wcs.device</field>
         <field name="arch" type="xml">
-            <tree string="WCS Devices" decoration-info="device_status=='idle'" decoration-primary="device_status=='working'" decoration-success="device_status=='offline'" decoration-warning="device_status=='maintenance'" decoration-danger="device_status=='error'">
+            <list string="WCS Devices" decoration-info="device_status=='idle'" decoration-primary="device_status=='working'" decoration-success="device_status=='offline'" decoration-warning="device_status=='maintenance'" decoration-danger="device_status=='error'">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="device_type"/>
@@ -179,7 +174,7 @@
                 <field name="device_status"/>
                 <field name="efficiency_rate"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -255,21 +250,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for WCS Tasks -->
-    <record id="view_wms_wcs_task_tree" model="ir.ui.view">
+    <record id="view_wms_wcs_task_list" model="ir.ui.view">
         <field name="name">wms.wcs.task.tree</field>
         <field name="model">wms.wcs.task</field>
         <field name="arch" type="xml">
-            <tree string="WCS Tasks" decoration-info="state=='draft'" decoration-primary="state=='confirmed'" decoration-warning="state=='sent'" decoration-success="state=='completed'" decoration-muted="state=='cancelled'" decoration-danger="state=='failed'">
+            <list string="WCS Tasks" decoration-info="state=='draft'" decoration-primary="state=='confirmed'" decoration-warning="state=='sent'" decoration-success="state=='completed'" decoration-muted="state=='cancelled'" decoration-danger="state=='failed'">
                 <field name="name"/>
                 <field name="task_type"/>
                 <field name="priority"/>
@@ -277,7 +267,7 @@
                 <field name="device_id"/>
                 <field name="state"/>
                 <field name="date_created"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -292,35 +282,35 @@
                             string="Confirm Task"
                             type="object"
                             class="oe_highlight"
-                            states="draft"
+                            invisible="state != 'draft'"
                             help="Confirm the task and prepare for sending to WCS"/>
                     <button name="action_send_to_wcs"
                             string="Send to WCS"
                             type="object"
                             class="oe_highlight"
-                            states="confirmed"
+                            invisible="state != 'confirmed'"
                             help="Send the task to the WCS system"/>
                     <button name="action_start_task"
                             string="Start Task"
                             type="object"
                             class="oe_highlight"
-                            states="sent"
+                            invisible="state != 'sent'"
                             help="Mark the task as started by the WCS system"/>
                     <button name="action_complete_task"
                             string="Complete Task"
                             type="object"
                             class="oe_highlight"
-                            states="in_progress"
+                            invisible="state != 'in_progress'"
                             help="Mark the task as completed by the WCS system"/>
                     <button name="action_cancel_task"
                             string="Cancel Task"
                             type="object"
-                            states="draft,confirmed,sent"
+                            invisible="state not in ['draft','confirmed','sent']"
                             help="Cancel the WCS task"/>
                     <button name="action_retry_task"
                             string="Retry Task"
                             type="object"
-                            states="failed"
+                            invisible="state != 'failed'"
                             help="Retry the failed task"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,sent,in_progress,completed"/>
                 </header>
@@ -408,17 +398,17 @@
     </record>
 
     <!-- Tree View for WCS Integration Logs -->
-    <record id="view_wms_wcs_integration_log_tree" model="ir.ui.view">
+    <record id="view_wms_wcs_integration_log_list" model="ir.ui.view">
         <field name="name">wms.wcs.integration.log.tree</field>
         <field name="model">wms.wcs.integration.log</field>
         <field name="arch" type="xml">
-            <tree string="WCS Integration Logs" decoration-success="status=='success'" decoration-warning="status=='warning'" decoration-danger="status=='error'">
+            <list string="WCS Integration Logs" decoration-success="status=='success'" decoration-warning="status=='warning'" decoration-danger="status=='error'">
                 <field name="timestamp"/>
                 <field name="wcs_system_id"/>
                 <field name="operation"/>
                 <field name="status"/>
                 <field name="message"/>
-            </tree>
+            </list>
         </field>
     </record>
 

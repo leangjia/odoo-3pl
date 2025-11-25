@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Billing Record Tree View -->
-    <record id="view_wms_billing_record_tree" model="ir.ui.view">
+    <record id="view_wms_billing_record_list" model="ir.ui.view">
         <field name="name">wms.billing.record.tree</field>
         <field name="model">wms.billing.record</field>
         <field name="arch" type="xml">

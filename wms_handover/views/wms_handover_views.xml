@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Handover Tree View -->
-    <record id="view_wms_handover_tree" model="ir.ui.view">
-        <field name="name">wms.handover.tree</field>
+    <!-- Handover List View -->
+    <record id="view_wms_handover_list" model="ir.ui.view">
+        <field name="name">wms.handover.list</field>
         <field name="model">wms.handover</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="handover_type"/>
@@ -15,7 +15,7 @@
                 <field name="handover_date"/>
                 <field name="total_items"/>
                 <field name="total_value"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -77,7 +77,7 @@
                     <notebook>
                         <page string="Handover Items">
                             <field name="handover_items">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="unit_value" widget="monetary"/>
@@ -85,18 +85,18 @@
                                     <field name="container_id"/>
                                     <field name="lot_id"/>
                                     <field name="notes"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Documents">
                             <field name="documents">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="name"/>
                                     <field name="document_type"/>
                                     <field name="file_name"/>
                                     <field name="upload_date"/>
                                     <field name="uploaded_by"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Signatures" invisible="status != 'signed_off'">

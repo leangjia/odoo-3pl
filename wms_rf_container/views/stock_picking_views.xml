@@ -9,7 +9,7 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='origin']" position="after">
-                <field name="container_count" attrs="{'invisible': [('container_count', '=', 0)]}"/>
+                <field name="container_count" invisible="container_count == 0"/>
             </xpath>
             <div name="button_box" position="inside">
                 <button name="action_scan_container" type="object" class="oe_stat_button" icon="fa-qrcode" invisible="state in ('done', 'cancel')">
@@ -24,11 +24,11 @@
         </field>
     </record>
 
-    <!-- Add container fields to Stock Picking tree view -->
-    <record id="view_stock_picking_tree_container" model="ir.ui.view">
-        <field name="name">stock.picking.tree.container</field>
+    <!-- Add container fields to Stock Picking list view -->
+    <record id="view_stock_picking_list_container" model="ir.ui.view">
+        <field name="name">stock.picking.list.container</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="inherit_id" ref="stock.vpicktree"/>
         <field name="arch" type="xml">
             <field name="origin" position="after">
                 <field name="container_count" optional="show"/>
@@ -45,7 +45,7 @@
             <field name="origin" position="after">
                 <field name="container_ids"/>
             </field>
-            <filter name="my_activities" position="before">
+            <filter name="my_transfers" position="after">
                 <filter name="with_containers" string="With Containers" domain="[('container_ids', '!=', [])]"/>
             </filter>
             <group expand="0" string="Group By">

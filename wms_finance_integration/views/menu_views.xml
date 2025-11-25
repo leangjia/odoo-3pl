@@ -1,97 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Actions -->
-    <record id="action_wms_financial_transaction_list" model="ir.actions.act_window">
-        <field name="name">Financial Transactions</field>
-        <field name="res_model">wms.financial.transaction</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Record financial transactions
-            </p><p>
-                Record and manage financial transactions for warehouse operations.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_cost_center_list" model="ir.actions.act_window">
-        <field name="name">Cost Centers</field>
-        <field name="res_model">wms.cost.center</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Manage cost centers
-            </p><p>
-                Organize and track costs by cost centers for reporting.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_service_type_list" model="ir.actions.act_window">
-        <field name="name">Service Types</field>
-        <field name="res_model">wms.service.type</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Manage service types
-            </p><p>
-                Define and configure different warehouse service types.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_service_pricing_list" model="ir.actions.act_window">
-        <field name="name">Service Pricing</field>
-        <field name="res_model">wms.service.pricing</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Manage service pricing
-            </p><p>
-                Configure pricing for different services and customers.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_cost_allocation_list" model="ir.actions.act_window">
-        <field name="name">Cost Allocations</field>
-        <field name="res_model">wms.cost.allocation</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Manage cost allocations
-            </p><p>
-                Allocate costs between different cost centers.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_financial_report_list" model="ir.actions.act_window">
-        <field name="name">Financial Reports</field>
-        <field name="res_model">wms.financial.report</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Generate financial reports
-            </p><p>
-                Create and analyze financial reports for warehouse operations.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_invoice_integration_list" model="ir.actions.act_window">
-        <field name="name">Invoice Integration</field>
-        <field name="res_model">wms.invoice.integration</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Manage invoices
-            </p><p>
-                Create and manage invoices for warehouse services.
-            </p>
-        </field>
-    </record>
-
     <!-- Finance Integration Menu -->
     <menuitem id="menu_wms_finance_integration_root"
               name="Finance Integration"
@@ -101,42 +9,42 @@
     <menuitem id="menu_wms_financial_transactions"
               name="Financial Transactions"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_financial_transaction_list"
+              action="wms_finance_integration.action_wms_financial_transaction_list"
               sequence="10"/>
 
     <menuitem id="menu_wms_cost_centers"
               name="Cost Centers"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_cost_center_list"
+              action="wms_finance_integration.action_wms_cost_center_list"
               sequence="20"/>
 
     <menuitem id="menu_wms_service_types"
               name="Service Types"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_service_type_list"
+              action="wms_finance_integration.action_wms_service_type_list"
               sequence="30"/>
 
     <menuitem id="menu_wms_service_pricing"
               name="Service Pricing"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_service_pricing_list"
+              action="wms_finance_integration.action_wms_service_pricing_list"
               sequence="40"/>
 
     <menuitem id="menu_wms_cost_allocations"
               name="Cost Allocations"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_cost_allocation_list"
+              action="wms_finance_integration.action_wms_cost_allocation_list"
               sequence="50"/>
 
     <menuitem id="menu_wms_financial_reports"
               name="Financial Reports"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_financial_report_list"
+              action="wms_finance_integration.action_wms_financial_report_list"
               sequence="60"/>
 
     <menuitem id="menu_wms_invoice_integration"
               name="Invoice Integration"
               parent="menu_wms_finance_integration_root"
-              action="action_wms_invoice_integration_list"
+              action="wms_finance_integration.action_wms_invoice_integration_list"
               sequence="70"/>
 </odoo>

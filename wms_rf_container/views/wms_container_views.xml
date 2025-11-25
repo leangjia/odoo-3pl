@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Container Tree View -->
-    <record id="view_wms_container_tree" model="ir.ui.view">
-        <field name="name">wms.container.tree</field>
+    <!-- Container List View -->
+    <record id="view_wms_container_list" model="ir.ui.view">
+        <field name="name">wms.container.list</field>
         <field name="model">wms.container</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="barcode"/>
                 <field name="container_type"/>
@@ -16,7 +16,7 @@
                 <field name="capacity"/>
                 <field name="load_percentage"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -73,13 +73,13 @@
                     <notebook>
                         <page string="Contents">
                             <field name="contents">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="lot_id"/>
                                     <field name="quantity"/>
                                     <field name="uom_id"/>
                                     <field name="expiry_date"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Notes">
@@ -119,19 +119,19 @@
         </field>
     </record>
 
-    <!-- Container Content Tree View -->
-    <record id="view_wms_container_content_tree" model="ir.ui.view">
-        <field name="name">wms.container.content.tree</field>
+    <!-- Container Content List View -->
+    <record id="view_wms_container_content_list" model="ir.ui.view">
+        <field name="name">wms.container.content.list</field>
         <field name="model">wms.container.content</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="container_id"/>
                 <field name="product_id"/>
                 <field name="lot_id"/>
                 <field name="quantity"/>
                 <field name="uom_id"/>
                 <field name="expiry_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 

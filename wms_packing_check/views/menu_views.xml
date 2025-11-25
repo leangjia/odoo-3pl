@@ -9,20 +9,6 @@
     <menuitem id="menu_wms_packing_check_list"
               name="Packing Check Records"
               parent="menu_wms_packing_check_root"
-              action="action_wms_packing_check_list"
+              action="wms_packing_check.action_wms_packing_check_list"
               sequence="10"/>
-
-    <!-- Actions -->
-    <record id="action_wms_packing_check_list" model="ir.actions.act_window">
-        <field name="name">Packing Check Records</field>
-        <field name="res_model">wms.packing.check</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new packing check record
-            </p><p>
-                Perform quality checks on packed items before shipment.
-            </p>
-        </field>
-    </record>
 </odoo>

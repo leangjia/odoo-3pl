@@ -11,7 +11,7 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-user-injured">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-user-injured">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_value"><field name="severity"/></span>
                                 <span class="o_stat_text">Severity</span>
@@ -90,12 +90,12 @@
         </field>
     </record>
 
-    <!-- Safety Incident Tree View -->
-    <record id="view_wms_safety_incident_tree" model="ir.ui.view">
-        <field name="name">wms.safety.incident.tree</field>
+    <!-- Safety Incident List View -->
+    <record id="view_wms_safety_incident_list" model="ir.ui.view">
+        <field name="name">wms.safety.incident.list</field>
         <field name="model">wms.safety.incident</field>
         <field name="arch" type="xml">
-            <tree string="Safety Incidents">
+            <list string="Safety Incidents">
                 <field name="name"/>
                 <field name="incident_type"/>
                 <field name="severity"/>
@@ -103,7 +103,7 @@
                 <field name="incident_date"/>
                 <field name="reported_by"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -115,9 +115,9 @@
             <form string="Safety Training">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-graduation-cap">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-graduation-cap">
                             <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_value"><field name="participant_ids" widget="statinfo" domain="[('id', 'in', active_id)]"/></span>
+                                <span class="o_stat_value"><field name="participant_ids" widget="statinfo"/></span>
                                 <span class="o_stat_text">Participants</span>
                             </div>
                         </button>
@@ -171,12 +171,12 @@
         </field>
     </record>
 
-    <!-- Safety Training Tree View -->
-    <record id="view_wms_safety_training_tree" model="ir.ui.view">
-        <field name="name">wms.safety.training.tree</field>
+    <!-- Safety Training List View -->
+    <record id="view_wms_safety_training_list" model="ir.ui.view">
+        <field name="name">wms.safety.training.list</field>
         <field name="model">wms.safety.training</field>
         <field name="arch" type="xml">
-            <tree string="Safety Training">
+            <list string="Safety Training">
                 <field name="training_code"/>
                 <field name="name"/>
                 <field name="training_type"/>
@@ -184,7 +184,7 @@
                 <field name="training_date"/>
                 <field name="duration_hours"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -233,19 +233,19 @@
         </field>
     </record>
 
-    <!-- Safety PPE Tree View -->
-    <record id="view_wms_safety_ppe_tree" model="ir.ui.view">
-        <field name="name">wms.safety.ppe.tree</field>
+    <!-- Safety PPE List View -->
+    <record id="view_wms_safety_ppe_list" model="ir.ui.view">
+        <field name="name">wms.safety.ppe.list</field>
         <field name="model">wms.safety.ppe</field>
         <field name="arch" type="xml">
-            <tree string="Safety PPE">
+            <list string="Safety PPE">
                 <field name="name"/>
                 <field name="ppe_type"/>
                 <field name="size"/>
                 <field name="stock_quantity"/>
                 <field name="unit_cost"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -256,20 +256,20 @@
         <field name="arch" type="xml">
             <form string="Safety Inspection">
                 <header>
-                    <button name="action_start_inspection" type="object" string="Start Inspection" states="draft"/>
-                    <button name="action_complete_inspection" type="object" string="Complete Inspection" states="in_progress"/>
-                    <button name="action_require_action" type="object" string="Require Action" states="completed"/>
+                    <button name="action_start_inspection" type="object" string="Start Inspection" invisible="status != 'draft'"/>
+                    <button name="action_complete_inspection" type="object" string="Complete Inspection" invisible="status != 'in_progress'"/>
+                    <button name="action_require_action" type="object" string="Require Action" invisible="status != 'completed'"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,in_progress,completed,requires_action"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-search">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-search">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_value"><field name="findings_count"/></span>
                                 <span class="o_stat_text">Findings</span>
                             </div>
                         </button>
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_value"><field name="critical_findings_count"/></span>
                                 <span class="o_stat_text">Critical</span>
@@ -299,21 +299,6 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Findings">
-                            <field name="id" invisible="1"/>
-                            <field name="inspection_id" invisible="1"/>
-                            <field name="name" invisible="1"/>
-                            <field name="description" invisible="1"/>
-                            <field name="location" invisible="1"/>
-                            <field name="severity" invisible="1"/>
-                            <field name="status" invisible="1"/>
-                            <field name="assigned_to" invisible="1"/>
-                            <field name="due_date" invisible="1"/>
-                            <field name="resolution_date" invisible="1"/>
-                            <field name="resolution_notes" invisible="1"/>
-                            <field name="corrective_action" invisible="1"/>
-                            <field name="preventive_action" invisible="1"/>
-                        </page>
                         <page string="Results &amp; Actions">
                             <group>
                                 <field name="corrective_actions" nolabel="1"/>
@@ -336,12 +321,12 @@
         </field>
     </record>
 
-    <!-- Safety Inspection Tree View -->
-    <record id="view_wms_safety_inspection_tree" model="ir.ui.view">
-        <field name="name">wms.safety.inspection.tree</field>
+    <!-- Safety Inspection List View -->
+    <record id="view_wms_safety_inspection_list" model="ir.ui.view">
+        <field name="name">wms.safety.inspection.list</field>
         <field name="model">wms.safety.inspection</field>
         <field name="arch" type="xml">
-            <tree string="Safety Inspections">
+            <list string="Safety Inspections">
                 <field name="inspection_code"/>
                 <field name="name"/>
                 <field name="inspection_type"/>
@@ -351,7 +336,7 @@
                 <field name="overall_rating"/>
                 <field name="status"/>
                 <field name="findings_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -404,19 +389,19 @@
         </field>
     </record>
 
-    <!-- Safety Inspection Finding Tree View -->
-    <record id="view_wms_safety_inspection_finding_tree" model="ir.ui.view">
-        <field name="name">wms.safety.inspection.finding.tree</field>
+    <!-- Safety Inspection Finding List View -->
+    <record id="view_wms_safety_inspection_finding_list" model="ir.ui.view">
+        <field name="name">wms.safety.inspection.finding.list</field>
         <field name="model">wms.safety.inspection.finding</field>
         <field name="arch" type="xml">
-            <tree string="Safety Inspection Findings">
+            <list string="Safety Inspection Findings">
                 <field name="name"/>
                 <field name="inspection_id"/>
                 <field name="severity"/>
                 <field name="location"/>
                 <field name="status"/>
                 <field name="assigned_to"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -459,19 +444,19 @@
         </field>
     </record>
 
-    <!-- Safety Compliance Tree View -->
-    <record id="view_wms_safety_compliance_tree" model="ir.ui.view">
-        <field name="name">wms.safety.compliance.tree</field>
+    <!-- Safety Compliance List View -->
+    <record id="view_wms_safety_compliance_list" model="ir.ui.view">
+        <field name="name">wms.safety.compliance.list</field>
         <field name="model">wms.safety.compliance</field>
         <field name="arch" type="xml">
-            <tree string="Safety Compliance">
+            <list string="Safety Compliance">
                 <field name="name"/>
                 <field name="regulation"/>
                 <field name="compliance_type"/>
                 <field name="compliance_date"/>
                 <field name="next_compliance_date"/>
                 <field name="compliant"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -483,7 +468,7 @@
             <form string="Safety Risk Assessment">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-exclamation-triangle">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_value"><field name="risk_score"/></span>
                                 <span class="o_stat_text">Risk Score</span>
@@ -529,12 +514,12 @@
         </field>
     </record>
 
-    <!-- Safety Risk Tree View -->
-    <record id="view_wms_safety_risk_tree" model="ir.ui.view">
-        <field name="name">wms.safety.risk.tree</field>
+    <!-- Safety Risk List View -->
+    <record id="view_wms_safety_risk_list" model="ir.ui.view">
+        <field name="name">wms.safety.risk.list</field>
         <field name="model">wms.safety.risk</field>
         <field name="arch" type="xml">
-            <tree string="Safety Risk Assessments">
+            <list string="Safety Risk Assessments">
                 <field name="name"/>
                 <field name="risk_type"/>
                 <field name="location_id"/>
@@ -542,7 +527,7 @@
                 <field name="severity"/>
                 <field name="risk_score"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 

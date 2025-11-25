@@ -25,34 +25,4 @@
             </notebook>
         </field>
     </record>
-
-    <!-- Add handover fields to Stock Picking tree view -->
-    <record id="view_stock_picking_tree_handover" model="ir.ui.view">
-        <field name="name">stock.picking.tree.handover</field>
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_tree"/>
-        <field name="arch" type="xml">
-            <field name="origin" position="after">
-                <field name="handover_count" optional="show"/>
-            </field>
-        </field>
-    </record>
-
-    <!-- Add handover filter to Stock Picking search view -->
-    <record id="view_stock_picking_search_handover" model="ir.ui.view">
-        <field name="name">stock.picking.search.handover</field>
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
-        <field name="arch" type="xml">
-            <field name="origin" position="after">
-                <field name="handover_ids"/>
-            </field>
-            <filter name="my_activities" position="before">
-                <filter name="with_handover" string="With Handover" domain="[('handover_ids', '!=', [])]"/>
-            </filter>
-            <group expand="0" string="Group By">
-                <filter name="group_by_handover" string="Handover" context="{'group_by': 'handover_ids'}"/>
-            </group>
-        </field>
-    </record>
 </odoo>

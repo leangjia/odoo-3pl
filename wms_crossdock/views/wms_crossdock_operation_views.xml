@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Crossdock Operation Tree View -->
-    <record id="view_wms_crossdock_operation_tree" model="ir.ui.view">
-        <field name="name">wms.crossdock.operation.tree</field>
+    <!-- Crossdock Operation List View -->
+    <record id="view_wms_crossdock_operation_list" model="ir.ui.view">
+        <field name="name">wms.crossdock.operation.list</field>
         <field name="model">wms.crossdock.operation</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="operation_date"/>
@@ -13,7 +13,7 @@
                 <field name="inbound_picking_id"/>
                 <field name="outbound_picking_id"/>
                 <field name="total_quantity"/>
-            </tree>
+            </list>
         </field>
     </record>
 

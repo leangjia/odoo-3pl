@@ -7,26 +7,22 @@
         <field name="arch" type="xml">
             <form string="Labor Task">
                 <header>
-                    <button name="action_start_task" type="object" string="Start Task" class="btn-primary" states="draft,assigned"/>
-                    <button name="action_complete_task" type="object" string="Complete Task" class="btn-success" states="in_progress"/>
-                    <button name="action_cancel_task" type="object" string="Cancel Task" states="draft,assigned,in_progress"/>
-                    <button name="action_reset_to_assigned" type="object" string="Reset to Assigned" states="in_progress"/>
+                    <button name="action_start_task" type="object" string="Start Task" class="btn-primary" invisible="status not in ['draft', 'assigned']"/>
+                    <button name="action_complete_task" type="object" string="Complete Task" class="btn-success" invisible="status != 'in_progress'"/>
+                    <button name="action_cancel_task" type="object" string="Cancel Task" invisible="status not in ['draft', 'assigned', 'in_progress']"/>
+                    <button name="action_reset_to_assigned" type="object" string="Reset to Assigned" invisible="status != 'in_progress'"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,assigned,in_progress,completed"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-clock-o">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_value"><field name="duration"/></span>
-                                <span class="o_stat_text">Hours</span>
-                            </div>
-                        </button>
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-percent">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_value"><field name="efficiency"/>%</span>
-                                <span class="o_stat_text">Efficiency</span>
-                            </div>
-                        </button>
+                        <div class="o_stat_info">
+                            <span class="o_stat_value"><field name="duration"/></span>
+                            <span class="o_stat_text">Hours</span>
+                        </div>
+                        <div class="o_stat_info">
+                            <span class="o_stat_value"><field name="efficiency"/>%</span>
+                            <span class="o_stat_text">Efficiency</span>
+                        </div>
                     </div>
                     <group>
                         <group>
@@ -82,12 +78,12 @@
         </field>
     </record>
 
-    <!-- Labor Task Tree View -->
-    <record id="view_wms_labor_task_tree" model="ir.ui.view">
-        <field name="name">wms.labor.task.tree</field>
+    <!-- Labor Task List View -->
+    <record id="view_wms_labor_task_list" model="ir.ui.view">
+        <field name="name">wms.labor.task.list</field>
         <field name="model">wms.labor.task</field>
         <field name="arch" type="xml">
-            <tree string="Labor Tasks">
+            <list string="Labor Tasks">
                 <field name="task_code"/>
                 <field name="name"/>
                 <field name="activity_id"/>
@@ -97,7 +93,7 @@
                 <field name="status"/>
                 <field name="duration"/>
                 <field name="efficiency" widget="float_percentage"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -149,18 +145,18 @@
         </field>
     </record>
 
-    <!-- Labor Activity Tree View -->
-    <record id="view_wms_labor_activity_tree" model="ir.ui.view">
-        <field name="name">wms.labor.activity.tree</field>
+    <!-- Labor Activity List View -->
+    <record id="view_wms_labor_activity_list" model="ir.ui.view">
+        <field name="name">wms.labor.activity.list</field>
         <field name="model">wms.labor.activity</field>
         <field name="arch" type="xml">
-            <tree string="Labor Activities">
+            <list string="Labor Activities">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="activity_type"/>
                 <field name="standard_time"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -191,19 +187,19 @@
         </field>
     </record>
 
-    <!-- Labor Schedule Tree View -->
-    <record id="view_wms_labor_schedule_tree" model="ir.ui.view">
-        <field name="name">wms.labor.schedule.tree</field>
+    <!-- Labor Schedule List View -->
+    <record id="view_wms_labor_schedule_list" model="ir.ui.view">
+        <field name="name">wms.labor.schedule.list</field>
         <field name="model">wms.labor.schedule</field>
         <field name="arch" type="xml">
-            <tree string="Labor Schedules">
+            <list string="Labor Schedules">
                 <field name="name"/>
                 <field name="employee_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="schedule_type"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -233,18 +229,18 @@
         </field>
     </record>
 
-    <!-- Employee Skill Tree View -->
-    <record id="view_wms_employee_skill_tree" model="ir.ui.view">
-        <field name="name">wms.employee.skill.tree</field>
+    <!-- Employee Skill List View -->
+    <record id="view_wms_employee_skill_list" model="ir.ui.view">
+        <field name="name">wms.employee.skill.list</field>
         <field name="model">wms.employee.skill</field>
         <field name="arch" type="xml">
-            <tree string="Employee Skills">
+            <list string="Employee Skills">
                 <field name="employee_id"/>
                 <field name="skill_id"/>
                 <field name="proficiency_level"/>
                 <field name="certification_date"/>
                 <field name="expires_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -273,12 +269,12 @@
         </field>
     </record>
 
-    <!-- Labor Performance Tree View -->
-    <record id="view_wms_labor_performance_tree" model="ir.ui.view">
-        <field name="name">wms.labor.performance.tree</field>
+    <!-- Labor Performance List View -->
+    <record id="view_wms_labor_performance_list" model="ir.ui.view">
+        <field name="name">wms.labor.performance.list</field>
         <field name="model">wms.labor.performance</field>
         <field name="arch" type="xml">
-            <tree string="Labor Performance">
+            <list string="Labor Performance">
                 <field name="employee_id"/>
                 <field name="activity_id"/>
                 <field name="date_recorded"/>
@@ -286,7 +282,7 @@
                 <field name="hours_worked"/>
                 <field name="efficiency_rate"/>
                 <field name="productivity_score"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -318,12 +314,12 @@
         </field>
     </record>
 
-    <!-- Labor Cost Tree View -->
-    <record id="view_wms_labor_cost_tree" model="ir.ui.view">
-        <field name="name">wms.labor.cost.tree</field>
+    <!-- Labor Cost List View -->
+    <record id="view_wms_labor_cost_list" model="ir.ui.view">
+        <field name="name">wms.labor.cost.list</field>
         <field name="model">wms.labor.cost</field>
         <field name="arch" type="xml">
-            <tree string="Labor Costs">
+            <list string="Labor Costs">
                 <field name="employee_id"/>
                 <field name="activity_id"/>
                 <field name="date"/>
@@ -331,7 +327,7 @@
                 <field name="hourly_rate"/>
                 <field name="overtime_rate"/>
                 <field name="total_cost"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

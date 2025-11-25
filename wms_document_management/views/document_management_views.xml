@@ -38,7 +38,7 @@
     </record>
 
     <!-- Document Category Tree View -->
-    <record id="view_wms_document_category_tree" model="ir.ui.view">
+    <record id="view_wms_document_category_list" model="ir.ui.view">
         <field name="name">wms.document.category.tree</field>
         <field name="model">wms.document.category</field>
         <field name="arch" type="xml">
@@ -75,7 +75,7 @@
     </record>
 
     <!-- Document Tag Tree View -->
-    <record id="view_wms_document_tag_tree" model="ir.ui.view">
+    <record id="view_wms_document_tag_list" model="ir.ui.view">
         <field name="name">wms.document.tag.tree</field>
         <field name="model">wms.document.tag</field>
         <field name="arch" type="xml">
@@ -203,7 +203,7 @@
     </record>
 
     <!-- Document Tree View -->
-    <record id="view_wms_document_tree" model="ir.ui.view">
+    <record id="view_wms_document_list" model="ir.ui.view">
         <field name="name">wms.document.tree</field>
         <field name="model">wms.document</field>
         <field name="arch" type="xml">
@@ -256,7 +256,7 @@
     </record>
 
     <!-- Document Template Tree View -->
-    <record id="view_wms_document_template_tree" model="ir.ui.view">
+    <record id="view_wms_document_template_list" model="ir.ui.view">
         <field name="name">wms.document.template.tree</field>
         <field name="model">wms.document.template</field>
         <field name="arch" type="xml">
@@ -311,7 +311,7 @@
     </record>
 
     <!-- Document Workflow Tree View -->
-    <record id="view_wms_document_workflow_tree" model="ir.ui.view">
+    <record id="view_wms_document_workflow_list" model="ir.ui.view">
         <field name="name">wms.document.workflow.tree</field>
         <field name="model">wms.document.workflow</field>
         <field name="arch" type="xml">
@@ -358,7 +358,7 @@
     </record>
 
     <!-- Document Archive Tree View -->
-    <record id="view_wms_document_archive_tree" model="ir.ui.view">
+    <record id="view_wms_document_archive_list" model="ir.ui.view">
         <field name="name">wms.document.archive.tree</field>
         <field name="model">wms.document.archive</field>
         <field name="arch" type="xml">

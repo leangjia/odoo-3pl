@@ -5,7 +5,7 @@
     <record id="action_wms_wave_rule" model="ir.actions.act_window">
         <field name="name">自动波次规则</field>
         <field name="res_model">wms.wave.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 创建自动波次生成规则
@@ -17,11 +17,11 @@
     </record>
 
     <!-- Tree View for Auto Wave Rules -->
-    <record id="view_wms_wave_rule_tree" model="ir.ui.view">
+    <record id="view_wms_wave_rule_list" model="ir.ui.view">
         <field name="name">wms.wave.rule.tree</field>
         <field name="model">wms.wave.rule</field>
         <field name="arch" type="xml">
-            <tree string="自动波次规则">
+            <list string="自动波次规则">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="code"/>
@@ -30,7 +30,7 @@
                 <field name="active"/>
                 <field name="last_execution"/>
                 <field name="execution_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -81,14 +81,14 @@
                                 <field name="trigger_type"/>
                             </group>
 
-                            <group string="时间触发条件" attrs="{'invisible': [('trigger_type', '!=', 'time_based')]}">
+                            <group string="时间触发条件" invisible="trigger_type != 'time_based'">
                                 <field name="time_trigger_type"/>
-                                <field name="fixed_time" attrs="{'invisible': [('time_trigger_type', '!=', 'fixed_time')]}"/>
-                                <field name="time_interval" attrs="{'invisible': [('time_trigger_type', '!=', 'interval')]}"/>
-                                <field name="rolling_window_minutes" attrs="{'invisible': [('time_trigger_type', '!=', 'rolling_window')]}"/>
+                                <field name="fixed_time" invisible="time_trigger_type != 'fixed_time'"/>
+                                <field name="time_interval" invisible="time_trigger_type != 'interval'"/>
+                                <field name="rolling_window_minutes" invisible="time_trigger_type != 'rolling_window'"/>
                             </group>
 
-                            <group string="数量触发条件" attrs="{'invisible': [('trigger_type', '=', 'time_based')]}">
+                            <group string="数量触发条件" invisible="trigger_type == 'time_based'">
                                 <field name="min_orders"/>
                                 <field name="max_orders"/>
                                 <field name="min_volume"/>
@@ -116,7 +116,7 @@
 
                             <group string="分组优化">
                                 <field name="enable_batching"/>
-                                <field name="batching_strategy" attrs="{'invisible': [('enable_batching', '=', False)]}"/>
+                                <field name="batching_strategy" invisible="enable_batching == False"/>
                             </group>
                         </page>
 
@@ -128,11 +128,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

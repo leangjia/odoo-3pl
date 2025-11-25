@@ -32,11 +32,11 @@
     </record>
 
     <!-- Dashboard Template Tree View -->
-    <record id="view_wms_dashboard_template_tree" model="ir.ui.view">
-        <field name="name">wms.dashboard.template.tree</field>
+    <record id="view_wms_dashboard_template_list" model="ir.ui.view">
+        <field name="name">wms.dashboard.template.list</field>
         <field name="model">wms.dashboard.template</field>
         <field name="arch" type="xml">
-            <tree string="Dashboard Templates">
+            <list string="Dashboard Templates">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="dashboard_type"/>
@@ -44,7 +44,7 @@
                 <field name="default_period"/>
                 <field name="is_active"/>
                 <field name="is_default"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -88,11 +88,11 @@
     </record>
 
     <!-- Dashboard Widget Tree View -->
-    <record id="view_wms_dashboard_widget_tree" model="ir.ui.view">
-        <field name="name">wms.dashboard.widget.tree</field>
+    <record id="view_wms_dashboard_widget_list" model="ir.ui.view">
+        <field name="name">wms.dashboard.widget.list</field>
         <field name="model">wms.dashboard.widget</field>
         <field name="arch" type="xml">
-            <tree string="Dashboard Widgets">
+            <list string="Dashboard Widgets">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="widget_type"/>
@@ -100,7 +100,7 @@
                 <field name="size_x"/>
                 <field name="size_y"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -178,11 +178,11 @@
     </record>
 
     <!-- Performance KPI Tree View -->
-    <record id="view_wms_performance_kpi_tree" model="ir.ui.view">
-        <field name="name">wms.performance.kpi.tree</field>
+    <record id="view_wms_performance_kpi_list" model="ir.ui.view">
+        <field name="name">wms.performance.kpi.list</field>
         <field name="model">wms.performance.kpi</field>
         <field name="arch" type="xml">
-            <tree string="Performance KPIs">
+            <list string="Performance KPIs">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="category"/>
@@ -191,7 +191,7 @@
                 <field name="target_value"/>
                 <field name="trend"/>
                 <field name="unit_of_measure"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -202,9 +202,9 @@
         <field name="arch" type="xml">
             <form string="Performance Report">
                 <header>
-                    <button name="action_generate_report" type="object" string="Generate Report" states="draft" class="btn-primary"/>
-                    <button name="action_validate_report" type="object" string="Validate Report" states="generated" class="btn-success"/>
-                    <button name="action_publish_report" type="object" string="Publish Report" states="validated" class="btn-info"/>
+                    <button name="action_generate_report" type="object" string="Generate Report" invisible="status != 'draft'" class="btn-primary"/>
+                    <button name="action_validate_report" type="object" string="Validate Report" invisible="status != 'generated'" class="btn-success"/>
+                    <button name="action_publish_report" type="object" string="Publish Report" invisible="status != 'validated'" class="btn-info"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,generated,validated,published"/>
                 </header>
                 <sheet>
@@ -274,11 +274,11 @@
     </record>
 
     <!-- Performance Report Tree View -->
-    <record id="view_wms_performance_report_tree" model="ir.ui.view">
-        <field name="name">wms.performance.report.tree</field>
+    <record id="view_wms_performance_report_list" model="ir.ui.view">
+        <field name="name">wms.performance.report.list</field>
         <field name="model">wms.performance.report</field>
         <field name="arch" type="xml">
-            <tree string="Performance Reports">
+            <list string="Performance Reports">
                 <field name="report_code"/>
                 <field name="name"/>
                 <field name="owner_id"/>
@@ -287,7 +287,7 @@
                 <field name="period_end"/>
                 <field name="report_date"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -298,10 +298,10 @@
         <field name="arch" type="xml">
             <form string="Alert">
                 <header>
-                    <button name="action_acknowledge" type="object" string="Acknowledge" states="open"/>
-                    <button name="action_start_resolution" type="object" string="Start Resolution" states="open,acknowledged"/>
-                    <button name="action_resolve" type="object" string="Resolve" states="in_progress"/>
-                    <button name="action_close" type="object" string="Close" states="open,acknowledged,in_progress,resolved"/>
+                    <button name="action_acknowledge" type="object" string="Acknowledge" invisible="status != 'open'"/>
+                    <button name="action_start_resolution" type="object" string="Start Resolution" invisible="status not in ['open','acknowledged']"/>
+                    <button name="action_resolve" type="object" string="Resolve" invisible="status != 'in_progress'"/>
+                    <button name="action_close" type="object" string="Close" invisible="status not in ['open','acknowledged','in_progress','resolved']"/>
                     <field name="status" widget="statusbar" statusbar_visible="open,acknowledged,in_progress,resolved,closed"/>
                 </header>
                 <sheet>
@@ -345,11 +345,11 @@
     </record>
 
     <!-- Alert Tree View -->
-    <record id="view_wms_alert_tree" model="ir.ui.view">
-        <field name="name">wms.alert.tree</field>
+    <record id="view_wms_alert_list" model="ir.ui.view">
+        <field name="name">wms.alert.list</field>
         <field name="model">wms.alert</field>
         <field name="arch" type="xml">
-            <tree string="Alerts">
+            <list string="Alerts">
                 <field name="name"/>
                 <field name="alert_type"/>
                 <field name="severity"/>
@@ -357,7 +357,7 @@
                 <field name="assigned_to"/>
                 <field name="due_date"/>
                 <field name="create_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -401,11 +401,11 @@
     </record>
 
     <!-- Benchmark Tree View -->
-    <record id="view_wms_benchmark_tree" model="ir.ui.view">
-        <field name="name">wms.benchmark.tree</field>
+    <record id="view_wms_benchmark_list" model="ir.ui.view">
+        <field name="name">wms.benchmark.list</field>
         <field name="model">wms.benchmark</field>
         <field name="arch" type="xml">
-            <tree string="Benchmarks">
+            <list string="Benchmarks">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="category"/>
@@ -414,7 +414,7 @@
                 <field name="unit_of_measure"/>
                 <field name="year"/>
                 <field name="is_current"/>
-            </tree>
+            </list>
         </field>
     </record>
 

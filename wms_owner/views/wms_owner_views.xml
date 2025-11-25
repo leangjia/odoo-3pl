@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Warehouse Owner Tree View -->
-    <record id="view_wms_owner_tree" model="ir.ui.view">
-        <field name="name">wms.owner.tree</field>
+    <!-- Warehouse Owner List View -->
+    <record id="view_wms_owner_list" model="ir.ui.view">
+        <field name="name">wms.owner.list</field>
         <field name="model">wms.owner</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_code"/>
                 <field name="storage_fee_rate"/>
@@ -13,7 +13,7 @@
                 <field name="outbound_fee"/>
                 <field name="billing_cycle"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -62,8 +62,8 @@
                         </page>
                         <page string="Billing Rules">
                             <field name="partner_id" invisible="1"/>
-                            <field name="billing_rules" context="{'default_owner_id': active_id}">
-                                <tree editable="bottom">
+                            <field name="billing_rules" context="{'default_owner_id': parent.id}">
+                                <list editable="bottom">
                                     <field name="name"/>
                                     <field name="operation_type"/>
                                     <field name="service_type"/>
@@ -72,7 +72,7 @@
                                     <field name="min_charge"/>
                                     <field name="calculation_basis"/>
                                     <field name="active"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>

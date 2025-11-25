@@ -5,7 +5,7 @@
     <record id="action_wms_wechat_app" model="ir.actions.act_window">
         <field name="name">WeChat Apps</field>
         <field name="res_model">wms.wechat.app</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create WeChat apps
@@ -19,7 +19,7 @@
     <record id="action_wms_wechat_user" model="ir.actions.act_window">
         <field name="name">WeChat Users</field>
         <field name="res_model">wms.wechat.user</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage WeChat users
@@ -33,7 +33,7 @@
     <record id="action_wms_wechat_message" model="ir.actions.act_window">
         <field name="name">WeChat Messages</field>
         <field name="res_model">wms.wechat.message</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage messages
@@ -47,7 +47,7 @@
     <record id="action_wms_wechat_inventory_check" model="ir.actions.act_window">
         <field name="name">WeChat Inventory Checks</field>
         <field name="res_model">wms.wechat.inventory.check</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage inventory checks
@@ -61,7 +61,7 @@
     <record id="action_wms_wechat_picking_notification" model="ir.actions.act_window">
         <field name="name">Picking Notifications</field>
         <field name="res_model">wms.wechat.picking.notification</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage notifications
@@ -73,18 +73,18 @@
     </record>
 
     <!-- Tree View for WeChat Apps -->
-    <record id="view_wms_wechat_app_tree" model="ir.ui.view">
+    <record id="view_wms_wechat_app_list" model="ir.ui.view">
         <field name="name">wms.wechat.app.tree</field>
         <field name="model">wms.wechat.app</field>
         <field name="arch" type="xml">
-            <tree string="WeChat Apps">
+            <list string="WeChat Apps">
                 <field name="name"/>
                 <field name="app_id"/>
                 <field name="app_type"/>
                 <field name="connection_status"/>
                 <field name="active"/>
                 <field name="last_sync"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -178,21 +178,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for WeChat Users -->
-    <record id="view_wms_wechat_user_tree" model="ir.ui.view">
+    <record id="view_wms_wechat_user_list" model="ir.ui.view">
         <field name="name">wms.wechat.user.tree</field>
         <field name="model">wms.wechat.user</field>
         <field name="arch" type="xml">
-            <tree string="WeChat Users">
+            <list string="WeChat Users">
                 <field name="name"/>
                 <field name="nickname"/>
                 <field name="openid"/>
@@ -201,7 +196,7 @@
                 <field name="subscribe"/>
                 <field name="active"/>
                 <field name="last_activity"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -296,21 +291,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for WeChat Messages -->
-    <record id="view_wms_wechat_message_tree" model="ir.ui.view">
+    <record id="view_wms_wechat_message_list" model="ir.ui.view">
         <field name="name">wms.wechat.message.tree</field>
         <field name="model">wms.wechat.message</field>
         <field name="arch" type="xml">
-            <tree string="WeChat Messages" decoration-info="status=='pending'" decoration-primary="status=='sent'" decoration-success="status=='delivered'" decoration-warning="status=='read'" decoration-danger="status=='failed'">
+            <list string="WeChat Messages" decoration-info="status=='pending'" decoration-primary="status=='sent'" decoration-success="status=='delivered'" decoration-warning="status=='read'" decoration-danger="status=='failed'">
                 <field name="name"/>
                 <field name="message_type"/>
                 <field name="direction"/>
@@ -319,7 +309,7 @@
                 <field name="app_id"/>
                 <field name="timestamp"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -333,12 +323,12 @@
                     <button name="mark_as_read"
                             string="Mark Read"
                             type="object"
-                            states="direction == 'in' and not is_read"
+                            invisible="direction != 'in' or is_read"
                             help="Mark message as read"/>
                     <button name="mark_as_processed"
                             string="Mark Processed"
                             type="object"
-                            states="direction == 'in' and not is_processed"
+                            invisible="direction != 'in' or is_processed"
                             help="Mark message as processed"/>
                     <field name="status" widget="statusbar" statusbar_visible="pending,sent,delivered,read,failed"/>
                 </header>
@@ -405,21 +395,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for WeChat Inventory Checks -->
-    <record id="view_wms_wechat_inventory_check_tree" model="ir.ui.view">
+    <record id="view_wms_wechat_inventory_check_list" model="ir.ui.view">
         <field name="name">wms.wechat.inventory.check.tree</field>
         <field name="model">wms.wechat.inventory.check</field>
         <field name="arch" type="xml">
-            <tree string="WeChat Inventory Checks" decoration-info="state=='draft'" decoration-primary="state=='in_progress'" decoration-success="state=='completed'" decoration-muted="state=='cancelled'">
+            <list string="WeChat Inventory Checks" decoration-info="state=='draft'" decoration-primary="state=='in_progress'" decoration-success="state=='completed'" decoration-muted="state=='cancelled'">
                 <field name="name"/>
                 <field name="state"/>
                 <field name="check_type"/>
@@ -427,7 +412,7 @@
                 <field name="warehouse_id"/>
                 <field name="date_created"/>
                 <field name="accuracy_rate"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -442,19 +427,19 @@
                             string="Start Check"
                             type="object"
                             class="oe_highlight"
-                            states="state == 'draft'"
+                            invisible="state != 'draft'"
                             help="Start the inventory check"/>
                     <button name="action_complete_check"
                             string="Complete Check"
                             type="object"
                             class="oe_highlight"
-                            states="state == 'in_progress'"
+                            invisible="state != 'in_progress'"
                             help="Complete the inventory check"/>
                     <button name="action_cancel_check"
                             string="Cancel Check"
                             type="object"
                             class="btn-secondary"
-                            states="state in ('draft','in_progress')"
+                            invisible="state not in ('draft','in_progress')"
                             help="Cancel the inventory check"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed,cancelled"/>
                 </header>
@@ -512,11 +497,11 @@
     </record>
 
     <!-- Tree View for WeChat Picking Notifications -->
-    <record id="view_wms_wechat_picking_notification_tree" model="ir.ui.view">
+    <record id="view_wms_wechat_picking_notification_list" model="ir.ui.view">
         <field name="name">wms.wechat.picking.notification.tree</field>
         <field name="model">wms.wechat.picking.notification</field>
         <field name="arch" type="xml">
-            <tree string="WeChat Picking Notifications" decoration-info="status=='pending'" decoration-primary="status=='sent'" decoration-success="status=='delivered'" decoration-warning="status=='read'" decoration-danger="status=='failed'">
+            <list string="WeChat Picking Notifications" decoration-info="status=='pending'" decoration-primary="status=='sent'" decoration-success="status=='delivered'" decoration-warning="status=='read'" decoration-danger="status=='failed'">
                 <field name="name"/>
                 <field name="notification_type"/>
                 <field name="stock_picking_id"/>
@@ -524,7 +509,7 @@
                 <field name="priority"/>
                 <field name="date_created"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -539,12 +524,12 @@
                             string="Send Notification"
                             type="object"
                             class="oe_highlight"
-                            states="status == 'pending'"
+                            invisible="status != 'pending'"
                             help="Send notification to WeChat user"/>
                     <button name="mark_as_read"
                             string="Mark Read"
                             type="object"
-                            states="status in ('sent','delivered') and recipient_user_id.openid != False"
+                            invisible="status not in ('sent','delivered') or not recipient_user_id.openid"
                             help="Mark notification as read"/>
                     <field name="status" widget="statusbar" statusbar_visible="pending,sent,delivered,read,failed"/>
                 </header>
@@ -596,11 +581,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

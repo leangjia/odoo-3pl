@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Inventory Freeze Tree View -->
-    <record id="view_wms_inventory_freeze_tree" model="ir.ui.view">
-        <field name="name">wms.inventory.freeze.tree</field>
+    <!-- Inventory Freeze List View -->
+    <record id="view_wms_inventory_freeze_list" model="ir.ui.view">
+        <field name="name">wms.inventory.freeze.list</field>
         <field name="model">wms.inventory.freeze</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="location_id"/>
@@ -16,7 +16,7 @@
                 <field name="freeze_date"/>
                 <field name="quantity"/>
                 <field name="uom_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 

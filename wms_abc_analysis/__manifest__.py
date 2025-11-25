@@ -11,6 +11,7 @@
     'data': [
         'data/sequence_data.xml',
         'security/ir.model.access.csv',
+        'views/actions.xml',
         'views/wms_abc_analysis_views.xml',
         'views/stock_product_views.xml',
         'views/menu_views.xml',

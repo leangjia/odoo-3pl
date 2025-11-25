@@ -40,10 +40,10 @@
     </record>
 
     <!-- Add batch receive fields to Stock Picking tree view -->
-    <record id="view_stock_picking_tree_batch_receive" model="ir.ui.view">
+    <record id="view_stock_picking_list_batch_receive" model="ir.ui.view">
         <field name="name">stock.picking.tree.batch.receive</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="inherit_id" ref="stock.view_picking_list"/>
         <field name="arch" type="xml">
             <field name="origin" position="after">
                 <field name="batch_receive_count" optional="show"/>

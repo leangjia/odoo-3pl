@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions -->
+    <record id="action_wms_location_usage" model="ir.actions.act_window">
+        <field name="name">库位使用分析</field>
+        <field name="res_model">wms.location.usage</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                创建库位使用分析
+            </p>
+            <p>
+                分析仓库中各库位的使用情况和效率，优化库位分配和空间利用率。
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_location_utilization" model="ir.actions.act_window">
+        <field name="name">库位利用率明细</field>
+        <field name="res_model">wms.location.utilization</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                库位利用率详情
+            </p>
+            <p>
+                查看各库位的具体使用情况和效率明细。
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_location_usage_report" model="ir.actions.act_window">
+        <field name="name">生成库位使用报告</field>
+        <field name="res_model">wms.location.usage.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_wms_location_usage_report"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>

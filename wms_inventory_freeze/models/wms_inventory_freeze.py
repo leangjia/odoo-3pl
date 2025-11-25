@@ -38,7 +38,15 @@ class WmsInventoryFreeze(models.Model):
         ('partial', 'Partial Freeze'),
     ], 'Freeze Type', required=True)
     related_inventory_id = fields.Many2one('stock.inventory', 'Related Inventory Adjustment')
-    expiry_date = fields.Date('Expiry Date', related='lot_id.expiry_date', store=True)
+    expiry_date = fields.Date('Expiry Date', compute='_compute_expiry_date', store=True)
+
+    @api.depends('lot_id')
+    def _compute_expiry_date(self):
+        for record in self:
+            if record.lot_id and hasattr(record.lot_id, 'expiry_date'):
+                record.expiry_date = record.lot_id.expiry_date
+            else:
+                record.expiry_date = False
 
     @api.model
     def create(self, vals):

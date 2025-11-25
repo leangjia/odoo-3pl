@@ -75,6 +75,9 @@ class WmsReturnAuthorization(models.Model):
     tracking_number = fields.Char('Return Tracking Number')
     received_date = fields.Datetime('Date Received')
 
+    # Additional Notes
+    notes = fields.Text('Additional Notes')
+
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):

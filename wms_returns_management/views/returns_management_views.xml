@@ -7,24 +7,16 @@
         <field name="arch" type="xml">
             <form string="Return Authorization">
                 <header>
-                    <button name="action_confirm" type="object" string="Confirm RMA" class="btn-primary" states="draft"/>
-                    <button name="action_send_for_return" type="object" string="Send for Return" states="confirmed"/>
-                    <button name="action_receive_return" type="object" string="Receive Return" states="in_transit,confirmed"/>
-                    <button name="action_approve" type="object" string="Approve Return" states="received"/>
-                    <button name="action_reject" type="object" string="Reject Return" states="received,approved"/>
-                    <button name="action_complete" type="object" string="Complete Return" states="approved,rejected"/>
-                    <button name="action_cancel" type="object" string="Cancel RMA" states="draft,confirmed"/>
+                    <button name="action_confirm" type="object" string="Confirm RMA" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_send_for_return" type="object" string="Send for Return" invisible="state != 'confirmed'"/>
+                    <button name="action_receive_return" type="object" string="Receive Return" invisible="state not in ['in_transit','confirmed']"/>
+                    <button name="action_approve" type="object" string="Approve Return" invisible="state != 'received'"/>
+                    <button name="action_reject" type="object" string="Reject Return" invisible="state not in ['received','approved']"/>
+                    <button name="action_complete" type="object" string="Complete Return" invisible="state not in ['approved','rejected']"/>
+                    <button name="action_cancel" type="object" string="Cancel RMA" invisible="state not in ['draft','confirmed']"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,received,approved,completed"/>
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_view_rmas" type="object" class="oe_stat_button" icon="fa-file-text">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_value"><field name="product_qty"/></span>
-                                <span class="o_stat_text">Items</span>
-                            </div>
-                        </button>
-                    </div>
                     <group>
                         <group>
                             <field name="name"/>
@@ -62,14 +54,14 @@
                     <notebook>
                         <page string="Return Items">
                             <field name="return_line_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="product_uom"/>
                                     <field name="unit_price"/>
                                     <field name="subtotal"/>
                                     <field name="condition"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Details">
@@ -102,11 +94,11 @@
     </record>
 
     <!-- Return Authorization Tree View -->
-    <record id="view_wms_return_authorization_tree" model="ir.ui.view">
-        <field name="name">wms.return.authorization.tree</field>
+    <record id="view_wms_return_authorization_list" model="ir.ui.view">
+        <field name="name">wms.return.authorization.list</field>
         <field name="model">wms.return.authorization</field>
         <field name="arch" type="xml">
-            <tree string="Return Authorizations">
+            <list string="Return Authorizations">
                 <field name="name"/>
                 <field name="customer_id"/>
                 <field name="owner_id"/>
@@ -115,7 +107,7 @@
                 <field name="state"/>
                 <field name="refund_amount"/>
                 <field name="product_qty"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -170,19 +162,19 @@
         </field>
     </record>
 
-    <!-- Return Line Tree View -->
-    <record id="view_wms_return_line_tree" model="ir.ui.view">
-        <field name="name">wms.return.line.tree</field>
+    <!-- Return Line List View -->
+    <record id="view_wms_return_line_list" model="ir.ui.view">
+        <field name="name">wms.return.line.list</field>
         <field name="model">wms.return.line</field>
         <field name="arch" type="xml">
-            <tree string="Return Lines">
+            <list string="Return Lines">
                 <field name="product_id"/>
                 <field name="quantity"/>
                 <field name="product_uom"/>
                 <field name="unit_price"/>
                 <field name="subtotal"/>
                 <field name="condition"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

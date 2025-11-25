@@ -19,9 +19,6 @@
         'stock',
         'hr',
         'wms_owner',
-        'wms_value_added',  # For RFID tracking of value-added services
-        'wms_wave_auto',    # For RFID in wave operations
-        'wms_packing_rule', # For RFID in packing operations
         'maintenance',      # For equipment tracking
     ],
     'data': [

@@ -5,7 +5,7 @@
     <record id="action_wms_courier_company" model="ir.actions.act_window">
         <field name="name">Courier Companies</field>
         <field name="res_model">wms.courier.company</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create courier companies
@@ -19,7 +19,7 @@
     <record id="action_wms_courier_service" model="ir.actions.act_window">
         <field name="name">Courier Services</field>
         <field name="res_model">wms.courier.service</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create courier services
@@ -33,7 +33,7 @@
     <record id="action_wms_shipment_order" model="ir.actions.act_window">
         <field name="name">Shipment Orders</field>
         <field name="res_model">wms.shipment.order</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create shipment orders
@@ -45,17 +45,17 @@
     </record>
 
     <!-- Tree View for Courier Companies -->
-    <record id="view_wms_courier_company_tree" model="ir.ui.view">
+    <record id="view_wms_courier_company_list" model="ir.ui.view">
         <field name="name">wms.courier.company.tree</field>
         <field name="model">wms.courier.company</field>
         <field name="arch" type="xml">
-            <tree string="Courier Companies">
+            <list string="Courier Companies">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="contact_email"/>
                 <field name="contact_phone"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -133,28 +133,23 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for Courier Services -->
-    <record id="view_wms_courier_service_tree" model="ir.ui.view">
+    <record id="view_wms_courier_service_list" model="ir.ui.view">
         <field name="name">wms.courier.service.tree</field>
         <field name="model">wms.courier.service</field>
         <field name="arch" type="xml">
-            <tree string="Courier Services">
+            <list string="Courier Services">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="courier_company_id"/>
                 <field name="service_type"/>
                 <field name="base_cost"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -228,21 +223,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
     <!-- Tree View for Shipment Orders -->
-    <record id="view_wms_shipment_order_tree" model="ir.ui.view">
+    <record id="view_wms_shipment_order_list" model="ir.ui.view">
         <field name="name">wms.shipment.order.tree</field>
         <field name="model">wms.shipment.order</field>
         <field name="arch" type="xml">
-            <tree string="Shipment Orders" decoration-info="state=='draft'" decoration-primary="state=='confirmed'" decoration-success="state=='delivered'" decoration-warning="state=='in_transit'" decoration-muted="state=='cancelled'">
+            <list string="Shipment Orders" decoration-info="state=='draft'" decoration-primary="state=='confirmed'" decoration-success="state=='delivered'" decoration-warning="state=='in_transit'" decoration-muted="state=='cancelled'">
                 <field name="name"/>
                 <field name="tracking_number"/>
                 <field name="courier_company_id"/>
@@ -252,7 +242,7 @@
                 <field name="package_weight"/>
                 <field name="total_cost"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -267,24 +257,24 @@
                             string="Confirm Shipment"
                             type="object"
                             class="oe_highlight"
-                            states="draft"
+                            invisible="state != 'draft'"
                             help="Confirm the shipment with the courier company"/>
                     <button name="action_ship_shipment"
                             string="Ship Order"
                             type="object"
                             class="oe_highlight"
-                            states="confirmed"
+                            invisible="state != 'confirmed'"
                             help="Ship the order and send to courier"/>
                     <button name="action_deliver_shipment"
                             string="Mark Delivered"
                             type="object"
                             class="oe_highlight"
-                            states="in_transit"
+                            invisible="state != 'in_transit'"
                             help="Mark the shipment as delivered"/>
                     <button name="action_track_shipment"
                             string="Track Shipment"
                             type="object"
-                            states="in_transit,delivered"
+                            invisible="state not in ['in_transit','delivered']"
                             help="Track the shipment using courier's tracking system"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_transit,delivered"/>
                 </header>

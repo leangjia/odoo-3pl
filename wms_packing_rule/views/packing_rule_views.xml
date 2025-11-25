@@ -5,7 +5,7 @@
     <record id="action_wms_packing_rule" model="ir.actions.act_window">
         <field name="name">装箱规则</field>
         <field name="res_model">wms.packing.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 创建装箱规则
@@ -19,7 +19,7 @@
     <record id="action_wms_packing_box_type" model="ir.actions.act_window">
         <field name="name">装箱类型</field>
         <field name="res_model">wms.packing.box.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 管理装箱类型
@@ -31,11 +31,11 @@
     </record>
 
     <!-- Tree Views -->
-    <record id="view_wms_packing_rule_tree" model="ir.ui.view">
-        <field name="name">wms.packing.rule.tree</field>
+    <record id="view_wms_packing_rule_list" model="ir.ui.view">
+        <field name="name">wms.packing.rule.list</field>
         <field name="model">wms.packing.rule</field>
         <field name="arch" type="xml">
-            <tree string="装箱规则">
+            <list string="装箱规则">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="code"/>
@@ -43,15 +43,15 @@
                 <field name="strategy"/>
                 <field name="active"/>
                 <field name="success_rate"/>
-            </tree>
+            </list>
         </field>
     </record>
 
-    <record id="view_wms_packing_box_type_tree" model="ir.ui.view">
-        <field name="name">wms.packing.box.type.tree</field>
+    <record id="view_wms_packing_box_type_list" model="ir.ui.view">
+        <field name="name">wms.packing.box.type.list</field>
         <field name="model">wms.packing.box.type</field>
         <field name="arch" type="xml">
-            <tree string="装箱类型">
+            <list string="装箱类型">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="length"/>
@@ -59,7 +59,7 @@
                 <field name="height"/>
                 <field name="max_weight"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -163,11 +163,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
@@ -228,7 +223,7 @@
                             </group>
                         </page>
 
-                        <page string="特殊属性" attrs="{'invisible': [('is_thermal', '=', False)]}">
+                        <page string="特殊属性" invisible="is_thermal == False">
                             <group>
                                 <field name="temperature_range"/>
                                 <field name="max_drop_height"/>
@@ -243,11 +238,6 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>

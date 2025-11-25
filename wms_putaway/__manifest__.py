@@ -11,6 +11,7 @@
     'depends': ['base', 'stock', 'wms_owner'],
     'data': [
         'security/ir.model.access.csv',
+        'views/actions.xml',
         'views/wms_putaway_rule_views.xml',
         'views/wms_storage_area_views.xml',
         'views/wms_cargo_type_views.xml',

@@ -8,6 +8,13 @@ class WmsSafetyIncident(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'date desc'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('Incident Number', required=True, copy=False, readonly=True,
                        default=lambda self: _('New'))
     owner_id = fields.Many2one('wms.owner', 'Owner', required=True,
@@ -88,6 +95,13 @@ class WmsSafetyTraining(models.Model):
     _description = 'WMS Safety Training'
     _order = 'training_date desc'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('Training Name', required=True)
     training_code = fields.Char('Training Code', required=True, copy=False, readonly=True,
                                 default=lambda self: _('New'))
@@ -128,6 +142,13 @@ class WmsSafetyPpe(models.Model):
     _description = 'WMS Personal Protective Equipment'
     _order = 'name'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('PPE Name', required=True)
     ppe_type = fields.Selection([
         ('head', 'Head Protection'),
@@ -163,6 +184,13 @@ class WmsSafetyInspection(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'inspection_date desc'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('Inspection Name', required=True)
     inspection_code = fields.Char('Inspection Code', required=True, copy=False, readonly=True,
                                   default=lambda self: _('New'))
@@ -253,6 +281,13 @@ class WmsSafetyInspectionFinding(models.Model):
     _description = 'WMS Safety Inspection Finding'
     _order = 'create_date desc'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     inspection_id = fields.Many2one('wms.safety.inspection', 'Inspection', required=True, ondelete='cascade')
     name = fields.Char('Finding', required=True)
     description = fields.Text('Description')
@@ -286,6 +321,13 @@ class WmsSafetyCompliance(models.Model):
     _description = 'WMS Safety Compliance'
     _order = 'compliance_date desc'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('Compliance Requirement', required=True)
     regulation = fields.Char('Regulation/Standard', required=True)
     description = fields.Text('Description')
@@ -337,6 +379,13 @@ class WmsSafetyRisk(models.Model):
     _description = 'WMS Safety Risk Assessment'
     _order = 'risk_score desc'
 
+    def toggle_active(self):
+        """Toggle active status"""
+        for record in self:
+            record.active = not record.active
+        return True
+
+    active = fields.Boolean('Active', default=True)
     name = fields.Char('Risk Name', required=True)
     risk_type = fields.Selection([
         ('physical', 'Physical'),

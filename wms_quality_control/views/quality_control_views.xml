@@ -106,7 +106,7 @@
     </record>
 
     <!-- Quality Control Session Tree View -->
-    <record id="view_wms_quality_control_tree" model="ir.ui.view">
+    <record id="view_wms_quality_control_list" model="ir.ui.view">
         <field name="name">wms.quality.control.tree</field>
         <field name="model">wms.quality.control</field>
         <field name="arch" type="xml">

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Blind Receive Tree View -->
-    <record id="view_wms_blind_receive_tree" model="ir.ui.view">
-        <field name="name">wms.blind.receive.tree</field>
+    <!-- Blind Receive List View -->
+    <record id="view_wms_blind_receive_list" model="ir.ui.view">
+        <field name="name">wms.blind.receive.list</field>
         <field name="model">wms.blind.receive</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="picking_id"/>
@@ -13,7 +13,7 @@
                 <field name="discrepancy_count"/>
                 <field name="start_date"/>
                 <field name="completion_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -55,18 +55,18 @@
                     <notebook>
                         <page string="Expected Products">
                             <field name="expected_products">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="expected_quantity"/>
                                     <field name="lot_id"/>
                                     <field name="uom_id"/>
                                     <field name="notes"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Received Products">
                             <field name="received_products">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="received_quantity"/>
                                     <field name="lot_id"/>
@@ -74,7 +74,7 @@
                                     <field name="received_by"/>
                                     <field name="receive_date"/>
                                     <field name="is_matched"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Notes">
@@ -111,27 +111,27 @@
         </field>
     </record>
 
-    <!-- Expected Products Tree View -->
-    <record id="view_wms_blind_receive_expected_tree" model="ir.ui.view">
-        <field name="name">wms.blind.receive.expected.tree</field>
+    <!-- Expected Products List View -->
+    <record id="view_wms_blind_receive_expected_list" model="ir.ui.view">
+        <field name="name">wms.blind.receive.expected.list</field>
         <field name="model">wms.blind.receive.expected</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="blind_receive_id"/>
                 <field name="product_id"/>
                 <field name="expected_quantity"/>
                 <field name="lot_id"/>
                 <field name="uom_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
-    <!-- Received Products Tree View -->
-    <record id="view_wms_blind_receive_received_tree" model="ir.ui.view">
-        <field name="name">wms.blind.receive.received.tree</field>
+    <!-- Received Products List View -->
+    <record id="view_wms_blind_receive_received_list" model="ir.ui.view">
+        <field name="name">wms.blind.receive.received.list</field>
         <field name="model">wms.blind.receive.received</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="blind_receive_id"/>
                 <field name="product_id"/>
                 <field name="received_quantity"/>
@@ -140,7 +140,7 @@
                 <field name="received_by"/>
                 <field name="receive_date"/>
                 <field name="is_matched"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

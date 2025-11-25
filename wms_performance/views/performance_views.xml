@@ -5,7 +5,7 @@
     <record id="action_wms_performance_indicator" model="ir.actions.act_window">
         <field name="name">Performance Indicators</field>
         <field name="res_model">wms.performance.indicator</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create performance indicators
@@ -19,7 +19,7 @@
     <record id="action_wms_performance_report" model="ir.actions.act_window">
         <field name="name">Performance Reports</field>
         <field name="res_model">wms.performance.report</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create performance reports
@@ -33,7 +33,7 @@
     <record id="action_wms_operator_performance" model="ir.actions.act_window">
         <field name="name">Operator Performance</field>
         <field name="res_model">wms.operator.performance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Track operator performance
@@ -54,11 +54,11 @@
     </record>
 
     <!-- Tree View for Performance Indicators -->
-    <record id="view_wms_performance_indicator_tree" model="ir.ui.view">
-        <field name="name">wms.performance.indicator.tree</field>
+    <record id="view_wms_performance_indicator_list" model="ir.ui.view">
+        <field name="name">wms.performance.indicator.list</field>
         <field name="model">wms.performance.indicator</field>
         <field name="arch" type="xml">
-            <tree string="Performance Indicators" decoration-info="category=='throughput'" decoration-primary="category=='efficiency'" decoration-success="category=='quality'" decoration-warning="category=='cost'" decoration-danger="category=='safety'">
+            <list string="Performance Indicators" decoration-info="category=='throughput'" decoration-primary="category=='efficiency'" decoration-success="category=='quality'" decoration-warning="category=='cost'" decoration-danger="category=='safety'">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="category"/>
@@ -66,7 +66,7 @@
                 <field name="calculation_method"/>
                 <field name="target_value"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -153,11 +153,11 @@
     </record>
 
     <!-- Tree View for Performance Reports -->
-    <record id="view_wms_performance_report_tree" model="ir.ui.view">
-        <field name="name">wms.performance.report.tree</field>
+    <record id="view_wms_performance_report_list" model="ir.ui.view">
+        <field name="name">wms.performance.report.list</field>
         <field name="model">wms.performance.report</field>
         <field name="arch" type="xml">
-            <tree string="Performance Reports" decoration-info="state=='draft'" decoration-success="state=='generated'" decoration-muted="state=='validated'" decoration-warning="state=='published'">
+            <list string="Performance Reports" decoration-info="state=='draft'" decoration-success="state=='generated'" decoration-muted="state=='validated'" decoration-warning="state=='published'">
                 <field name="name"/>
                 <field name="report_date"/>
                 <field name="period_start"/>
@@ -166,7 +166,7 @@
                 <field name="warehouse_id"/>
                 <field name="overall_score"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -258,11 +258,11 @@
     </record>
 
     <!-- Tree View for Operator Performance -->
-    <record id="view_wms_operator_performance_tree" model="ir.ui.view">
-        <field name="name">wms.operator.performance.tree</field>
+    <record id="view_wms_operator_performance_list" model="ir.ui.view">
+        <field name="name">wms.operator.performance.list</field>
         <field name="model">wms.operator.performance</field>
         <field name="arch" type="xml">
-            <tree string="Operator Performance">
+            <list string="Operator Performance">
                 <field name="date"/>
                 <field name="operator_id"/>
                 <field name="owner_id"/>
@@ -271,7 +271,7 @@
                 <field name="efficiency_rate" widget="percentage"/>
                 <field name="accuracy_rate" widget="percentage"/>
                 <field name="overall_score" widget="percentage"/>
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -27,7 +27,7 @@
     <record id="action_wms_container_list" model="ir.actions.act_window">
         <field name="name">Containers</field>
         <field name="res_model">wms.container</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new container
@@ -40,7 +40,7 @@
     <record id="action_wms_container_content_list" model="ir.actions.act_window">
         <field name="name">Container Contents</field>
         <field name="res_model">wms.container.content</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 View container contents

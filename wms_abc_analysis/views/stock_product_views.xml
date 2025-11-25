@@ -8,7 +8,7 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='inventory_details']" position="after">
+            <field name="type" position="after">
                 <group string="ABC Analysis" name="abc_analysis">
                     <field name="abc_classification"/>
                     <field name="abc_last_analysis_date"/>
@@ -16,15 +16,15 @@
                     <field name="annual_usage_volume"/>
                     <field name="usage_frequency"/>
                 </group>
-            </xpath>
+            </field>
         </field>
     </record>
 
-    <!-- Add ABC analysis fields to Product tree view -->
-    <record id="view_product_product_tree_abc" model="ir.ui.view">
-        <field name="name">product.product.tree.abc</field>
+    <!-- Add ABC analysis fields to Product list view -->
+    <record id="view_product_product_list_abc" model="ir.ui.view">
+        <field name="name">product.product.list.abc</field>
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="abc_classification" optional="show"/>
@@ -36,16 +36,16 @@
     <record id="view_product_product_search_abc" model="ir.ui.view">
         <field name="name">product.product.search.abc</field>
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_product_search_view"/>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
-            <filter name="category" position="after">
+            <search position="inside">
                 <filter name="abc_class_a" string="ABC Class A" domain="[('abc_classification', '=', 'A')]"/>
                 <filter name="abc_class_b" string="ABC Class B" domain="[('abc_classification', '=', 'B')]"/>
                 <filter name="abc_class_c" string="ABC Class C" domain="[('abc_classification', '=', 'C')]"/>
-            </filter>
-            <group expand="0" string="Group By">
-                <filter name="group_by_abc_class" string="ABC Class" context="{'group_by': 'abc_classification'}"/>
-            </group>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_abc_class" string="ABC Class" context="{'group_by': 'abc_classification'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </odoo>

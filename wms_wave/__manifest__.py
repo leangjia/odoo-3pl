@@ -11,7 +11,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/wms_wave_rule_views.xml',
-        'views/wms_picking_batch_views.xml',
         'views/menu_views.xml',
     ],
     'demo': [

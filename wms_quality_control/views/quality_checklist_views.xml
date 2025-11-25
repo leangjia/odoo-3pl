@@ -25,7 +25,7 @@
     </record>
 
     <!-- Quality Checklist Tree View -->
-    <record id="view_wms_quality_checklist_tree" model="ir.ui.view">
+    <record id="view_wms_quality_checklist_list" model="ir.ui.view">
         <field name="name">wms.quality.checklist.tree</field>
         <field name="model">wms.quality.checklist</field>
         <field name="arch" type="xml">
@@ -89,7 +89,7 @@
     </record>
 
     <!-- Quality Issue Tree View -->
-    <record id="view_wms_quality_issue_tree" model="ir.ui.view">
+    <record id="view_wms_quality_issue_list" model="ir.ui.view">
         <field name="name">wms.quality.issue.tree</field>
         <field name="model">wms.quality.issue</field>
         <field name="arch" type="xml">
@@ -140,7 +140,7 @@
     </record>
 
     <!-- Quality Corrective Action Tree View -->
-    <record id="view_wms_quality_corrective_action_tree" model="ir.ui.view">
+    <record id="view_wms_quality_corrective_action_list" model="ir.ui.view">
         <field name="name">wms.quality.corrective.action.tree</field>
         <field name="model">wms.quality.corrective_action</field>
         <field name="arch" type="xml">
@@ -182,7 +182,7 @@
     </record>
 
     <!-- Quality Photo Tree View -->
-    <record id="view_wms_quality_photo_tree" model="ir.ui.view">
+    <record id="view_wms_quality_photo_list" model="ir.ui.view">
         <field name="name">wms.quality.photo.tree</field>
         <field name="model">wms.quality_photo</field>
         <field name="arch" type="xml">

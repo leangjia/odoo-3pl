@@ -13,6 +13,7 @@ class WmsRfidTag(models.Model):
     _name = 'wms.rfid.tag'
     _description = 'WMS RFID Tag'
     _order = 'name'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char('Tag ID', required=True, copy=False)
     description = fields.Text('Description')
@@ -129,6 +130,7 @@ class WmsRfidReader(models.Model):
     _name = 'wms.rfid.reader'
     _description = 'WMS RFID Reader'
     _order = 'name'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char('Reader Name', required=True)
     code = fields.Char('Reader Code', required=True, copy=False)

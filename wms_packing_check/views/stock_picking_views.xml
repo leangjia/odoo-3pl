@@ -26,11 +26,11 @@
         </field>
     </record>
 
-    <!-- Add packing check fields to Stock Picking tree view -->
-    <record id="view_stock_picking_tree_packing_check" model="ir.ui.view">
-        <field name="name">stock.picking.tree.packing.check</field>
+    <!-- Add packing check fields to Stock Picking list view -->
+    <record id="view_stock_picking_list_packing_check" model="ir.ui.view">
+        <field name="name">stock.picking.list.packing.check</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_tree"/>
+        <field name="inherit_id" ref="stock.view_picking_list"/>
         <field name="arch" type="xml">
             <field name="origin" position="after">
                 <field name="packing_check_count" optional="show"/>

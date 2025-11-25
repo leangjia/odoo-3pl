@@ -20,6 +20,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/actions.xml',
         'views/location_usage_views.xml',
     ],
     'demo': [

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Packing Check Tree View -->
-    <record id="view_wms_packing_check_tree" model="ir.ui.view">
-        <field name="name">wms.packing.check.tree</field>
+    <!-- Packing Check List View -->
+    <record id="view_wms_packing_check_list" model="ir.ui.view">
+        <field name="name">wms.packing.check.list</field>
         <field name="model">wms.packing.check</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="picking_id"/>
@@ -16,7 +16,7 @@
                 <field name="passed_items"/>
                 <field name="failed_items"/>
                 <field name="check_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -120,8 +120,8 @@
                 <filter name="in_progress" string="In Progress" domain="[('status', '=', 'in_progress')]"/>
                 <filter name="passed" string="Passed" domain="[('status', '=', 'passed')]"/>
                 <filter name="failed" string="Failed" domain="[('status', '=', 'failed')]"/>
-                <filter name="high_pass_rate" string="High Pass Rate" domain="[('pass_rate', '>=', 95.0)]"/>
-                <filter name="low_pass_rate" string="Low Pass Rate" domain="[('pass_rate', '<', 95.0)]"/>
+                <filter name="high_pass_rate" string="High Pass Rate" domain="[('pass_rate', '&gt;=', 95.0)]"/>
+                <filter name="low_pass_rate" string="Low Pass Rate" domain="[('pass_rate', '&lt;', 95.0)]"/>
                 <group expand="0" string="Group By">
                     <filter name="group_by_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
                     <filter name="group_by_status" string="Status" context="{'group_by': 'status'}"/>

@@ -10,6 +10,7 @@
     'depends': ['base', 'stock', 'wms_owner'],
     'data': [
         'security/ir.model.access.csv',
+        'views/actions.xml',
         'views/wms_crossdock_operation_views.xml',
         'views/wms_crossdock_match_views.xml',
         'views/stock_picking_views.xml',

@@ -24,6 +24,7 @@
     "data": [
         "data/sequence_data.xml",
         "security/ir.model.access.csv",
+        "views/actions.xml",
         "views/labor_management_views.xml",
         "views/menu_views.xml"
     ],

@@ -4,7 +4,7 @@
     <record id="action_wms_safety_incident_list" model="ir.actions.act_window">
         <field name="name">Safety Incidents</field>
         <field name="res_model">wms.safety.incident</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Report safety incidents
@@ -17,7 +17,7 @@
     <record id="action_wms_safety_training_list" model="ir.actions.act_window">
         <field name="name">Safety Training</field>
         <field name="res_model">wms.safety.training</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage safety training
@@ -30,7 +30,7 @@
     <record id="action_wms_safety_ppe_list" model="ir.actions.act_window">
         <field name="name">PPE Management</field>
         <field name="res_model">wms.safety.ppe</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Manage PPE inventory
@@ -43,7 +43,7 @@
     <record id="action_wms_safety_inspection_list" model="ir.actions.act_window">
         <field name="name">Safety Inspections</field>
         <field name="res_model">wms.safety.inspection</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Conduct safety inspections
@@ -56,7 +56,7 @@
     <record id="action_wms_safety_compliance_list" model="ir.actions.act_window">
         <field name="name">Safety Compliance</field>
         <field name="res_model">wms.safety.compliance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Track compliance
@@ -69,7 +69,7 @@
     <record id="action_wms_safety_risk_list" model="ir.actions.act_window">
         <field name="name">Risk Assessments</field>
         <field name="res_model">wms.safety.risk</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Assess risks

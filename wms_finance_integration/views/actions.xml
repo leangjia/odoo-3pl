@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions -->
+    <record id="action_wms_financial_transaction_list" model="ir.actions.act_window">
+        <field name="name">Financial Transactions</field>
+        <field name="res_model">wms.financial.transaction</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Record financial transactions
+            </p><p>
+                Record and manage financial transactions for warehouse operations.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_cost_center_list" model="ir.actions.act_window">
+        <field name="name">Cost Centers</field>
+        <field name="res_model">wms.cost.center</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage cost centers
+            </p><p>
+                Organize and track costs by cost centers for reporting.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_service_type_list" model="ir.actions.act_window">
+        <field name="name">Service Types</field>
+        <field name="res_model">wms.service.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage service types
+            </p><p>
+                Define and configure different warehouse service types.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_service_pricing_list" model="ir.actions.act_window">
+        <field name="name">Service Pricing</field>
+        <field name="res_model">wms.service.pricing</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage service pricing
+            </p><p>
+                Configure pricing for different services and customers.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_cost_allocation_list" model="ir.actions.act_window">
+        <field name="name">Cost Allocations</field>
+        <field name="res_model">wms.cost.allocation</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage cost allocations
+            </p><p>
+                Allocate costs between different cost centers.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_financial_report_list" model="ir.actions.act_window">
+        <field name="name">Financial Reports</field>
+        <field name="res_model">wms.financial.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Generate financial reports
+            </p><p>
+                Create and analyze financial reports for warehouse operations.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_wms_invoice_integration_list" model="ir.actions.act_window">
+        <field name="name">Invoice Integration</field>
+        <field name="res_model">wms.invoice.integration</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage invoices
+            </p><p>
+                Create and manage invoices for warehouse services.
+            </p>
+        </field>
+    </record>
+</odoo>

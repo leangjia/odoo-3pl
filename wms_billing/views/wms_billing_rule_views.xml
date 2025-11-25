@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Billing Rule Tree View -->
-    <record id="view_wms_billing_rule_tree" model="ir.ui.view">
+    <record id="view_wms_billing_rule_list" model="ir.ui.view">
         <field name="name">wms.billing.rule.tree</field>
         <field name="model">wms.billing.rule</field>
         <field name="arch" type="xml">

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Wave Management Menu -->
-    <menuitem id="wms_wave_menu" name="Wave Management" parent="wms_main_menu" sequence="30"/>
-
-    <!-- Wave Rules Submenu -->
-    <menuitem id="wms_wave_rule_submenu" name="Wave Rules" parent="wms_wave_menu" sequence="10"
-              action="action_wms_wave_rule"/>
-
-    <!-- Wave Batches Submenu (inherits from stock_picking_batch) -->
-    <menuitem id="wms_wave_batch_submenu" name="Wave Batches" parent="wms_wave_menu" sequence="20"
-              action="stock.action_picking_batch"/>
-
     <!-- Actions -->
     <record id="action_wms_wave_rule" model="ir.actions.act_window">
         <field name="name">Wave Rules</field>
         <field name="res_model">wms.wave.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create wave rules</p>
         </field>
     </record>
+
+    <!-- Wave Management Menu -->
+    <menuitem id="wms_wave_menu" name="Wave Management" parent="wms_owner.wms_main_menu" sequence="30"/>
+
+    <!-- Wave Rules Submenu -->
+    <menuitem id="wms_wave_rule_submenu" name="Wave Rules" parent="wms_wave_menu" sequence="10"
+              action="wms_wave.action_wms_wave_rule"/>
+
+    <!-- Wave Batches Submenu (inherits from stock_picking_batch) -->
+    <menuitem id="wms_wave_batch_submenu" name="Wave Batches" parent="wms_wave_menu" sequence="20"
+              action="stock_picking_batch.stock_picking_batch_action"/>
 </odoo>

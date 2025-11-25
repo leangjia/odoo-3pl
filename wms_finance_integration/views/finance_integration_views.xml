@@ -41,19 +41,19 @@
         </field>
     </record>
 
-    <!-- Cost Center Tree View -->
-    <record id="view_wms_cost_center_tree" model="ir.ui.view">
-        <field name="name">wms.cost.center.tree</field>
+    <!-- Cost Center List View -->
+    <record id="view_wms_cost_center_list" model="ir.ui.view">
+        <field name="name">wms.cost.center.list</field>
         <field name="model">wms.cost.center</field>
         <field name="arch" type="xml">
-            <tree string="Cost Centers">
+            <list string="Cost Centers">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="owner_id"/>
                 <field name="current_spending"/>
                 <field name="budget_amount"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -93,19 +93,19 @@
         </field>
     </record>
 
-    <!-- Service Type Tree View -->
-    <record id="view_wms_service_type_tree" model="ir.ui.view">
-        <field name="name">wms.service.type.tree</field>
+    <!-- Service Type List View -->
+    <record id="view_wms_service_type_list" model="ir.ui.view">
+        <field name="name">wms.service.type.list</field>
         <field name="model">wms.service.type</field>
         <field name="arch" type="xml">
-            <tree string="Service Types">
+            <list string="Service Types">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="category"/>
                 <field name="default_rate"/>
                 <field name="rate_unit"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -148,12 +148,12 @@
         </field>
     </record>
 
-    <!-- Service Pricing Tree View -->
-    <record id="view_wms_service_pricing_tree" model="ir.ui.view">
-        <field name="name">wms.service.pricing.tree</field>
+    <!-- Service Pricing List View -->
+    <record id="view_wms_service_pricing_list" model="ir.ui.view">
+        <field name="name">wms.service.pricing.list</field>
         <field name="model">wms.service.pricing</field>
         <field name="arch" type="xml">
-            <tree string="Service Pricing">
+            <list string="Service Pricing">
                 <field name="service_type_id"/>
                 <field name="owner_id"/>
                 <field name="location_id"/>
@@ -162,7 +162,7 @@
                 <field name="effective_date"/>
                 <field name="expiry_date"/>
                 <field name="is_active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -243,12 +243,12 @@
         </field>
     </record>
 
-    <!-- Financial Transaction Tree View -->
-    <record id="view_wms_financial_transaction_tree" model="ir.ui.view">
-        <field name="name">wms.financial.transaction.tree</field>
+    <!-- Financial Transaction List View -->
+    <record id="view_wms_financial_transaction_list" model="ir.ui.view">
+        <field name="name">wms.financial.transaction.list</field>
         <field name="model">wms.financial.transaction</field>
         <field name="arch" type="xml">
-            <tree string="Financial Transactions">
+            <list string="Financial Transactions">
                 <field name="name"/>
                 <field name="transaction_type"/>
                 <field name="owner_id"/>
@@ -258,7 +258,7 @@
                 <field name="transaction_date"/>
                 <field name="status"/>
                 <field name="is_posted"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -315,12 +315,12 @@
         </field>
     </record>
 
-    <!-- Cost Allocation Tree View -->
-    <record id="view_wms_cost_allocation_tree" model="ir.ui.view">
-        <field name="name">wms.cost.allocation.tree</field>
+    <!-- Cost Allocation List View -->
+    <record id="view_wms_cost_allocation_list" model="ir.ui.view">
+        <field name="name">wms.cost.allocation.list</field>
         <field name="model">wms.cost.allocation</field>
         <field name="arch" type="xml">
-            <tree string="Cost Allocations">
+            <list string="Cost Allocations">
                 <field name="allocation_code"/>
                 <field name="name"/>
                 <field name="owner_id"/>
@@ -329,7 +329,7 @@
                 <field name="amount"/>
                 <field name="allocation_date"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -404,12 +404,12 @@
         </field>
     </record>
 
-    <!-- Financial Report Tree View -->
-    <record id="view_wms_financial_report_tree" model="ir.ui.view">
-        <field name="name">wms.financial.report.tree</field>
+    <!-- Financial Report List View -->
+    <record id="view_wms_financial_report_list" model="ir.ui.view">
+        <field name="name">wms.financial.report.list</field>
         <field name="model">wms.financial.report</field>
         <field name="arch" type="xml">
-            <tree string="Financial Reports">
+            <list string="Financial Reports">
                 <field name="report_code"/>
                 <field name="name"/>
                 <field name="owner_id"/>
@@ -419,7 +419,7 @@
                 <field name="total_revenue"/>
                 <field name="net_income"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -482,12 +482,12 @@
         </field>
     </record>
 
-    <!-- Invoice Integration Tree View -->
-    <record id="view_wms_invoice_integration_tree" model="ir.ui.view">
-        <field name="name">wms.invoice.integration.tree</field>
+    <!-- Invoice Integration List View -->
+    <record id="view_wms_invoice_integration_list" model="ir.ui.view">
+        <field name="name">wms.invoice.integration.list</field>
         <field name="model">wms.invoice.integration</field>
         <field name="arch" type="xml">
-            <tree string="Invoice Integration">
+            <list string="Invoice Integration">
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="partner_id"/>
@@ -495,7 +495,7 @@
                 <field name="total_amount"/>
                 <field name="currency_id"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 

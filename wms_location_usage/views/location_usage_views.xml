@@ -1,50 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Actions -->
-    <record id="action_wms_location_usage" model="ir.actions.act_window">
-        <field name="name">库位使用分析</field>
-        <field name="res_model">wms.location.usage</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                创建库位使用分析
-            </p>
-            <p>
-                分析仓库中各库位的使用情况和效率，优化库位分配和空间利用率。
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_location_utilization" model="ir.actions.act_window">
-        <field name="name">库位利用率明细</field>
-        <field name="res_model">wms.location.utilization</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                库位利用率详情
-            </p>
-            <p>
-                查看各库位的具体使用情况和效率明细。
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_location_usage_report" model="ir.actions.act_window">
-        <field name="name">生成库位使用报告</field>
-        <field name="res_model">wms.location.usage.report</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="binding_model_id" ref="model_wms_location_usage_report"/>
-        <field name="binding_view_types">form</field>
-    </record>
-
-    <!-- Tree View for Location Usage Analysis -->
-    <record id="view_wms_location_usage_tree" model="ir.ui.view">
-        <field name="name">wms.location.usage.tree</field>
+    <!-- List View for Location Usage Analysis -->
+    <record id="view_wms_location_usage_list" model="ir.ui.view">
+        <field name="name">wms.location.usage.list</field>
         <field name="model">wms.location.usage</field>
         <field name="arch" type="xml">
-            <tree string="库位使用分析" decoration-info="state=='draft'" decoration-success="state=='generated'" decoration-muted="state=='validated'">
+            <list string="库位使用分析" decoration-info="state=='draft'" decoration-success="state=='generated'" decoration-muted="state=='validated'">
                 <field name="name"/>
                 <field name="analysis_date"/>
                 <field name="period_start"/>
@@ -55,7 +17,7 @@
                 <field name="usage_rate"/>
                 <field name="capacity_usage_rate"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -70,7 +32,7 @@
                             string="生成分析"
                             type="object"
                             class="oe_highlight"
-                            states="draft"
+                            invisible="state != 'draft'"
                             help="根据设定的期间和条件生成库位使用分析"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,generated,validated"/>
                 </header>
@@ -119,7 +81,7 @@
                         </page>
 
                         <page string="分析结果">
-                            <field name="analysis_results" invisible="1"/>
+                            <field name="detailed_analysis" invisible="1"/>
                         </page>
 
                         <page string="优化建议">
@@ -143,21 +105,16 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
             </form>
         </field>
     </record>
 
-    <!-- Tree View for Location Utilization -->
-    <record id="view_wms_location_utilization_tree" model="ir.ui.view">
-        <field name="name">wms.location.utilization.tree</field>
+    <!-- List View for Location Utilization -->
+    <record id="view_wms_location_utilization_list" model="ir.ui.view">
+        <field name="name">wms.location.utilization.list</field>
         <field name="model">wms.location.utilization</field>
         <field name="arch" type="xml">
-            <tree string="库位利用率明细" decoration-danger="efficiency_category=='low'" decoration-warning="efficiency_category=='medium'" decoration-success="efficiency_category=='high'" decoration-muted="efficiency_category=='unused'">
+            <list string="库位利用率明细" decoration-danger="efficiency_category=='low'" decoration-warning="efficiency_category=='medium'" decoration-success="efficiency_category=='high'" decoration-muted="efficiency_category=='unused'">
                 <field name="location_name"/>
                 <field name="zone_name"/>
                 <field name="is_occupied"/>
@@ -167,7 +124,7 @@
                 <field name="efficiency_category"/>
                 <field name="turnover_frequency"/>
                 <field name="owner_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -250,19 +207,19 @@
     <menuitem id="menu_wms_location_usage"
               name="库位使用分析"
               parent="menu_wms_location_usage_root"
-              action="action_wms_location_usage"
+              action="wms_location_usage.action_wms_location_usage"
               sequence="10"/>
 
     <menuitem id="menu_wms_location_utilization"
               name="库位利用率明细"
               parent="menu_wms_location_usage_root"
-              action="action_wms_location_utilization"
+              action="wms_location_usage.action_wms_location_utilization"
               sequence="20"/>
 
     <menuitem id="menu_wms_location_usage_report"
               name="生成新分析"
               parent="menu_wms_location_usage_root"
-              action="action_wms_location_usage_report"
+              action="wms_location_usage.action_wms_location_usage_report"
               sequence="30"/>
 
 </odoo>

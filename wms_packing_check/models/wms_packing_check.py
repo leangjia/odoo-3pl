@@ -94,7 +94,6 @@ class WmsPackingCheckRequired(models.Model):
     lot_id = fields.Many2one('stock.lot', 'Expected Lot/Serial')
     uom_id = fields.Many2one('uom.uom', 'UOM', required=True)
     notes = fields.Text('Notes')
-    owner_id = fields.Many2one('wms.owner', 'Owner', related='packing_check_id.owner_id', store=True)
 
 
 class WmsPackingCheckPerformed(models.Model):
@@ -115,7 +114,6 @@ class WmsPackingCheckPerformed(models.Model):
     check_date = fields.Datetime('Check Date', default=fields.Datetime.now)
     uom_id = fields.Many2one('uom.uom', 'UOM', required=True)
     container_id = fields.Many2one('wms.container', 'Container')
-    owner_id = fields.Many2one('wms.owner', 'Owner', related='packing_check_id.owner_id', store=True)
 
     @api.onchange('product_id')
     def _onchange_product_id(self):

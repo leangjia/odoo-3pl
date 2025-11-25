@@ -17,8 +17,9 @@
         'base',
         'stock',
         'hr',
+        'uom',
+        'product',
         'wms_owner',
-        'wms_quality_control',  # For quality checks
         'mrp',  # For BOM and manufacturing operations
     ],
     'data': [

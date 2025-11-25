@@ -5,7 +5,7 @@
     <record id="action_wms_rfid_tag" model="ir.actions.act_window">
         <field name="name">RFID Tags</field>
         <field name="res_model">wms.rfid.tag</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create RFID tags
@@ -19,7 +19,7 @@
     <record id="action_wms_rfid_reader" model="ir.actions.act_window">
         <field name="name">RFID Readers</field>
         <field name="res_model">wms.rfid.reader</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create RFID readers
@@ -33,7 +33,7 @@
     <record id="action_wms_rfid_transaction" model="ir.actions.act_window">
         <field name="name">RFID Transactions</field>
         <field name="res_model">wms.rfid.transaction</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create RFID transactions
@@ -47,7 +47,7 @@
     <record id="action_wms_rfid_inventory" model="ir.actions.act_window">
         <field name="name">RFID Inventory</field>
         <field name="res_model">wms.rfid.inventory</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create RFID inventory
@@ -58,12 +58,12 @@
         </field>
     </record>
 
-    <!-- Tree View for RFID Tags -->
-    <record id="view_wms_rfid_tag_tree" model="ir.ui.view">
-        <field name="name">wms.rfid.tag.tree</field>
+    <!-- List View for RFID Tags -->
+    <record id="view_wms_rfid_tag_list" model="ir.ui.view">
+        <field name="name">wms.rfid.tag.list</field>
         <field name="model">wms.rfid.tag</field>
         <field name="arch" type="xml">
-            <tree string="RFID Tags" decoration-info="status=='available'" decoration-primary="status=='in_use'" decoration-success="status=='retired'" decoration-warning="status=='lost'" decoration-danger="status=='damaged'">
+            <list string="RFID Tags" decoration-info="status=='available'" decoration-primary="status=='in_use'" decoration-success="status=='retired'" decoration-warning="status=='lost'" decoration-danger="status=='damaged'">
                 <field name="name"/>
                 <field name="tag_type"/>
                 <field name="rfid_uid"/>
@@ -72,7 +72,7 @@
                 <field name="location_id"/>
                 <field name="last_scanned"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -95,12 +95,12 @@
                             string="Activate"
                             type="object"
                             class="oe_highlight"
-                            states="!active"
+                            invisible="active"
                             help="Activate the RFID tag"/>
                     <button name="action_deactivate_tag"
                             string="Deactivate"
                             type="object"
-                            states="active"
+                            invisible="not active"
                             help="Deactivate the RFID tag"/>
                     <button name="action_report_lost"
                             string="Report Lost"
@@ -137,11 +137,11 @@
                     <notebook>
                         <page string="Associations">
                             <group>
-                                <field name="product_id" attrs="{'invisible': [('tag_type', '!=', 'product')]}"/>
-                                <field name="location_id" attrs="{'invisible': [('tag_type', '!=', 'location')]}"/>
-                                <field name="lot_id" attrs="{'invisible': [('tag_type', '!=', 'product')]}"/>
-                                <field name="employee_id" attrs="{'invisible': [('tag_type', '!=', 'employee')]}"/>
-                                <field name="equipment_id" attrs="{'invisible': [('tag_type', '!=', 'equipment')]}"/>
+                                <field name="product_id" invisible="tag_type != 'product'"/>
+                                <field name="location_id" invisible="tag_type != 'location'"/>
+                                <field name="lot_id" invisible="tag_type != 'product'"/>
+                                <field name="employee_id" invisible="tag_type != 'employee'"/>
+                                <field name="equipment_id" invisible="tag_type != 'equipment'"/>
                             </group>
                         </page>
 
@@ -193,12 +193,12 @@
         </field>
     </record>
 
-    <!-- Tree View for RFID Readers -->
-    <record id="view_wms_rfid_reader_tree" model="ir.ui.view">
-        <field name="name">wms.rfid.reader.tree</field>
+    <!-- List View for RFID Readers -->
+    <record id="view_wms_rfid_reader_list" model="ir.ui.view">
+        <field name="name">wms.rfid.reader.list</field>
         <field name="model">wms.rfid.reader</field>
         <field name="arch" type="xml">
-            <tree string="RFID Readers" decoration-info="status=='offline'" decoration-primary="status=='online'" decoration-success="status=='maintenance'" decoration-danger="status=='error'">
+            <list string="RFID Readers" decoration-info="status=='offline'" decoration-primary="status=='online'" decoration-success="status=='maintenance'" decoration-danger="status=='error'">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="reader_type"/>
@@ -206,7 +206,7 @@
                 <field name="location_id"/>
                 <field name="warehouse_id"/>
                 <field name="is_connected"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -229,17 +229,17 @@
                             string="Connect"
                             type="object"
                             class="oe_highlight"
-                            states="status in ('offline','error')"
+                            invisible="status not in ('offline','error')"
                             help="Connect to the RFID reader"/>
                     <button name="action_disconnect_reader"
                             string="Disconnect"
                             type="object"
-                            states="status == 'online'"
+                            invisible="status != 'online'"
                             help="Disconnect from the RFID reader"/>
                     <button name="action_scan_tags"
                             string="Scan Tags"
                             type="object"
-                            states="status == 'online'"
+                            invisible="status != 'online'"
                             help="Initiate a scan for RFID tags"/>
                     <field name="status" widget="statusbar" statusbar_visible="offline,online,maintenance,error"/>
                 </header>
@@ -327,12 +327,12 @@
         </field>
     </record>
 
-    <!-- Tree View for RFID Transactions -->
-    <record id="view_wms_rfid_transaction_tree" model="ir.ui.view">
-        <field name="name">wms.rfid.transaction.tree</field>
+    <!-- List View for RFID Transactions -->
+    <record id="view_wms_rfid_transaction_list" model="ir.ui.view">
+        <field name="name">wms.rfid.transaction.list</field>
         <field name="model">wms.rfid.transaction</field>
         <field name="arch" type="xml">
-            <tree string="RFID Transactions" decoration-info="status=='pending'" decoration-primary="status=='completed'" decoration-success="status=='verified'" decoration-danger="status=='error'">
+            <list string="RFID Transactions" decoration-info="status=='pending'" decoration-primary="status=='completed'" decoration-success="status=='verified'" decoration-danger="status=='error'">
                 <field name="name"/>
                 <field name="transaction_type"/>
                 <field name="tag_id"/>
@@ -341,7 +341,7 @@
                 <field name="product_id"/>
                 <field name="quantity"/>
                 <field name="status"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -356,13 +356,13 @@
                             string="Verify"
                             type="object"
                             class="oe_highlight"
-                            states="status == 'completed'"
+                            invisible="status != 'completed'"
                             help="Verify the RFID transaction"/>
                     <button name="action_mark_error"
                             string="Mark Error"
                             type="object"
                             class="oe_highlight"
-                            states="status in ('pending','completed')"
+                            invisible="status not in ('pending','completed')"
                             help="Mark the transaction as having an error"/>
                     <field name="status" widget="statusbar" statusbar_visible="pending,completed,verified,error"/>
                 </header>
@@ -443,12 +443,12 @@
         </field>
     </record>
 
-    <!-- Tree View for RFID Inventory -->
-    <record id="view_wms_rfid_inventory_tree" model="ir.ui.view">
-        <field name="name">wms.rfid.inventory.tree</field>
+    <!-- List View for RFID Inventory -->
+    <record id="view_wms_rfid_inventory_list" model="ir.ui.view">
+        <field name="name">wms.rfid.inventory.list</field>
         <field name="model">wms.rfid.inventory</field>
         <field name="arch" type="xml">
-            <tree string="RFID Inventory" decoration-info="state=='draft'" decoration-primary="state=='in_progress'" decoration-success="state=='completed'" decoration-muted="state=='cancelled'">
+            <list string="RFID Inventory" decoration-info="state=='draft'" decoration-primary="state=='in_progress'" decoration-success="state=='completed'" decoration-muted="state=='cancelled'">
                 <field name="name"/>
                 <field name="state"/>
                 <field name="location_id"/>
@@ -457,7 +457,7 @@
                 <field name="date_end"/>
                 <field name="items_counted"/>
                 <field name="accuracy_rate"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -472,24 +472,24 @@
                             string="Start Inventory"
                             type="object"
                             class="oe_highlight"
-                            states="state == 'draft'"
+                            invisible="state != 'draft'"
                             help="Start the RFID inventory"/>
                     <button name="action_complete_inventory"
                             string="Complete Inventory"
                             type="object"
                             class="oe_highlight"
-                            states="state == 'in_progress'"
+                            invisible="state != 'in_progress'"
                             help="Complete the RFID inventory"/>
                     <button name="action_cancel_inventory"
                             string="Cancel Inventory"
                             type="object"
                             class="btn-secondary"
-                            states="state in ('draft','in_progress')"
+                            invisible="state not in ('draft','in_progress')"
                             help="Cancel the RFID inventory"/>
                     <button name="action_generate_report"
                             string="Generate Report"
                             type="object"
-                            states="state == 'completed'"
+                            invisible="state != 'completed'"
                             help="Generate inventory report"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed,cancelled"/>
                 </header>
@@ -529,7 +529,7 @@
                         </page>
 
                         <page string="Excluded Products">
-                            <field name="excluded_product_ids" widget="many2many_tags" attrs="{'invisible': [('exclude_products', '=', False)]}"/>
+                            <field name="excluded_product_ids" widget="many2many_tags" invisible="not exclude_products"/>
                         </page>
 
                         <page string="Results">

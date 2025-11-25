@@ -23,6 +23,7 @@ class WmsCrossdockOperation(models.Model):
     actual_duration = fields.Float('Actual Duration (Hours)')
     crossdock_location_id = fields.Many2one('stock.location', 'Crossdock Location')
     notes = fields.Text('Notes')
+    crossdock_match_id = fields.Many2one('wms.crossdock.match', 'Crossdock Match', ondelete='cascade')
     matched_by = fields.Many2one('res.users', 'Matched By', default=lambda self: self.env.user)
     matched_date = fields.Datetime('Matched Date', default=fields.Datetime.now)
 

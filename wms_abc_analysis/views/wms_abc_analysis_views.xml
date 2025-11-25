@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- ABC Analysis Tree View -->
-    <record id="view_wms_abc_analysis_tree" model="ir.ui.view">
-        <field name="name">wms.abc.analysis.tree</field>
+    <!-- ABC Analysis List View -->
+    <record id="view_wms_abc_analysis_list" model="ir.ui.view">
+        <field name="name">wms.abc.analysis.list</field>
         <field name="model">wms.abc.analysis</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="analysis_date"/>
@@ -17,7 +17,7 @@
                 <field name="a_class_count"/>
                 <field name="b_class_count"/>
                 <field name="c_class_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -67,7 +67,7 @@
                     <notebook>
                         <page string="ABC Rules">
                             <field name="abc_rules">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="abc_class"/>
                                     <field name="name"/>
                                     <field name="min_value"/>
@@ -75,12 +75,12 @@
                                     <field name="min_volume"/>
                                     <field name="max_volume"/>
                                     <field name="percentage"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Analysis Results">
                             <field name="analysis_lines">
-                                <tree>
+                                <list>
                                     <field name="product_id"/>
                                     <field name="abc_class"/>
                                     <field name="value"/>
@@ -88,7 +88,7 @@
                                     <field name="frequency"/>
                                     <field name="unit_cost"/>
                                     <field name="total_cost"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Notes">
@@ -128,12 +128,12 @@
         </field>
     </record>
 
-    <!-- ABC Analysis Line Tree View -->
-    <record id="view_wms_abc_analysis_line_tree" model="ir.ui.view">
-        <field name="name">wms.abc.analysis.line.tree</field>
+    <!-- ABC Analysis Line List View -->
+    <record id="view_wms_abc_analysis_line_list" model="ir.ui.view">
+        <field name="name">wms.abc.analysis.line.list</field>
         <field name="model">wms.abc.analysis.line</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="analysis_id"/>
                 <field name="product_id"/>
                 <field name="abc_class"/>
@@ -142,7 +142,7 @@
                 <field name="frequency"/>
                 <field name="unit_cost"/>
                 <field name="total_cost"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

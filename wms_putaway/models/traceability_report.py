@@ -33,5 +33,18 @@ class StockTraceabilityReportLine(models.TransientModel):
     location_to_name = fields.Char('To Location Name', related='location_to.display_name', store=True)
 
     # Lot expiry date for better traceability
-    lot_expiry_date = fields.Datetime('Lot Expiry Date', related='lot_id.expiry_date', readonly=True)
+    lot_expiry_date = fields.Datetime(
+        'Lot Expiry Date',
+        compute='_compute_lot_expiry_date',
+        readonly=True,
+        store=False
+    )
     lot_product_qty = fields.Float('Lot Quantity', related='lot_id.product_qty', readonly=True)
+
+    def _compute_lot_expiry_date(self):
+        """Safely compute lot expiry date, handling cases where expiry_date field doesn't exist"""
+        for line in self:
+            if line.lot_id and hasattr(line.lot_id, 'expiry_date'):
+                line.lot_expiry_date = line.lot_id.expiry_date
+            else:
+                line.lot_expiry_date = False

@@ -28,30 +28,4 @@
               action="action_wms_crossdock_match_list"
               sequence="10"/>
 
-    <!-- Actions -->
-    <record id="action_wms_crossdock_operation_list" model="ir.actions.act_window">
-        <field name="name">Crossdock Operations</field>
-        <field name="res_model">wms.crossdock.operation</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new crossdock operation
-            </p><p>
-                Crossdock operations link inbound and outbound pickings for direct transfer without storage.
-            </p>
-        </field>
-    </record>
-
-    <record id="action_wms_crossdock_match_list" model="ir.actions.act_window">
-        <field name="name">Crossdock Matches</field>
-        <field name="res_model">wms.crossdock.match</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new crossdock match
-            </p><p>
-                Crossdock matches automatically pair inbound and outbound pickings based on product and timing.
-            </p>
-        </field>
-    </record>
 </odoo>
