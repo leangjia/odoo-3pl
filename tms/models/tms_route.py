@@ -974,7 +974,8 @@ class TmsRoute(models.Model):
 
             # Create a route for the accumulated stops
             if current_route_stops:
-                new_route = self._create_sub_route_for_stops_stops(current_route_stops)
+                stop_ids = [s.id for s in current_route_stops]
+                new_route = self._create_sub_route_for_stops_stops(stop_ids)
                 combined_routes.append(new_route)
 
         total_new_routes = len(split_routes) + len(combined_routes)
@@ -1330,7 +1331,8 @@ class TmsRoute(models.Model):
 
             # Create route for the combined stops
             if current_route_stops:
-                new_route = self._create_sub_route_for_stops_stops(current_route_stops)
+                stop_ids = [s.id for s in current_route_stops]
+                new_route = self._create_sub_route_for_stops_stops(stop_ids)
                 created_routes.append(new_route)
 
         if created_routes:
@@ -1585,5 +1587,258 @@ class TmsRoute(models.Model):
 
         # Call the timing calculation method on the first stop which will calculate for all
         return self.stop_ids[0].action_calculate_timing()
+
+    def action_check_for_oversized_pickings(self):
+        """
+        Check if any picking in the route is oversized and needs to be split.
+        This method identifies pickings that cannot fit in a single route due to capacity constraints.
+        """
+        self.ensure_one()
+
+        oversized_picking_info = []
+
+        for stop in self.stop_ids:
+            # Get the pickings associated with this stop
+            for picking in stop.picking_ids:
+                # Calculate total weight and volume for this picking
+                total_weight = 0.0
+                total_volume = 0.0
+
+                for move_line in picking.move_line_ids:
+                    total_weight += move_line.product_id.weight * move_line.qty_done
+                    total_volume += move_line.product_id.volume * move_line.qty_done
+
+                # Check if this single picking exceeds vehicle capacity
+                vehicle_max_weight = self.vehicle_id.max_weight or 0
+                vehicle_max_volume = self.vehicle_id.max_volume or 0
+
+                if (total_weight > vehicle_max_weight or total_volume > vehicle_max_volume):
+                    oversized_picking_info.append({
+                        'picking': picking,
+                        'stop': stop,
+                        'weight': total_weight,
+                        'volume': total_volume,
+                        'max_weight': vehicle_max_weight,
+                        'max_volume': vehicle_max_volume
+                    })
+
+        return oversized_picking_info
+
+    def action_split_oversized_picking(self, picking, max_splits=10):
+        """
+        Split an oversized picking into multiple smaller pickings that fit within vehicle capacity.
+        """
+        if not picking or not self.vehicle_id:
+            return []
+
+        # Calculate the total size of the original picking
+        total_weight = 0.0
+        total_volume = 0.0
+        total_qty = 0
+
+        for move_line in picking.move_line_ids:
+            total_weight += move_line.product_id.weight * move_line.qty_done
+            total_volume += move_line.product_id.volume * move_line.qty_done
+            total_qty += move_line.qty_done
+
+        if total_qty <= 0:
+            return []
+
+        # Determine if the picking is truly oversized
+        vehicle_max_weight = self.vehicle_id.max_weight or 0
+        vehicle_max_volume = self.vehicle_id.max_volume or 0
+
+        if (total_weight <= vehicle_max_weight and total_volume <= vehicle_max_volume):
+            # Picking is not oversized, no need to split
+            return [picking]
+
+        # Calculate split ratios based on capacity constraints
+        weight_splits = 1
+        volume_splits = 1
+
+        if vehicle_max_weight > 0:
+            weight_splits = int(total_weight / vehicle_max_weight) + (1 if total_weight % vehicle_max_weight > 0 else 0)
+
+        if vehicle_max_volume > 0:
+            volume_splits = int(total_volume / vehicle_max_volume) + (1 if total_volume % vehicle_max_volume > 0 else 0)
+
+        # Use the maximum splits needed to satisfy both constraints
+        required_splits = max(weight_splits, volume_splits, 1)
+        required_splits = min(required_splits, max_splits)  # Limit the number of splits
+
+        if required_splits <= 1:
+            # If no splits are needed, return original
+            return [picking]
+
+        # Create new pickings by splitting the original moves
+        created_pickings = []
+        remaining_moves = []
+
+        # First, get all move lines and their quantities
+        original_move_lines = []
+        for move_line in picking.move_line_ids:
+            original_move_lines.append({
+                'product_id': move_line.product_id.id,
+                'qty': move_line.qty_done,
+                'uom_id': move_line.product_uom_id.id,
+                'lot_ids': move_line.lot_ids,
+                'result_package_id': move_line.result_package_id,
+                'location_dest_id': move_line.location_dest_id
+            })
+
+        # Calculate quantity per split (approximately equal distribution)
+        qty_per_split = total_qty / required_splits
+
+        for split_idx in range(required_splits):
+            # Calculate how much quantity should go to this split
+            remaining_qty = sum(m['qty'] for m in original_move_lines)
+            if split_idx == required_splits - 1:
+                # Last split gets any remaining quantity
+                this_split_qty = remaining_qty
+            else:
+                this_split_qty = qty_per_split
+
+            if remaining_qty <= 0:
+                break
+
+            # Create new picking for this split
+            new_picking_vals = {
+                'picking_type_id': picking.picking_type_id.id,
+                'partner_id': picking.partner_id.id,
+                'location_id': picking.location_id.id,
+                'location_dest_id': picking.location_dest_id.id,
+                'origin': f"{picking.name} (Split {split_idx + 1}/{required_splits})",
+                'note': f"Split from original picking {picking.name}",
+                'batch_id': picking.batch_id.id if picking.batch_id else False,
+            }
+
+            new_picking = self.env['stock.picking'].create(new_picking_vals)
+
+            # Distribute move lines to this new picking
+            qty_assigned = 0
+            moves_for_this_split = []
+
+            for move_data in original_move_lines[:]:  # Copy list so we can modify it
+                if qty_assigned >= this_split_qty:
+                    break
+
+                remaining_qty_needed = this_split_qty - qty_assigned
+                qty_for_this_move = min(move_data['qty'], remaining_qty_needed)
+
+                if qty_for_this_move > 0:
+                    # Create move line in new picking
+                    move_vals = {
+                        'product_id': move_data['product_id'],
+                        'product_uom_qty': qty_for_this_move,
+                        'product_uom': move_data['uom_id'],
+                        'location_id': new_picking.location_id.id,
+                        'location_dest_id': new_picking.location_dest_id.id,
+                        'state': 'confirmed'  # Set to confirmed to be ready for assignment
+                    }
+
+                    # Create the stock move for this picking
+                    stock_move = self.env['stock.move'].create({
+                        'name': f"Split of {move_data.get('product_id', 'product')}",
+                        'product_id': move_data['product_id'],
+                        'product_uom_qty': qty_for_this_move,
+                        'product_uom': move_data['uom_id'],
+                        'picking_id': new_picking.id,
+                        'location_id': new_picking.location_id.id,
+                        'location_dest_id': new_picking.location_dest_id.id,
+                        'state': 'confirmed'
+                    })
+
+                    # Update original move data
+                    move_data['qty'] -= qty_for_this_move
+                    qty_assigned += qty_for_this_move
+
+                    if move_data['qty'] <= 0:
+                        # Remove this move from our list as it's fully allocated
+                        original_move_lines.remove(move_data)
+
+            created_pickings.append(new_picking)
+
+        # Mark original picking as cancelled since it's been split
+        if picking.state not in ['done', 'cancel']:
+            picking.action_cancel()
+
+        return created_pickings
+
+    def action_handle_oversized_pickings_in_route(self):
+        """
+        Main method to handle oversized pickings in the route by splitting them.
+        This method identifies oversized pickings and splits them into smaller ones that fit capacity.
+        """
+        self.ensure_one()
+
+        if not self.vehicle_id:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('No Vehicle Assigned'),
+                    'message': _('Please assign a vehicle to check capacity constraints.'),
+                    'type': 'warning',
+                    'sticky': True,
+                }
+            }
+
+        # Check for oversized pickings
+        oversized_info = self.action_check_for_oversized_pickings()
+
+        if not oversized_info:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('No Oversized Pickings'),
+                    'message': _('All pickings in the route fit within vehicle capacity.'),
+                    'type': 'info',
+                    'sticky': False,
+                }
+            }
+
+        # Process each oversized picking
+        split_count = 0
+        for info in oversized_info:
+            picking = info['picking']
+            original_stop = info['stop']
+
+            # Split the oversized picking
+            new_pickings = self.action_split_oversized_picking(picking)
+
+            if len(new_pickings) > 1:
+                split_count += 1
+
+                # Create new stops for the new pickings if needed
+                for i, new_picking in enumerate(new_pickings):
+                    # If this is not the first split, create a new stop for it
+                    if i > 0:
+                        # Create a new route stop for the additional picking
+                        new_stop = self.env['tms.route.stop'].create({
+                            'route_id': self.id,
+                            'partner_id': new_picking.partner_id.id,
+                            'picking_ids': [(4, new_picking.id)],
+                            'time_window_start': original_stop.time_window_start,
+                            'state': 'pending'
+                        })
+                    else:
+                        # For the first split, update the original stop's picking_ids
+                        original_stop.picking_ids = [(4, new_picking.id)]
+
+        message = f"Processed {split_count} oversized picking(s)."
+        if split_count > 0:
+            message += f" Created additional stops as needed to fit within vehicle capacity."
+
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Oversized Pickings Handled'),
+                'message': message,
+                'type': 'success',
+                'sticky': False,
+            }
+        }
 
 

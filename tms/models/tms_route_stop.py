@@ -229,6 +229,74 @@ class TmsRouteStop(models.Model):
                 stop.latitude = stop.partner_id.partner_latitude
                 stop.longitude = stop.partner_id.partner_longitude
 
+    def action_split_oversized_pickings_in_stop(self):
+        """
+        Split oversized pickings within this stop if they exceed capacity constraints.
+        This method handles the case where a single picking is too large to be accommodated.
+        """
+        for stop in self:
+            oversized_pickings = []
+
+            # Check each picking in the stop to see if it exceeds capacity
+            for picking in stop.picking_ids:
+                picking_weight = 0.0
+                picking_volume = 0.0
+
+                # Calculate total weight and volume for the picking
+                for move_line in picking.move_line_ids:
+                    picking_weight += move_line.product_id.weight * move_line.qty_done
+                    picking_volume += move_line.product_id.volume * move_line.qty_done
+
+                # Check if the picking exceeds vehicle capacity
+                if stop.route_id and stop.route_id.vehicle_id:
+                    vehicle_max_weight = stop.route_id.vehicle_id.max_weight or 0
+                    vehicle_max_volume = stop.route_id.vehicle_id.max_volume or 0
+
+                    if (picking_weight > vehicle_max_weight or picking_volume > vehicle_max_volume):
+                        oversized_pickings.append(picking)
+
+            if not oversized_pickings:
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': _('No Oversized Pickings'),
+                        'message': _('No pickings in this stop exceed the vehicle capacity constraints.'),
+                        'type': 'info',
+                        'sticky': False,
+                    }
+                }
+
+            # Handle each oversized picking by splitting it
+            for oversized_picking in oversized_pickings:
+                # Use the route-level method to split the picking
+                created_pickings = stop.route_id.action_split_oversized_picking(oversized_picking)
+
+                if created_pickings:
+                    # Remove the original oversized picking from this stop
+                    current_picking_ids = stop.picking_ids.ids
+                    if oversized_picking.id in current_picking_ids:
+                        current_picking_ids.remove(oversized_picking.id)
+
+                    # Add the newly created split pickings to the current stop
+                    # Note: The routing logic will place them in appropriate stops later
+                    for new_picking in created_pickings:
+                        if new_picking.id not in current_picking_ids:
+                            current_picking_ids.append(new_picking.id)
+
+                    stop.picking_ids = [(6, 0, current_picking_ids)]
+
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Oversized Pickings Processed'),
+                    'message': f'Successfully processed and split {len(oversized_pickings)} oversized picking(s).',
+                    'type': 'success',
+                    'sticky': False,
+                }
+            }
+
     def action_split_stop(self):
         """Split this stop if it exceeds capacity constraints"""
         # This would be a more advanced feature to split a stop if it exceeds capacity

@@ -38,6 +38,7 @@
                     <button name="action_complete_stop" type="object" string="Complete Delivery" invisible="state not in ('arrived', 'in_progress')" class="btn-primary"/>
                     <button name="action_fail_stop" type="object" string="Mark as Failed" invisible="state not in ('pending', 'arrived')" class="btn-danger"/>
                     <button name="action_split_stop" type="object" string="Split Stop" invisible="state != 'pending'" class="btn-warning"/>
+                    <button name="action_split_oversized_pickings_in_stop" type="object" string="Split Oversized Pickings" invisible="state != 'pending'" class="btn-danger"/>
                     <button name="%(action_tms_route_stop_adjust_wizard)d" type="action" string="Adjust Stop" invisible="state not in ('pending', 'arrived')" class="btn-info"/>
                     <button name="action_apply_adjustments" type="object" string="Apply Adjustments" invisible="not is_adjusted" class="btn-success"/>
                     <button name="action_reset_adjustment" type="object" string="Reset Adjustment" invisible="not is_adjusted" class="btn-secondary"/>

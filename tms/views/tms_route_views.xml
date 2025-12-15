@@ -41,6 +41,8 @@
                     <button name="action_optimize_all_routes_for_distance" type="object" string="Optimize All for Distance" class="btn-primary" invisible="state != 'draft' or not vehicle_id"/>
                     <button name="action_smart_split_combine_route" type="object" string="Smart Split/Combine" class="btn-success" invisible="state != 'draft' or not vehicle_id"/>
                     <button name="action_get_related_sale_orders_status" type="object" string="SO Status" class="btn-secondary" invisible="not related_sale_order_ids"/>
+                    <button name="action_check_for_oversized_pickings" type="object" string="Check Oversized Pickings" class="btn-warning" invisible="state != 'draft' or not vehicle_id"/>
+                    <button name="action_handle_oversized_pickings_in_route" type="object" string="Handle Oversized Pickings" class="btn-danger" invisible="state != 'draft' or not vehicle_id"/>
                     <button name="action_start_route" type="object" string="Start Route" class="oe_highlight" invisible="state != 'confirmed'"/>
                     <button name="action_complete_route" type="object" string="Complete Route" class="oe_highlight" invisible="state != 'in_transit'"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_transit,delivered"/>
